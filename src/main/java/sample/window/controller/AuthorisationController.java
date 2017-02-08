@@ -10,6 +10,13 @@ import sample.FTPClient.user.User;
  * Created by alex on 1/29/2017.
  */
 public class AuthorisationController implements Controller {
+
+    @FXML
+    private TextField hostField;
+
+    @FXML
+    private TextField portField;
+
     @FXML
     private TextField loginField;
 
@@ -55,7 +62,23 @@ public class AuthorisationController implements Controller {
         this.dialogStage = dialogStage;
     }
 
+    public TextField getHostField() {
+        return hostField;
+    }
+
+    public void setHostField(TextField hostField) {
+        this.hostField = hostField;
+    }
+
+    public TextField getPortField() {
+        return portField;
+    }
+
+    public void setPortField(TextField portField) {
+        this.portField = portField;
+    }
+
     public User getUser() {
-        return new User(this.getLogin(), this.getPassword());
+        return new User(this.getHostField().getText(), Integer.parseInt(this.getPortField().getText()), this.getLogin(), this.getPassword());
     }
 }

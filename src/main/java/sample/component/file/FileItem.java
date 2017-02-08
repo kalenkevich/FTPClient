@@ -14,7 +14,6 @@ public class FileItem {
     private String description;
     private Icon directoryIcon = new ImageIcon(getClass().getClassLoader().getResource("icon/dir.png"));
     private Icon fileIcon = new ImageIcon(getClass().getClassLoader().getResource("icon/file.png"));
-    private static Logger logger = Logger.getLogger(FileItem.class);
     private File file;
 
     public FileItem(File file) {

@@ -51,7 +51,7 @@ public class MainController implements Initializable, Controller {
     private FTPConnection setupNewConnection(User user) {
         FTPConnection ftpConnection = new FTPConnection();
         try {
-            ftpConnection.connect(DEFAULT_FTP_SERVER_URL, DEFAULT_COMMAND_PORT, user.getName(),user.getPassword());
+            ftpConnection.connect(user.getHostName(), user.getPort(), user.getName(),user.getPassword());
         } catch (IOException e) {
             logger.error(e);
         }
