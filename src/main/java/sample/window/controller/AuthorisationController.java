@@ -1,13 +1,10 @@
-package sample.controller;
+package sample.window.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sample.user.User;
-
-import java.security.SecureRandom;
+import sample.FTPClient.user.User;
 
 /**
  * Created by alex on 1/29/2017.

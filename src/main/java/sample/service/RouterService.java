@@ -3,7 +3,7 @@ package sample.service;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import sample.controller.Controller;
+import sample.window.controller.Controller;
 
 import java.io.IOException;
 
@@ -38,10 +38,7 @@ public class RouterService {
     }
 
     public Parent getView(String path) {
-        if (loader == null) {
-            loader = new FXMLLoader();
-        }
-        loader.setLocation(getClass().getClassLoader().getResource(path));
+        loader = new FXMLLoader(getClass().getClassLoader().getResource(path));
         Parent view = null;
         try {
             view = loader.load();

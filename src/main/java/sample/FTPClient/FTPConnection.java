@@ -4,12 +4,21 @@ package sample.FTPClient;
  * Created by alex on 1/29/2017.
  */
 
+import org.apache.log4j.Logger;
 import java.io.*;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
-
 public class FTPConnection {
+    private Logger logger;
+    private Socket socket;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+
+    public FTPConnection () {
+        logger = Logger.getLogger(FTPConnection.class);
+    }
+
     public synchronized void connect(String host) throws IOException {
         connect(host, 21);
     }
@@ -45,7 +54,6 @@ public class FTPConnection {
 
         sendLine("PASS " + pass);
 
-        response = readLine();
         if (skipWhileNotStartWith("230 ") == null) {
             throw new IOException(
                     "SimpleFTP was unable to log in with the supplied password: "
@@ -72,11 +80,12 @@ public class FTPConnection {
                 dir = response.substring(firstQuote + 1, secondQuote);
             }
         }
+
         return dir;
     }
 
     private String skipWhileNotStartWith(String prefix) {
-        String response = null;
+        String response;
         try {
             response = readLine();
         } catch (IOException e) {
@@ -93,7 +102,7 @@ public class FTPConnection {
 
                 return null;
             }
-        };
+        }
 
         return response;
     }
@@ -166,18 +175,21 @@ public class FTPConnection {
         input.close();
 
         response = readLine();
+
         return response.startsWith("226 ");
     }
 
     public synchronized boolean bin() throws IOException {
         sendLine("TYPE I");
         String response = readLine();
+
         return (response.startsWith("200 "));
     }
 
     public synchronized boolean ascii() throws IOException {
         sendLine("TYPE A");
         String response = readLine();
+
         return (response.startsWith("200 "));
     }
 
@@ -188,9 +200,7 @@ public class FTPConnection {
         try {
             writer.write(line + "\r\n");
             writer.flush();
-            if (DEBUG) {
-                System.out.println("> " + line);
-            }
+            logger.info("> " + line);
         } catch (IOException e) {
             socket = null;
             throw e;
@@ -199,17 +209,16 @@ public class FTPConnection {
 
     private String readLine() throws IOException {
         String line = reader.readLine();
-        if (DEBUG) {
-            System.out.println("< " + line);
-        }
+        logger.info("< " + line);
+
         return line;
     }
 
-    private Socket socket = null;
+    public Logger getLogger() {
+        return logger;
+    }
 
-    private BufferedReader reader = null;
-
-    private BufferedWriter writer = null;
-
-    private static boolean DEBUG = false;
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 }

@@ -1,4 +1,4 @@
-package sample.user;
+package sample.FTPClient.user;
 
 /**
  * Created by alex on 1/30/2017.
