@@ -3,6 +3,8 @@ package sample.window.manager;
 import javafx.scene.control.TextArea;
 import sample.FTPClient.FTPConnection;
 import sample.component.file.manager.FileManagerController;
+import sample.component.file.service.LocalFileSystemService;
+import sample.component.file.service.RemoteFileSystemService;
 
 /**
  * Created by a.kalenkevich on 08.02.2017.
@@ -11,14 +13,21 @@ public class WindowManager implements FileManagerEventListener {
 
     private FileManagerController localFileManager;
     private FileManagerController remoteFileManager;
-    private FTPConnection ftpConnection;
     private boolean isActive;
 
     public WindowManager(FileManagerController localFileManager, FileManagerController remoteFileManager, FTPConnection ftpConnection, TextArea loggerTextArea) {
         this.localFileManager = localFileManager;
         this.remoteFileManager = remoteFileManager;
-        this.ftpConnection = ftpConnection;
-        this.ftpConnection.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
+        localFileManager.setFileSystemService(new LocalFileSystemService());
+        remoteFileManager.setFileSystemService(new RemoteFileSystemService(ftpConnection));
+        ftpConnection.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
+
+        initialize();
+    }
+
+    private void initialize() {
+        localFileManager.setDirectory("/");
+        remoteFileManager.setDirectory("/");
     }
 
     public FileManagerController getLocalFileManager() {
@@ -35,14 +44,6 @@ public class WindowManager implements FileManagerEventListener {
 
     public void setRemoteFileManager(FileManagerController remoteFileManager) {
         this.remoteFileManager = remoteFileManager;
-    }
-
-    public FTPConnection getFtpConnection() {
-        return ftpConnection;
-    }
-
-    public void setFtpConnection(FTPConnection ftpConnection) {
-        this.ftpConnection = ftpConnection;
     }
 
     public boolean isActive() {

@@ -4,12 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane fx:controller="sample.window.controller.AuthorisationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.window.controller.AuthorisationController">
    <children>
       <Button layoutX="131.0" layoutY="106.0" mnemonicParsing="false" onAction="#onSubmit" text="Login" />
-      <TextField fx:id="passField" layoutX="131.0" layoutY="72.0" />
-      <TextField fx:id="loginField" layoutX="131.0" layoutY="38.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="passField" layoutX="131.0" layoutY="72.0" text="user" />
+      <TextField fx:id="loginField" layoutX="131.0" layoutY="38.0" prefHeight="25.0" prefWidth="149.0" text="user" />
       <Label layoutX="48.0" layoutY="42.0" text="Login" />
       <Label layoutX="48.0" layoutY="76.0" text="Password" />
    </children>
