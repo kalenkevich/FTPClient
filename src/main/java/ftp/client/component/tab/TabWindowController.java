@@ -3,6 +3,7 @@ package ftp.client.component.tab;
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.user.User;
 import ftp.client.component.command.line.CommandLineController;
+import ftp.client.component.file.manager.DragAndDropListener;
 import ftp.client.component.file.manager.FileManagerController;
 import ftp.client.component.file.manager.service.LocalFileSystemService;
 import ftp.client.component.file.manager.service.RemoteFileSystemService;
@@ -29,7 +30,7 @@ import java.util.ResourceBundle;
  */
 
 //todo rename component
-public class TabWindowController implements Controller, FileManagerEventListener {
+public class TabWindowController implements Controller, DragAndDropListener {
     @FXML
     private Pane rootPane;
     @FXML
@@ -70,6 +71,8 @@ public class TabWindowController implements Controller, FileManagerEventListener
     private void setDefaults() {
         localFileManager.setFileSystemService(new LocalFileSystemService());
         remoteFileManager.setFileSystemService(new RemoteFileSystemService(ftpClient));
+        localFileManager.addDragAndDropListener(this);
+        remoteFileManager.addDragAndDropListener(this);
         localFileManager.setDirectory("/");
         remoteFileManager.setDirectory("/");
     }
@@ -131,7 +134,17 @@ public class TabWindowController implements Controller, FileManagerEventListener
     }
 
     @Override
-    public void handleEvent() {
+    public void onDrag(Object draggedItem, FileManagerController fileManagerController) {
+        System.out.println("dragged " + draggedItem + " from " + fileManagerController);
+    }
 
+    @Override
+    public void onDragExited(Object droppedItem, FileManagerController fileManagerController) {
+        System.out.println("DragExited " + droppedItem + " from " + fileManagerController);
+    }
+
+    @Override
+    public void onDragEntered(Object droppedItem, FileManagerController fileManagerController) {
+        System.out.println("DragEntered " + droppedItem + " from " + fileManagerController);
     }
 }

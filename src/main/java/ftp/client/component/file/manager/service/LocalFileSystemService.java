@@ -36,4 +36,27 @@ public class LocalFileSystemService implements FileSystemService {
 
         return files;
     }
+
+    @Override
+    public void renameFile(File file, String name) {
+        if (file.isFile()) {
+            file.renameTo(new File(file.getPath() + name));
+        }
+    }
+
+    @Override
+    public void deleteFile(File file) {
+        if (file.isFile()) {
+            file.delete();
+        }
+    }
+
+    @Override
+    public void addFile(File file) {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

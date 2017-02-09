@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ftp.client.component.file.manager.service.FileSystemService;
 import ftp.client.controller.Controller;
+import javafx.scene.input.KeyCode;
 
 import java.io.File;
 import java.net.URL;
@@ -24,12 +25,14 @@ public class FileManagerController implements Initializable, Controller {
     private String currentDirectoryName = "/";
     private List<FileItem> fileItems;
     private FileSystemService fileSystemService;
+    private List<DragAndDropListener> dragAndDropListeners;
     @FXML
     private TableView table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fileItems = new ArrayList<>();
+        dragAndDropListeners = new ArrayList<>();
         addColumn("name", 200);
         addColumn("description", 400);
         initEvents();
@@ -38,13 +41,23 @@ public class FileManagerController implements Initializable, Controller {
     private void initEvents() {
         table.setOnMousePressed(event -> {
             int clickCount = event.getClickCount();
+            Object selectedObject = table.getSelectionModel().getSelectedItem();
             if (event.isPrimaryButtonDown()) {
-                if (clickCount == 1) {
-                    notifyObservers(table.getSelectionModel().getSelectedItem());
-                } else if (clickCount == 2) {
-                    changeDirectory(table.getSelectionModel().getSelectedItem());
+                if (clickCount == 2) {
+                    changeDirectory(selectedObject);
+                } else if (clickCount == 3) {
+                    changeName(selectedObject);
                 }
             }
+        });
+        table.setOnKeyReleased(event -> {
+            Object selectedObject = table.getSelectionModel().getSelectedItem();
+            if (event.getCode() == KeyCode.DELETE) {
+                deleteFile(selectedObject);
+            }
+        });
+        table.setOnDragDetected(event -> {
+            notifyAboutDragAction(table.getSelectionModel().getSelectedItem());
         });
     }
 
@@ -56,13 +69,26 @@ public class FileManagerController implements Initializable, Controller {
         }
     }
 
-    private void notifyObservers(Object selectedItem) {
-
+    private void changeName(Object selectedItem) {
+        FileItem fileItem = (FileItem) selectedItem;
+        File file = fileItem.getFile();
+        //todo implement rename
+        String newFileName = "-test";
+        fileSystemService.renameFile(file, newFileName);
+        update();
     }
 
-    public void setFileItems(List<FileItem> items) {
-        fileItems = items;
-        updateTableView();
+    private void deleteFile(Object selectedItem) {
+        FileItem fileItem = (FileItem) selectedItem;
+        File file = fileItem.getFile();
+        fileSystemService.deleteFile(file);
+        update();
+    }
+
+    private void notifyAboutDragAction(Object selectedItem) {
+        for (DragAndDropListener dragAndDropListener: dragAndDropListeners) {
+            dragAndDropListener.onDrag(selectedItem, this);
+        }
     }
 
     public void setDirectory(String directoryName) {
@@ -100,10 +126,10 @@ public class FileManagerController implements Initializable, Controller {
 
     private void updateTableView() {
         ObservableList<FileItem> observableList = FXCollections.observableList(fileItems);
-        onDataChanged(observableList);
+        changeGridData(observableList);
     }
 
-    private void onDataChanged(ObservableList<FileItem> data) {
+    private void changeGridData(ObservableList<FileItem> data) {
         table.setItems(data);
         table.refresh();
     }
@@ -114,5 +140,9 @@ public class FileManagerController implements Initializable, Controller {
 
     public void setFileSystemService(FileSystemService fileSystemService) {
         this.fileSystemService = fileSystemService;
+    }
+
+    public void addDragAndDropListener(DragAndDropListener dragAndDropListener) {
+        this.dragAndDropListeners.add(dragAndDropListener);
     }
 }

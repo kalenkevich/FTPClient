@@ -3,6 +3,7 @@ package ftp.client.component.file.manager.service;
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.component.file.FileItem;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,21 @@ public class RemoteFileSystemService implements FileSystemService {
     @Override
     public List<FileItem> getFilesFromDirectory(String directoryName) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public void renameFile(File file, String name) {
+
+    }
+
+    @Override
+    public void deleteFile(File file) {
+
+    }
+
+    @Override
+    public void addFile(File file) {
+
     }
 
     public FTPClient getFtpConnection() {

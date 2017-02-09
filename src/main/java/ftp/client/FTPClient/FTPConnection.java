@@ -231,7 +231,7 @@ public class FTPConnection {
     public String readResponse() throws IOException {
         StringBuilder response = new StringBuilder();
         String line = readLine();
-        //todo remove this shirt
+        //todo remove this shit
         while (!line.startsWith("214 ")) {
             response.append(line).append('\n');
             line = readLine();
