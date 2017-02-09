@@ -1,10 +1,10 @@
 package ftp.client.controller;
 
+import ftp.client.component.tab.TabWindowController;
 import ftp.client.service.RouterService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import org.apache.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,7 +14,6 @@ public class MainController implements Controller {
 
     @FXML
     private TabPane tabPane;
-    private Logger logger = Logger.getLogger(MainController.class);
 
     public void initialize(URL location, ResourceBundle resources) {
         newSessionAction();
@@ -27,7 +26,9 @@ public class MainController implements Controller {
 
     private void createNewTab() {
         Pane pane = (Pane) RouterService.getInstance().getView(TAB_VIEW);
+        //TabWindowController tabWindowController = (TabWindowController) RouterService.getInstance().getController();
         Tab tab = new Tab();
+        //tab.setText(tabWindowController.getName());
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
     }

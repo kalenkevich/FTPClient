@@ -35,15 +35,16 @@ public class TabWindowController implements Controller, FileManagerEventListener
     @FXML
     private SplitPane splitPane;
     private TextArea loggerTextArea;
-
     private FileManagerController localFileManager;
     private FileManagerController remoteFileManager;
     private boolean isActive;
     private FTPClient ftpClient;
     private static Logger logger = Logger.getLogger(TabWindowController.class);
+    private String name;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ftpClient = new FTPClient();
         insertElements();
         setupNewFTPClient();
         setDefaults();
@@ -75,27 +76,26 @@ public class TabWindowController implements Controller, FileManagerEventListener
 
     private void setupNewFTPClient() {
         User user = showAuthorisationPopup();
-        ftpClient = new FTPClient(user);
+        name = user.getName();
+        ftpClient.setUser(user);
         ftpClient.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
         ftpClient.login();
     }
 
     private User showAuthorisationPopup() {
         Pane view  = (Pane) RouterService.getInstance().getView(Consts.POPUP_VIEW);
+        AuthorisationPopupController authorisationPopupController = (AuthorisationPopupController) RouterService.getInstance().getController();
         Stage stage = RouterService.getInstance().getPrimaryStage();
-
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Login");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(stage);
         Scene scene = new Scene(view);
         dialogStage.setScene(scene);
-
-        AuthorisationPopupController controller = (AuthorisationPopupController) RouterService.getInstance().getController();
-        controller.setDialogStage(dialogStage);
+        authorisationPopupController.setDialogStage(dialogStage);
         dialogStage.showAndWait();
 
-        return controller.getUser();
+        return authorisationPopupController.getUser();
     }
 
     public FileManagerController getLocalFileManager() {
@@ -120,6 +120,14 @@ public class TabWindowController implements Controller, FileManagerEventListener
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

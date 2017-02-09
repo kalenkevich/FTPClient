@@ -25,7 +25,7 @@ public class CommandLineController implements Controller {
 
     @FXML
     public void sendAction() {
-        String command = commandFiled.getText();
+        String command = commandFiled.getText().toUpperCase();
         if (!command.isEmpty()) {
             ftpClient.sendCommandLine(command);
             commandFiled.setText("");

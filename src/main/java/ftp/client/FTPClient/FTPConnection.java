@@ -88,7 +88,7 @@ public class FTPConnection {
         try {
             response = readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
 
             return null;
         }
@@ -97,7 +97,7 @@ public class FTPConnection {
             try {
                 response = readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
 
                 return null;
             }
@@ -226,6 +226,18 @@ public class FTPConnection {
         logger.info("< " + line);
 
         return line;
+    }
+
+    public String readResponse() throws IOException {
+        StringBuilder response = new StringBuilder();
+        String line = readLine();
+        //todo remove this shirt
+        while (!line.startsWith("214 ")) {
+            response.append(line).append('\n');
+            line = readLine();
+        }
+
+        return response.toString();
     }
 
     public Logger getLogger() {

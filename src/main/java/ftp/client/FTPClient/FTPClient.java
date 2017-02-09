@@ -13,8 +13,7 @@ public class FTPClient {
     private User user;
     private Logger logger;
 
-    public FTPClient(User user) {
-        this.user = user;
+    public FTPClient() {
         logger = Logger.getLogger(FTPClient.class);
         ftpConnection = new FTPConnection();
         ftpConnection.setLogger(logger);
@@ -24,7 +23,7 @@ public class FTPClient {
         String response = null;
         try {
             ftpConnection.sendLine(line);
-            response = ftpConnection.readLine();
+            response = ftpConnection.readResponse();
         } catch (IOException e) {
             logger.error(e);
         }
