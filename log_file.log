@@ -1,0 +1,2 @@
+2017-02-09 20:56:15 ERROR MainController:56 - java.net.ConnectException: Connection refused
+2017-02-09 20:56:27 ERROR LocalFileSystemService:33 - java.nio.file.AccessDeniedException: /Users/Guest/Documents
