@@ -5,10 +5,13 @@ package sample.FTPClient;
  */
 
 import org.apache.log4j.Logger;
+import sample.service.FTPReply;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.StringTokenizer;
+
+import static java.lang.Integer.parseInt;
 
 public class FTPConnection {
     private Logger logger;
@@ -140,8 +143,8 @@ public class FTPConnection {
             try {
                 ip = tokenizer.nextToken() + "." + tokenizer.nextToken() + "."
                         + tokenizer.nextToken() + "." + tokenizer.nextToken();
-                port = Integer.parseInt(tokenizer.nextToken()) * 256
-                        + Integer.parseInt(tokenizer.nextToken());
+                port = parseInt(tokenizer.nextToken()) * 256
+                        + parseInt(tokenizer.nextToken());
             } catch (Exception e) {
                 throw new IOException("SimpleFTP received bad data link information: "
                         + response);
@@ -212,22 +215,49 @@ public class FTPConnection {
         return response;
     }
 
-    public synchronized String rmd(String path) throws IOException {
+    public synchronized boolean mkd(String path) throws IOException {
+        sendLine("MKD " + path);
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean rmd(String path) throws IOException {
         sendLine("RMD " + path);
 
-        return readLine();
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    public synchronized String abor() throws IOException {
+    public synchronized boolean abor() throws IOException {
         sendLine("ABOR");
 
-        return readLine();
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    public synchronized String dele() throws IOException {
+    public synchronized boolean dele() throws IOException {
         sendLine("DELE");
 
-        return readLine();
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean site(String arguments) throws IOException {
+        sendLine("SITE" + arguments);
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
     }
 
     private void sendLine(String line) throws IOException {
@@ -257,5 +287,9 @@ public class FTPConnection {
 
     public void setLogger(Logger logger) {
         this.logger = logger;
+    }
+
+    private int getStatusCode(String response) {
+        return parseInt(response.substring(0, 2));
     }
 }
