@@ -5,7 +5,6 @@ package sample.FTPClient;
  */
 
 import org.apache.log4j.Logger;
-import sample.service.FileListService;
 
 import java.io.*;
 import java.net.Socket;
@@ -109,36 +108,6 @@ public class FTPConnection {
         return response;
     }
 
-    public synchronized boolean cwd(String dir) throws IOException {
-        sendLine("CWD " + dir);
-        String response = readLine();
-        return (response.startsWith("250 "));
-    }
-
-    public synchronized String list(String pathname) throws IOException {
-        sendLine("LIST " + pathname);
-
-        String response = readLine();
-
-        if (response.startsWith("257 ")) {
-            int firstQuote = response.indexOf('\"');
-            int secondQuote = response.indexOf('\"', firstQuote + 1);
-            if (secondQuote > 0) {
-                String list = response.substring(firstQuote + 1, secondQuote);
-
-                return FileListService.formatToTree(list);
-            }
-        }
-
-        return response;
-    }
-
-    public synchronized String rmd(String path) throws IOException {
-        sendLine("RMD " + path);
-
-        return readLine();
-    }
-
     public synchronized boolean stor(File file) throws IOException {
         if (file.isDirectory()) {
             throw new IOException("SimpleFTP cannot upload a directory.");
@@ -217,6 +186,48 @@ public class FTPConnection {
         String response = readLine();
 
         return (response.startsWith("200 "));
+    }
+
+    public synchronized boolean cwd(String dir) throws IOException {
+        sendLine("CWD " + dir);
+        String response = readLine();
+        return (response.startsWith("250 "));
+    }
+
+    public synchronized String list(String pathname) throws IOException {
+        sendLine("LIST " + pathname);
+
+        String response = readLine();
+
+        if (response.startsWith("257 ")) {
+            int firstQuote = response.indexOf('\"');
+            int secondQuote = response.indexOf('\"', firstQuote + 1);
+            if (secondQuote > 0) {
+                String list = response.substring(firstQuote + 1, secondQuote);
+
+                return list;
+            }
+        }
+
+        return response;
+    }
+
+    public synchronized String rmd(String path) throws IOException {
+        sendLine("RMD " + path);
+
+        return readLine();
+    }
+
+    public synchronized String abor() throws IOException {
+        sendLine("ABOR");
+
+        return readLine();
+    }
+
+    public synchronized String dele() throws IOException {
+        sendLine("DELE");
+
+        return readLine();
     }
 
     private void sendLine(String line) throws IOException {
