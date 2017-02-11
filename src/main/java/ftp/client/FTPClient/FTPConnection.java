@@ -5,9 +5,13 @@ package ftp.client.FTPClient;
  */
 
 import org.apache.log4j.Logger;
+import sample.service.FTPReply;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.StringTokenizer;
+
+import static java.lang.Integer.parseInt;
 
 public class FTPConnection {
     private Logger logger;
@@ -106,12 +110,6 @@ public class FTPConnection {
         return response;
     }
 
-    public synchronized boolean cwd(String dir) throws IOException {
-        sendLine("CWD " + dir);
-        String response = readLine();
-        return (response.startsWith("250 "));
-    }
-
     public synchronized boolean stor(File file) throws IOException {
         if (file.isDirectory()) {
             throw new IOException("SimpleFTP cannot upload a directory.");
@@ -182,8 +180,8 @@ public class FTPConnection {
             try {
                 ip = tokenizer.nextToken() + "." + tokenizer.nextToken() + "."
                         + tokenizer.nextToken() + "." + tokenizer.nextToken();
-                port = Integer.parseInt(tokenizer.nextToken()) * 256
-                        + Integer.parseInt(tokenizer.nextToken());
+                port = parseInt(tokenizer.nextToken()) * 256
+                        + parseInt(tokenizer.nextToken());
             } catch (Exception e) {
                 throw new IOException("SimpleFTP received bad data link information: "
                         + response);
@@ -207,6 +205,75 @@ public class FTPConnection {
         return (response.startsWith("200 "));
     }
 
+    public synchronized boolean cwd(String dir) throws IOException {
+        sendLine("CWD " + dir);
+        String response = readLine();
+        return (response.startsWith("250 "));
+    }
+
+    public synchronized String list(String pathname) throws IOException {
+        sendLine("LIST " + pathname);
+
+        String response = readLine();
+
+        if (response.startsWith("257 ")) {
+            int firstQuote = response.indexOf('\"');
+            int secondQuote = response.indexOf('\"', firstQuote + 1);
+            if (secondQuote > 0) {
+                String list = response.substring(firstQuote + 1, secondQuote);
+
+                return list;
+            }
+        }
+
+        return response;
+    }
+
+    public synchronized boolean mkd(String path) throws IOException {
+        sendLine("MKD " + path);
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean rmd(String path) throws IOException {
+        sendLine("RMD " + path);
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean abor() throws IOException {
+        sendLine("ABOR");
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean dele() throws IOException {
+        sendLine("DELE");
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    public synchronized boolean site(String arguments) throws IOException {
+        sendLine("SITE" + arguments);
+
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
+    }
+    
     public void sendLine(String line) throws IOException {
         if (socket == null) {
             throw new IOException("SimpleFTP is not connected.");
@@ -246,5 +313,9 @@ public class FTPConnection {
 
     public void setLogger(Logger logger) {
         this.logger = logger;
+    }
+
+    private int getStatusCode(String response) {
+        return parseInt(response.substring(0, 2));
     }
 }
