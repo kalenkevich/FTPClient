@@ -1,2 +1,9 @@
 2017-02-09 20:56:15 ERROR MainController:56 - java.net.ConnectException: Connection refused
 2017-02-09 20:56:27 ERROR LocalFileSystemService:33 - java.nio.file.AccessDeniedException: /Users/Guest/Documents
+2017-02-10 23:53:46 ERROR FTPClient:38 - java.net.ConnectException: Connection refused
+2017-02-10 23:53:55 ERROR FTPClient:28 - java.io.IOException: SimpleFTP is not connected.
+2017-02-10 23:54:03 ERROR FTPClient:28 - java.io.IOException: SimpleFTP is not connected.
+2017-02-10 23:54:37 ERROR FTPClient:38 - java.net.ConnectException: Connection refused
+2017-02-11 09:47:20 ERROR FTPClient:38 - java.net.ConnectException: Connection refused
+2017-02-11 10:23:33 ERROR FTPClient:38 - java.net.ConnectException: Connection refused
+2017-02-11 10:23:46 ERROR FTPClient:28 - java.io.IOException: SimpleFTP is not connected.

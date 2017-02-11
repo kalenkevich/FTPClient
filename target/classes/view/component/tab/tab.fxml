@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootPane" minHeight="0.0" minWidth="0.0" prefHeight="504.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftp.client.component.tab.TabWindowController">
+     <children>
+        <VBox prefHeight="504.0" prefWidth="589.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <children>
+              <SplitPane fx:id="splitPane" prefHeight="502.0" prefWidth="579.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+              </SplitPane>
+           </children>
+        </VBox>
+     </children>
+</AnchorPane>

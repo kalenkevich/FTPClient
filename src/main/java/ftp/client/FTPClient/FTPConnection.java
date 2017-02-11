@@ -39,7 +39,7 @@ public class FTPConnection {
         socket = new Socket(host, port);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new BufferedWriter(
-                new OutputStreamWriter(socket.getOutputStream()));
+                 new OutputStreamWriter(socket.getOutputStream()));
 
         String response = null;
         if (skipWhileNotStartWith("220 ") == null) {
@@ -128,21 +128,61 @@ public class FTPConnection {
         Socket dataSocket = getDataSocket();
         sendLine("STOR " + filename);
         String response = readLine();
+
         if (!response.startsWith ("125 ")) {
             throw new IOException("SimpleFTP was not allowed to send the file: "
                     + response);
         }
+
         BufferedOutputStream output = new BufferedOutputStream(dataSocket.getOutputStream());
         byte[] buffer = new byte[4096];
         int bytesRead = 0;
+
         while ((bytesRead = fileInput.read(buffer)) != -1) {
             output.write(buffer, 0, bytesRead);
         }
+
         output.flush();
         output.close();
         fileInput.close();
 
         response = readLine();
+
+        return response.startsWith("226 ");
+    }
+
+    public synchronized boolean retrieveFile(String remoteFileName, OutputStream local) throws IOException {
+        String response;
+        if (socket == null) {
+            throw new IOException("Not connected");
+        }
+
+        BufferedOutputStream clientOutput = new BufferedOutputStream(local);
+
+        sendLine("RETR " + remoteFileName);
+        Socket dataSocket = this.getDataSocket();
+
+        BufferedInputStream serverInput = new BufferedInputStream(dataSocket.getInputStream());
+
+        response = this.readLine();
+
+        if (!response.startsWith ("150 ")) {
+            throw new IOException("SimpleFTP was not allowed to send the file: "
+                    + response);
+        }
+
+        byte[] buffer = new byte[4096];
+        int readedBytesIndex = 0;
+
+        while ((readedBytesIndex = serverInput.read(buffer)) != -1) {
+            clientOutput.write(buffer, 0, readedBytesIndex);
+        }
+
+        clientOutput.write(buffer);
+        clientOutput.flush();
+        clientOutput.close();
+
+        response = this.readLine();
 
         return response.startsWith("226 ");
     }
@@ -230,7 +270,7 @@ public class FTPConnection {
     }
 
     public synchronized boolean mkd(String path) throws IOException {
-        sendLine("MKD " + path);
+        sendLine("MKD " + path); // path? + /name
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -256,7 +296,7 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    public synchronized boolean dele() throws IOException {
+    public synchronized boolean dele(String pathname) throws IOException {
         sendLine("DELE");
 
         String response = readLine();
@@ -273,7 +313,7 @@ public class FTPConnection {
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
-    
+
     public void sendLine(String line) throws IOException {
         if (socket == null) {
             throw new IOException("SimpleFTP is not connected.");
