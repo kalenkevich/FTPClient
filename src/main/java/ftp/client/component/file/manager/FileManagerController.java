@@ -5,14 +5,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ftp.client.component.file.manager.service.FileSystemService;
+import ftp.client.component.file.service.FileSystemService;
 import ftp.client.controller.Controller;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +25,74 @@ public class FileManagerController implements Initializable, Controller {
     private String currentDirectoryName = "/";
     private List<FileItem> fileItems;
     private FileSystemService fileSystemService;
-    private List<DragAndDropListener> dragAndDropListeners;
+    private List<TableEventListener> tableEventListeners;
     @FXML
     private TableView table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fileItems = new ArrayList<>();
-        dragAndDropListeners = new ArrayList<>();
-        addColumn("name", 200);
-        addColumn("description", 400);
+        tableEventListeners = new ArrayList<>();
+        initTable();
+        initColumns();
         initEvents();
+    }
+
+    private void initTable() {
+        table.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
+        table.setEditable(true);
+    }
+
+    private void initColumns() {
+        addIconColumn();
+        addNameColumn();
+        addDescriptionColumn();
+        table.refresh();
+    }
+
+    private void addIconColumn() {
+        TableColumn<FileItem, String> tableColumn = new TableColumn<>();
+        tableColumn.setCellFactory(param -> new TableCell<FileItem, String>() {
+            ImageView imageView;
+            {
+                setGraphic(imageView);
+            }
+
+            public void updateItem(FileItem item, boolean empty) {
+                if (item != null) {
+                    imageView.setImage(item.getIcon());
+                }
+            }
+        });
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("icon"));
+        tableColumn.setPrefWidth(50);
+        table.getColumns().add(tableColumn);
+    }
+
+    private void addNameColumn() {
+        TableColumn<FileItem, String> fileNameColumn = new TableColumn<>();
+        fileNameColumn.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+        fileNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        fileNameColumn.setOnEditCommit(
+                handler -> changeName(handler.getTableView().getItems().get(handler.getTablePosition().getRow()), handler.getNewValue())
+        );
+        fileNameColumn.setPrefWidth(200);
+        table.getColumns().add(fileNameColumn);
+    }
+
+    private void addDescriptionColumn() {
+        addColumn("description", 400);
+    }
+
+    private void addColumn(String name, double width) {
+        TableColumn<String, String> tableColumn = new TableColumn<>();
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>(name));
+        tableColumn.setPrefWidth(width);
+        table.getColumns().add(tableColumn);
+        table.refresh();
     }
 
     private void initEvents() {
@@ -43,10 +100,10 @@ public class FileManagerController implements Initializable, Controller {
             int clickCount = event.getClickCount();
             Object selectedObject = table.getSelectionModel().getSelectedItem();
             if (event.isPrimaryButtonDown()) {
-                if (clickCount == 2) {
+                if (clickCount == 1) {
+                    notifyAboutSelectAction(new ArrayList<>(table.getSelectionModel().getSelectedItems()));
+                } else if (clickCount == 2) {
                     changeDirectory(selectedObject);
-                } else if (clickCount == 3) {
-                    changeName(selectedObject);
                 }
             }
         });
@@ -63,31 +120,32 @@ public class FileManagerController implements Initializable, Controller {
 
     private void changeDirectory(Object selectedItem) {
         FileItem fileItem = (FileItem) selectedItem;
-        File file = fileItem.getFile();
-        if (file.isDirectory()) {
-            setDirectory(file.getPath());
+        if (fileItem.isDirectory()) {
+            setDirectory(fileItem.getPath());
         }
     }
 
-    private void changeName(Object selectedItem) {
+    private void changeName(Object selectedItem, String newFileName) {
         FileItem fileItem = (FileItem) selectedItem;
-        File file = fileItem.getFile();
-        //todo implement rename
-        String newFileName = "-test";
-        fileSystemService.renameFile(file, newFileName);
+        fileSystemService.renameFile(fileItem, newFileName);
         update();
     }
 
     private void deleteFile(Object selectedItem) {
         FileItem fileItem = (FileItem) selectedItem;
-        File file = fileItem.getFile();
-        fileSystemService.deleteFile(file);
+        fileSystemService.deleteFile(fileItem);
         update();
     }
 
+    private void notifyAboutSelectAction(List<Object> selectedItems) {
+        for (TableEventListener tableEventListener : tableEventListeners) {
+            tableEventListener.onSelect(selectedItems, this);
+        }
+    }
+
     private void notifyAboutDragAction(Object selectedItem) {
-        for (DragAndDropListener dragAndDropListener: dragAndDropListeners) {
-            dragAndDropListener.onDrag(selectedItem, this);
+        for (TableEventListener tableEventListener : tableEventListeners) {
+            tableEventListener.onDrag(selectedItem, this);
         }
     }
 
@@ -102,26 +160,6 @@ public class FileManagerController implements Initializable, Controller {
     }
     private void updateFileItems() {
         fileItems = fileSystemService.getFilesFromDirectory(currentDirectoryName);
-        fileItems.add(0, getRootFile());
-    }
-
-    private FileItem getRootFile() {
-        File file = new File(currentDirectoryName);
-        File parentFile = file.getParentFile();
-        if (parentFile != null) {
-            return new FileItem(parentFile);
-        }
-
-        return new FileItem(file);
-    }
-
-    //todo new column property factory to use icons.
-    private void addColumn(String name, double width) {
-        TableColumn<String, String> tableColumn = new TableColumn<>();
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>(name));
-        tableColumn.setPrefWidth(width);
-        table.getColumns().add(tableColumn);
-        table.refresh();
     }
 
     private void updateTableView() {
@@ -142,7 +180,7 @@ public class FileManagerController implements Initializable, Controller {
         this.fileSystemService = fileSystemService;
     }
 
-    public void addDragAndDropListener(DragAndDropListener dragAndDropListener) {
-        this.dragAndDropListeners.add(dragAndDropListener);
+    public void addDragAndDropListener(TableEventListener tableEventListener) {
+        this.tableEventListeners.add(tableEventListener);
     }
 }

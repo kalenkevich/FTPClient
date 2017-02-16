@@ -3,10 +3,10 @@ package ftp.client.component.tab;
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.user.User;
 import ftp.client.component.command.line.CommandLineController;
-import ftp.client.component.file.manager.DragAndDropListener;
+import ftp.client.component.file.manager.TableEventListener;
 import ftp.client.component.file.manager.FileManagerController;
-import ftp.client.component.file.manager.service.LocalFileSystemService;
-import ftp.client.component.file.manager.service.RemoteFileSystemService;
+import ftp.client.component.file.service.LocalFileSystemService;
+import ftp.client.component.file.service.RemoteFileSystemService;
 import ftp.client.component.popup.AuthorisationPopupController;
 import ftp.client.component.text.buffer.TextBufferController;
 import ftp.client.config.Consts;
@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -30,7 +31,7 @@ import java.util.ResourceBundle;
  */
 
 //todo rename component
-public class TabWindowController implements Controller, DragAndDropListener {
+public class TabWindowController implements Controller, TableEventListener {
     @FXML
     private Pane rootPane;
     @FXML
@@ -146,5 +147,10 @@ public class TabWindowController implements Controller, DragAndDropListener {
     @Override
     public void onDragEntered(Object droppedItem, FileManagerController fileManagerController) {
         System.out.println("DragEntered " + droppedItem + " from " + fileManagerController);
+    }
+
+    @Override
+    public void onSelect(List<Object> droppedItem, FileManagerController fileManagerController) {
+
     }
 }

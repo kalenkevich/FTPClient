@@ -1,9 +1,8 @@
-package ftp.client.component.file.manager.service;
+package ftp.client.component.file.service;
 
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.component.file.FileItem;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,8 @@ public class RemoteFileSystemService implements FileSystemService {
 
     @Override
     public List<FileItem> getFilesFromDirectory(String directoryName) {
-        File file = null;
         try {
-            file = ftpClient.getFtpConnection().list(directoryName);
+             ftpClient.getFtpConnection().list(directoryName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,18 +29,23 @@ public class RemoteFileSystemService implements FileSystemService {
     }
 
     @Override
-    public void renameFile(File file, String name) {
+    public void renameFile(FileItem file, String name) {
 
     }
 
     @Override
-    public void deleteFile(File file) {
+    public void deleteFile(FileItem file) {
 
     }
 
     @Override
-    public void addFile(File file) {
+    public void addFile(FileItem file) {
 
+    }
+
+    @Override
+    public FileItem getRootFileItem(String path) {
+        return null;
     }
 
     public FTPClient getFtpConnection() {
