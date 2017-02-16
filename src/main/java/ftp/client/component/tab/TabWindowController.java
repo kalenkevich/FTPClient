@@ -1,6 +1,7 @@
 package ftp.client.component.tab;
 
 import ftp.client.FTPClient.FTPClient;
+import ftp.client.FTPClient.SimpleFTPClient;
 import ftp.client.user.User;
 import ftp.client.component.command.line.CommandLineController;
 import ftp.client.component.file.manager.TableEventListener;
@@ -46,7 +47,7 @@ public class TabWindowController implements Controller, TableEventListener {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ftpClient = new FTPClient();
+        ftpClient = new SimpleFTPClient();
         insertElements();
         setupNewFTPClient();
         setDefaults();

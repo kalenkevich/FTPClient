@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         RouterService.getInstance().setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(Consts.MAIN_VIEW));
-        primaryStage.setTitle("FTPClient");
+        primaryStage.setTitle("SimpleFTPClient");
         primaryStage.setScene(new Scene(root));
         primaryStage.setWidth(Consts.WINDOW_WIDTH);
         primaryStage.setHeight(Consts.WINDOW_HEIGHT);

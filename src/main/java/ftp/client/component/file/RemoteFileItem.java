@@ -43,4 +43,8 @@ public class RemoteFileItem implements FileItem {
     public String getDescription() {
         return ftpFile.getDescription();
     }
+
+    public FTPFile getFTPFile() {
+        return ftpFile;
+    }
 }

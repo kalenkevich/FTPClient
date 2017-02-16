@@ -4,9 +4,7 @@ import ftp.client.FTPClient.FTPClient;
 import ftp.client.controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,7 +25,7 @@ public class CommandLineController implements Controller {
     public void sendAction() {
         String command = commandFiled.getText().toUpperCase();
         if (!command.isEmpty()) {
-            ftpClient.sendCommandLine(command);
+            ftpClient.sendCommand(command);
             commandFiled.setText("");
         }
     }

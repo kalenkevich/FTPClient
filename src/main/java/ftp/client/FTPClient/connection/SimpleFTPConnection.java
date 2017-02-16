@@ -61,6 +61,7 @@ public class SimpleFTPConnection implements FTPConnection {
     public synchronized void disconnect() throws IOException {
         try {
             sendCommand("QUIT");
+            socket.close();
         } finally {
             socket = null;
         }
