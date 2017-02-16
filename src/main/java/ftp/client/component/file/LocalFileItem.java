@@ -8,13 +8,13 @@ import java.io.File;
  * Created by a.kalenkevich on 16.02.2017.
  */
 public class LocalFileItem implements FileItem {
-    private Image icon;
+    private Image image;
     private String description;
     private File file;
 
     public LocalFileItem(File file) {
         this.file = file;
-        this.icon = generateIcon();
+        this.image = file.isDirectory() ? directoryIcon : fileIcon;
         this.description = getFileDescription();
     }
 
@@ -24,16 +24,8 @@ public class LocalFileItem implements FileItem {
                 ", " + (file.canWrite() ? "can Write" : "");
     }
 
-    private Image generateIcon() {
-        return file.isDirectory() ? directoryIcon : fileIcon;
-    }
-
     public Image getImage() {
-        return icon;
-    }
-
-    public void setIcon(Image icon) {
-        this.icon = icon;
+        return image;
     }
 
     public String getName() {
@@ -44,7 +36,7 @@ public class LocalFileItem implements FileItem {
         return file.getPath();
     }
 
-    public void setName(String name) {
+    public void rename(String name) {
         file.renameTo(new File(name));
     }
 

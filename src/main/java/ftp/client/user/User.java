@@ -1,4 +1,4 @@
-package ftp.client.FTPClient.user;
+package ftp.client.user;
 
 /**
  * Created by alex on 1/30/2017.

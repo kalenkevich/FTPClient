@@ -1,11 +1,20 @@
 package ftp.client.component.file;
 
+import ftp.client.FTPClient.file.FTPFile;
 import javafx.scene.image.Image;
 
 /**
  * Created by a.kalenkevich on 16.02.2017.
  */
 public class RemoteFileItem implements FileItem {
+    private FTPFile ftpFile;
+    private Image image;
+
+    public RemoteFileItem(FTPFile ftpFile) {
+        this.ftpFile = ftpFile;
+        this.image = ftpFile.isDirectory() ? directoryIcon : fileIcon;
+    }
+
     @Override
     public Image getImage() {
         return null;
@@ -13,25 +22,25 @@ public class RemoteFileItem implements FileItem {
 
     @Override
     public String getName() {
-        return null;
+        return ftpFile.getName();
     }
 
     public String getPath() {
-        return null;
+        return ftpFile.getPath();
     }
 
     @Override
-    public void setName(String name) {
-
+    public void rename(String name) {
+        ftpFile.rename(name);
     }
 
     @Override
     public boolean isDirectory() {
-        return false;
+        return ftpFile.isDirectory();
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return ftpFile.getDescription();
     }
 }

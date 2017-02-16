@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ftp.client.FTPClient.user.User;
+import ftp.client.user.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;

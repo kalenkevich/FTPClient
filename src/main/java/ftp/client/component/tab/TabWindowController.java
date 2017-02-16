@@ -1,7 +1,7 @@
 package ftp.client.component.tab;
 
 import ftp.client.FTPClient.FTPClient;
-import ftp.client.FTPClient.user.User;
+import ftp.client.user.User;
 import ftp.client.component.command.line.CommandLineController;
 import ftp.client.component.file.manager.TableEventListener;
 import ftp.client.component.file.manager.FileManagerController;
@@ -81,9 +81,12 @@ public class TabWindowController implements Controller, TableEventListener {
     private void setupNewFTPClient() {
         User user = showAuthorisationPopup();
         name = user.getName();
-        ftpClient.setUser(user);
+
+        ftpClient.setHost(user.getHostName());
+        ftpClient.setPort(user.getPort());
+
         ftpClient.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
-        ftpClient.login();
+        ftpClient.login(user.getName(), user.getPassword());
     }
 
     private User showAuthorisationPopup() {

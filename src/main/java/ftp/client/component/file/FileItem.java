@@ -12,7 +12,7 @@ public interface FileItem {
     Image getImage();
     String getName();
     String getPath();
-    void setName(String name);
+    void rename(String name);
     boolean isDirectory();
     String getDescription();
 }

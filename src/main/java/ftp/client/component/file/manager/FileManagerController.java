@@ -14,8 +14,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ArrayList;

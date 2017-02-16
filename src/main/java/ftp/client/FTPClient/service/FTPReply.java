@@ -1,4 +1,4 @@
-package ftp.client.service;
+package ftp.client.FTPClient.service;
 
 /**
  * Created by viscoze on 2/10/17.

@@ -29,7 +29,7 @@ public class SpecialFileItem implements FileItem {
     }
 
     @Override
-    public void setName(String name) {
+    public void rename(String name) {
         this.name = name;
     }
 

@@ -1,38 +1,31 @@
-package ftp.client.FTPClient;
+package ftp.client.FTPClient.connection;
 
-/**
- * Created by alex on 1/29/2017.
- */
-
+import ftp.client.FTPClient.file.FTPFile;
+import ftp.client.FTPClient.service.FTPReply;
 import org.apache.log4j.Logger;
-import ftp.client.service.FTPReply;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import static java.lang.Integer.parseInt;
 
-public class FTPConnection {
+/**
+ * Created by a.kalenkevich on 16.02.2017.
+ */
+public class SimpleFTPConnection implements FTPConnection {
     private Logger logger;
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public FTPConnection () {
-        logger = Logger.getLogger(FTPConnection.class);
+    public SimpleFTPConnection () {
+        logger = Logger.getLogger(SimpleFTPConnection.class);
     }
 
-    public synchronized void connect(String host) throws IOException {
-        connect(host, 21);
-    }
-
-    public synchronized void connect(String host, int port) throws IOException {
-        connect(host, port, "anonymous", "anonymous");
-    }
-
-    public synchronized void connect(String host, int port, String user,
-                                     String pass) throws IOException {
+    @Override
+    public synchronized void connect(String host, int port, String user, String pass) throws IOException {
         if (socket != null) {
             throw new IOException("SimpleFTP is already connected. Disconnect first.");
         }
@@ -48,7 +41,7 @@ public class FTPConnection {
                             + response);
         }
 
-        sendLine("USER " + user);
+        sendCommand("USER " + user);
 
         if (skipWhileNotStartWith("331 ") == null) {
             throw new IOException(
@@ -56,7 +49,7 @@ public class FTPConnection {
                             + response);
         }
 
-        sendLine("PASS " + pass);
+        sendCommand("PASS " + pass);
         if (skipWhileNotStartWith("230 ") == null) {
             throw new IOException(
                     "SimpleFTP was unable to log in with the supplied password: "
@@ -64,16 +57,18 @@ public class FTPConnection {
         }
     }
 
+    @Override
     public synchronized void disconnect() throws IOException {
         try {
-            sendLine("QUIT");
+            sendCommand("QUIT");
         } finally {
             socket = null;
         }
     }
 
+    @Override
     public synchronized String pwd() throws IOException {
-        sendLine("PWD");
+        sendCommand("PWD");
         String dir = null;
         String response = readLine();
         if (response.startsWith("257 ")) {
@@ -87,6 +82,7 @@ public class FTPConnection {
         return dir;
     }
 
+    @Override
     public synchronized boolean stor(File file) throws IOException {
         if (file.isDirectory()) {
             throw new IOException("SimpleFTP cannot upload a directory.");
@@ -101,9 +97,9 @@ public class FTPConnection {
             throws IOException {
 
         BufferedInputStream fileInput = new BufferedInputStream(inputStream);
-        sendLine("PASV");
+        sendCommand("PASV");
         Socket dataSocket = getDataSocket();
-        sendLine("STOR " + filename);
+        sendCommand("STOR " + filename);
         String response = readLine();
         if (!response.startsWith ("125 ")) {
             throw new IOException("SimpleFTP was not allowed to send the file: "
@@ -124,31 +120,35 @@ public class FTPConnection {
         return response.startsWith("226 ");
     }
 
+    @Override
     public synchronized boolean bin() throws IOException {
-        sendLine("TYPE I");
+        sendCommand("TYPE I");
         String response = readLine();
 
         return (response.startsWith("200 "));
     }
 
+    @Override
     public synchronized boolean ascii() throws IOException {
-        sendLine("TYPE A");
+        sendCommand("TYPE A");
         String response = readLine();
 
         return (response.startsWith("200 "));
     }
 
+    @Override
     public synchronized boolean cwd(String dir) throws IOException {
-        sendLine("CWD " + dir);
+        sendCommand("CWD " + dir);
         String response = readLine();
         return (response.startsWith("250 "));
     }
 
-    public synchronized File list(String pathname) throws IOException {
-        sendLine("PASV");
+    @Override
+    public synchronized List<FTPFile> list(String pathname) throws IOException {
+        sendCommand("PASV");
         Socket dataSocket = getDataSocket();
 
-        sendLine("LIST " + "/");
+        sendCommand("LIST " + "/");
         String response = readLine();
 
         if (!response.startsWith ("150 ")) {
@@ -161,8 +161,9 @@ public class FTPConnection {
         return null;
     }
 
+    @Override
     public synchronized boolean mkd(String path) throws IOException {
-        sendLine("MKD " + path);
+        sendCommand("MKD " + path);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -170,8 +171,9 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
+    @Override
     public synchronized boolean rmd(String path) throws IOException {
-        sendLine("RMD " + path);
+        sendCommand("RMD " + path);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -179,8 +181,9 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
+    @Override
     public synchronized boolean abor() throws IOException {
-        sendLine("ABOR");
+        sendCommand("ABOR");
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -188,8 +191,9 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
+    @Override
     public synchronized boolean dele(String filename) throws IOException {
-        sendLine("DELE " + filename);
+        sendCommand("DELE " + filename);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -197,13 +201,41 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
+    @Override
     public synchronized boolean site(String arguments) throws IOException {
-        sendLine("SITE" + arguments);
+        sendCommand("SITE" + arguments);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    @Override
+    public String readResponse() throws IOException {
+        StringBuilder response = new StringBuilder();
+        String line = readLine();
+        while (!line.startsWith("214 ")) {
+            response.append(line).append('\n');
+            line = readLine();
+        }
+
+        return response.toString();
+    }
+
+    @Override
+    public void sendCommand(String line) throws IOException {
+        if (socket == null) {
+            throw new IOException("SimpleFTP is not connected.");
+        }
+        try {
+            writer.write(line + "\r\n");
+            writer.flush();
+            logger.info("> " + line);
+        } catch (IOException e) {
+            socket = null;
+            throw e;
+        }
     }
 
     private Socket getDataSocket() throws IOException {
@@ -252,41 +284,12 @@ public class FTPConnection {
 
         return response;
     }
-    
-    public void sendLine(String line) throws IOException {
-        if (socket == null) {
-            throw new IOException("SimpleFTP is not connected.");
-        }
-        try {
-            writer.write(line + "\r\n");
-            writer.flush();
-            logger.info("> " + line);
-        } catch (IOException e) {
-            socket = null;
-            throw e;
-        }
-    }
 
     public String readLine() throws IOException {
         String line = reader.readLine();
         logger.info("< " + line);
 
         return line;
-    }
-
-    public String readResponse() throws IOException {
-        StringBuilder response = new StringBuilder();
-        String line = readLine();
-        while (!line.startsWith("214 ")) {
-            response.append(line).append('\n');
-            line = readLine();
-        }
-
-        return response.toString();
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 
     public void setLogger(Logger logger) {
