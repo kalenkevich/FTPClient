@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  */
 public class RemoteFileItem implements FileItem {
     @Override
-    public Image getIcon() {
+    public Image getImage() {
         return null;
     }
 

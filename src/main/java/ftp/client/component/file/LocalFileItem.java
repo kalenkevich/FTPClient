@@ -10,8 +10,6 @@ import java.io.File;
 public class LocalFileItem implements FileItem {
     private Image icon;
     private String description;
-    private Image directoryIcon = new Image(String.valueOf(getClass().getClassLoader().getResource("icon/dir.png")));
-    private Image fileIcon = new Image(String.valueOf(getClass().getClassLoader().getResource("icon/file.png")));
     private File file;
 
     public LocalFileItem(File file) {
@@ -30,7 +28,7 @@ public class LocalFileItem implements FileItem {
         return file.isDirectory() ? directoryIcon : fileIcon;
     }
 
-    public Image getIcon() {
+    public Image getImage() {
         return icon;
     }
 

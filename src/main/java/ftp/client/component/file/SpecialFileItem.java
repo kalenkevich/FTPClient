@@ -15,8 +15,8 @@ public class SpecialFileItem implements FileItem {
     }
 
     @Override
-    public Image getIcon() {
-        return null;
+    public Image getImage() {
+        return directoryIcon;
     }
 
     @Override

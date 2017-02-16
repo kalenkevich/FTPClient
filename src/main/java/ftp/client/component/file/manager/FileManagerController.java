@@ -1,17 +1,21 @@
 package ftp.client.component.file.manager;
 
 import ftp.client.component.file.FileItem;
+import ftp.client.component.file.service.FileSystemService;
+import ftp.client.controller.Controller;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ftp.client.component.file.service.FileSystemService;
-import ftp.client.controller.Controller;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,21 +57,23 @@ public class FileManagerController implements Initializable, Controller {
     }
 
     private void addIconColumn() {
-        TableColumn<FileItem, String> tableColumn = new TableColumn<>();
-        tableColumn.setCellFactory(param -> new TableCell<FileItem, String>() {
-            ImageView imageView;
-            {
-                setGraphic(imageView);
-            }
-
-            public void updateItem(FileItem item, boolean empty) {
+        TableColumn<FileItem, Image> tableColumn = new TableColumn<>();
+        tableColumn.setCellFactory(param -> new TableCell<FileItem, Image>() {
+            @Override
+            protected void updateItem(Image item, boolean empty) {
+                super.updateItem(item, empty);
                 if (item != null) {
-                    imageView.setImage(item.getIcon());
+                    ImageView imageview = new ImageView();
+                    imageview.setFitHeight(25);
+                    imageview.setFitWidth(25);
+                    imageview.setImage(item);
+
+                    setGraphic(imageview);
                 }
             }
         });
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("icon"));
-        tableColumn.setPrefWidth(50);
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
+        tableColumn.setPrefWidth(30);
         table.getColumns().add(tableColumn);
     }
 
