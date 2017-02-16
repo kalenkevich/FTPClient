@@ -1,4 +1,4 @@
-package sample.service;
+package ftp.client.service;
 
 /**
  * Created by viscoze on 2/10/17.

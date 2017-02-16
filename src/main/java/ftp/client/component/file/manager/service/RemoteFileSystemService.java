@@ -4,6 +4,7 @@ import ftp.client.FTPClient.FTPClient;
 import ftp.client.component.file.FileItem;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,13 @@ public class RemoteFileSystemService implements FileSystemService {
 
     @Override
     public List<FileItem> getFilesFromDirectory(String directoryName) {
+        File file = null;
+        try {
+            file = ftpClient.getFtpConnection().list(directoryName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return new ArrayList<>();
     }
 

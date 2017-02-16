@@ -5,7 +5,7 @@ package ftp.client.FTPClient;
  */
 
 import org.apache.log4j.Logger;
-import sample.service.FTPReply;
+import ftp.client.service.FTPReply;
 
 import java.io.*;
 import java.net.Socket;
@@ -87,29 +87,6 @@ public class FTPConnection {
         return dir;
     }
 
-    private String skipWhileNotStartWith(String prefix) {
-        String response;
-        try {
-            response = readLine();
-        } catch (IOException e) {
-            logger.error(e);
-
-            return null;
-        }
-
-        while (!response.startsWith(prefix) || response.equals("")) {
-            try {
-                response = readLine();
-            } catch (IOException e) {
-                logger.error(e);
-
-                return null;
-            }
-        }
-
-        return response;
-    }
-
     public synchronized boolean stor(File file) throws IOException {
         if (file.isDirectory()) {
             throw new IOException("SimpleFTP cannot upload a directory.");
@@ -147,50 +124,6 @@ public class FTPConnection {
         return response.startsWith("226 ");
     }
 
-    public synchronized String list() throws IOException {
-        sendLine("LIST");
-        String response = readLine();
-        if (!response.startsWith("227 ")) {
-            throw new IOException("SimpleFTP could not request passive mode: "
-                    + response);
-        }
-
-        Socket dataSocket = getDataSocket();
-        BufferedInputStream input = new BufferedInputStream(dataSocket.getInputStream());
-        StringBuilder data = new StringBuilder();
-        char c = ' ';
-        //todo alert
-        while (c != '\n') {
-            c = (char) input.read();
-            data.append(c);
-        }
-
-        return data.toString();
-    }
-
-    private Socket getDataSocket() throws IOException {
-        String response = readLine();
-        String ip = null;
-        int port = -1;
-        int opening = response.indexOf('(');
-        int closing = response.indexOf(')', opening + 1);
-        if (closing > 0) {
-            String dataLink = response.substring(opening + 1, closing);
-            StringTokenizer tokenizer = new StringTokenizer(dataLink, ",");
-            try {
-                ip = tokenizer.nextToken() + "." + tokenizer.nextToken() + "."
-                        + tokenizer.nextToken() + "." + tokenizer.nextToken();
-                port = parseInt(tokenizer.nextToken()) * 256
-                        + parseInt(tokenizer.nextToken());
-            } catch (Exception e) {
-                throw new IOException("SimpleFTP received bad data link information: "
-                        + response);
-            }
-        }
-
-        return new Socket(ip, port);
-    }
-
     public synchronized boolean bin() throws IOException {
         sendLine("TYPE I");
         String response = readLine();
@@ -211,22 +144,21 @@ public class FTPConnection {
         return (response.startsWith("250 "));
     }
 
-    public synchronized String list(String pathname) throws IOException {
-        sendLine("LIST " + pathname);
+    public synchronized File list(String pathname) throws IOException {
+        sendLine("PASV");
+        Socket dataSocket = getDataSocket();
 
+        sendLine("LIST " + "/");
         String response = readLine();
 
-        if (response.startsWith("257 ")) {
-            int firstQuote = response.indexOf('\"');
-            int secondQuote = response.indexOf('\"', firstQuote + 1);
-            if (secondQuote > 0) {
-                String list = response.substring(firstQuote + 1, secondQuote);
-
-                return list;
-            }
+        if (!response.startsWith ("150 ")) {
+            throw new IOException("SimpleFTP was not allowed to send the file: "
+                    + response);
         }
+        //todo use parser to read data
+        DataInputStream dataInputStream = new DataInputStream(dataSocket.getInputStream());
 
-        return response;
+        return null;
     }
 
     public synchronized boolean mkd(String path) throws IOException {
@@ -256,8 +188,8 @@ public class FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    public synchronized boolean dele() throws IOException {
-        sendLine("DELE");
+    public synchronized boolean dele(String filename) throws IOException {
+        sendLine("DELE " + filename);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -272,6 +204,53 @@ public class FTPConnection {
         int statusCode  = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
+    }
+
+    private Socket getDataSocket() throws IOException {
+        String response = readLine();
+        String ip = null;
+        int port = -1;
+        int opening = response.indexOf('(');
+        int closing = response.indexOf(')', opening + 1);
+        if (closing > 0) {
+            String dataLink = response.substring(opening + 1, closing);
+            StringTokenizer tokenizer = new StringTokenizer(dataLink, ",");
+            try {
+                ip = tokenizer.nextToken() + "." + tokenizer.nextToken() + "."
+                        + tokenizer.nextToken() + "." + tokenizer.nextToken();
+                port = parseInt(tokenizer.nextToken()) * 256
+                        + parseInt(tokenizer.nextToken());
+            } catch (Exception e) {
+                throw new IOException("SimpleFTP received bad data link information: "
+                        + response);
+            }
+        }
+
+        return new Socket(ip, port);
+    }
+
+    //todo refactoring
+    private String skipWhileNotStartWith(String prefix) {
+        String response;
+        try {
+            response = readLine();
+        } catch (IOException e) {
+            logger.error(e);
+
+            return null;
+        }
+
+        while (!response.startsWith(prefix) || response.equals("")) {
+            try {
+                response = readLine();
+            } catch (IOException e) {
+                logger.error(e);
+
+                return null;
+            }
+        }
+
+        return response;
     }
     
     public void sendLine(String line) throws IOException {
@@ -298,7 +277,6 @@ public class FTPConnection {
     public String readResponse() throws IOException {
         StringBuilder response = new StringBuilder();
         String line = readLine();
-        //todo remove this shit
         while (!line.startsWith("214 ")) {
             response.append(line).append('\n');
             line = readLine();
