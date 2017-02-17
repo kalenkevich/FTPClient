@@ -1,5 +1,7 @@
 package ftp.client.FTPClient.file;
 
+import java.io.File;
+
 /**
  * Created by a.kalenkevich on 16.02.2017.
  */
@@ -8,6 +10,11 @@ public class FTPFile {
     private String description;
     private boolean isDirectory;
     private String path;
+    private File file;
+
+    public FTPFile(String path) {
+        this.path = path;
+    }
 
     public String getName() {
         return name;
@@ -43,5 +50,13 @@ public class FTPFile {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

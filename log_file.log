@@ -20,3 +20,35 @@
 2017-02-16 20:08:11 INFO  FTPClient:272 - < 227 Entering Passive Mode (127,0,0,1,202,181)
 2017-02-16 20:08:11 INFO  FTPClient:263 - > LIST /
 2017-02-16 20:08:11 INFO  FTPClient:272 - < 150 Opening data channel for directory listing of "/"
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 220-FileZilla Server 0.9.59 beta
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 220 Please visit https://filezilla-project.org/
+2017-02-16 20:47:31 INFO  FTPClient:234 - > USER user
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 331 Password required for user
+2017-02-16 20:47:31 INFO  FTPClient:234 - > PASS user
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 230 Logged on
+2017-02-16 20:47:31 INFO  FTPClient:234 - > PASV
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 227 Entering Passive Mode (127,0,0,1,243,89)
+2017-02-16 20:47:31 INFO  FTPClient:234 - > LIST /
+2017-02-16 20:47:31 INFO  FTPClient:290 - < 150 Opening data channel for directory listing of "/"
+2017-02-17 10:55:43 INFO  SimpleFTPClient:291 - < 220-FileZilla Server 0.9.59 beta
+2017-02-17 10:55:43 INFO  SimpleFTPClient:291 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-17 10:55:43 INFO  SimpleFTPClient:291 - < 220 Please visit https://filezilla-project.org/
+2017-02-17 10:55:43 INFO  SimpleFTPClient:235 - > USER user
+2017-02-17 10:55:43 INFO  SimpleFTPClient:291 - < 331 Password required for user
+2017-02-17 10:55:43 INFO  SimpleFTPClient:235 - > PASS user
+2017-02-17 10:55:43 INFO  SimpleFTPClient:291 - < 230 Logged on
+2017-02-17 11:55:13 INFO  SimpleFTPClient:416 - < 220-FileZilla Server 0.9.59 beta
+2017-02-17 11:55:13 INFO  SimpleFTPClient:416 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-17 11:55:13 INFO  SimpleFTPClient:416 - < 220 Please visit https://filezilla-project.org/
+2017-02-17 11:55:13 INFO  SimpleFTPClient:360 - > USER user
+2017-02-17 11:55:13 INFO  SimpleFTPClient:416 - < 331 Password required for user
+2017-02-17 11:55:13 INFO  SimpleFTPClient:360 - > PASS user
+2017-02-17 11:55:13 INFO  SimpleFTPClient:416 - < 230 Logged on
+2017-02-17 11:58:16 INFO  SimpleFTPClient:416 - < 220-FileZilla Server 0.9.59 beta
+2017-02-17 11:58:16 INFO  SimpleFTPClient:416 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-17 11:58:16 INFO  SimpleFTPClient:416 - < 220 Please visit https://filezilla-project.org/
+2017-02-17 11:58:16 INFO  SimpleFTPClient:360 - > USER user
+2017-02-17 11:58:16 INFO  SimpleFTPClient:416 - < 331 Password required for user
+2017-02-17 11:58:16 INFO  SimpleFTPClient:360 - > PASS user
+2017-02-17 11:58:16 INFO  SimpleFTPClient:416 - < 230 Logged on

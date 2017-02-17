@@ -1,5 +1,6 @@
 package ftp.client.FTPClient.connection;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ftp.client.FTPClient.file.FTPFile;
 import org.apache.log4j.Logger;
 
@@ -13,17 +14,34 @@ import java.util.List;
 //TODO add javaDoc
 public interface FTPConnection {
     void connect(String host, int port, String user, String pass) throws IOException;
+    boolean user(String userName) throws IOException;
+    boolean pass(String pass) throws IOException;
+    boolean quit() throws IOException;
+    boolean rein() throws  IOException;
     void disconnect() throws IOException;
     String pwd() throws IOException;
+    boolean epsv() throws IOException;
+    boolean pasv() throws IOException;
+    boolean port() throws IOException;
+    boolean abor() throws IOException;
+    boolean noop() throws IOException;
     boolean stor(File file) throws IOException;
+    File retr(String fileName) throws IOException;
     boolean bin() throws IOException;
     boolean ascii() throws IOException;
     boolean cwd(String dir) throws IOException;
-    List<FTPFile> list(String pathname) throws IOException;
+    boolean cdup() throws IOException;
     boolean mkd(String path) throws IOException;
     boolean rmd(String path) throws IOException;
-    boolean abor() throws IOException;
+    boolean rnfr(String fileName) throws IOException;
+    boolean rnto(String fileName) throws IOException;
     boolean dele(String filename) throws IOException;
+    String mdtm(String fileName) throws IOException;
+    int size(String fileName) throws IOException;
+    String syst() throws IOException;
+    boolean type(char type) throws IOException;
+    List<FTPFile> list(String pathname) throws IOException;
+    List<FTPFile> nlst(String pathName) throws IOException;
     boolean site(String arguments) throws IOException;
     void sendCommand(String command)throws IOException;
     String readResponse() throws IOException;

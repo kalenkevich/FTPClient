@@ -5,6 +5,7 @@ import ftp.client.FTPClient.connection.SimpleFTPConnection;
 import ftp.client.FTPClient.file.FTPFile;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class SimpleFTPClient implements FTPClient {
             ftpConnection.connect(host, port, userName, password);
             isConnected = true;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -71,22 +72,55 @@ public class SimpleFTPClient implements FTPClient {
 
     @Override
     public void renameFile(FTPFile file, String newName) {
-
+        String currentFileName = file.getPath();
+        try {
+            boolean success = ftpConnection.rnfr(currentFileName);
+            if (success) {
+                ftpConnection.rnto(newName);
+            }
+        } catch (IOException e) {
+            logger.error(e);
+        }
     }
 
     @Override
     public void deleteFile(FTPFile file) {
-
+        String filePath = file.getPath();
+        try {
+            ftpConnection.dele(filePath);
+        } catch (IOException e) {
+            logger.error(e);
+        }
     }
 
     @Override
-    public void createFile(FTPFile file) {
+    public void createFile(File file) {
+        try {
+            ftpConnection.stor(file);
+        } catch (IOException e) {
+            logger.error(e);
+        }
+    }
 
+    @Override
+    public File getFile(FTPFile ftpFile) {
+        File file = null;
+        try {
+            file = ftpConnection.retr(ftpFile.getPath());
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return file;
     }
 
     @Override
     public void changeDirectory(String path) {
-
+        try {
+            ftpConnection.cwd(path);
+        } catch (IOException e) {
+            logger.error(e);
+        }
     }
 
     @Override
@@ -100,12 +134,37 @@ public class SimpleFTPClient implements FTPClient {
 
     @Override
     public FTPFile getRootDirectoryName(String path) {
-        return null;
+        FTPFile file = null;
+        try {
+            boolean success = ftpConnection.cwd(path);
+            if (success) {
+                success = ftpConnection.cdup();
+                if (success) {
+                    String directoryName = ftpConnection.pwd();
+                    file = new FTPFile(directoryName);
+                }
+            }
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return file;
     }
 
     @Override
     public boolean testConnection(String host, int port, String userName, String userPassword) {
-        return false;
+        FTPConnection testFTPConnection = new SimpleFTPConnection();
+        boolean success = false;
+
+        try {
+            testFTPConnection.connect(host, port, userName, userPassword);
+            success = testFTPConnection.noop();
+            testFTPConnection.disconnect();
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return success;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ftp.client.component.tab;
+package ftp.client.logger;
 
 import javafx.scene.control.TextArea;
 import org.apache.log4j.AppenderSkeleton;

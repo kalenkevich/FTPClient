@@ -3,6 +3,7 @@ package ftp.client.FTPClient;
 import ftp.client.FTPClient.file.FTPFile;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -15,7 +16,8 @@ public interface FTPClient {
     List<FTPFile> getDirectoryFiles(String path);
     void renameFile(FTPFile file, String newName);
     void deleteFile(FTPFile file);
-    void createFile(FTPFile file);
+    void createFile(File file);
+    File getFile(FTPFile file);
     void changeDirectory(String path);
     void abort();
     FTPFile getRootDirectoryName(String path);

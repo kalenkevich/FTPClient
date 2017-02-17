@@ -52,7 +52,7 @@ public class RemoteFileSystemService implements FileSystemService {
     public void addFile(FileItem file) {
         try {
             FTPFile ftpFile = getFTPFile(file);
-            ftpClient.createFile(ftpFile);
+            ftpClient.createFile(ftpFile.getFile());
         } catch (Exception e) {
             logger.error(e);
         }

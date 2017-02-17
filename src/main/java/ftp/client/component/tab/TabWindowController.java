@@ -2,6 +2,7 @@ package ftp.client.component.tab;
 
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.SimpleFTPClient;
+import ftp.client.logger.TextFieldLoggerAppender;
 import ftp.client.user.User;
 import ftp.client.component.command.line.CommandLineController;
 import ftp.client.component.file.manager.TableEventListener;
