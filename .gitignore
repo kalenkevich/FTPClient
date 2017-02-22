@@ -19,3 +19,5 @@ target/lab1-1.0-SNAPSHOT.jar
 target/maven-archiver/
 target/maven-status/
 target/original-lab1-1.0-SNAPSHOT.jar
+/log_file.log
+/target/

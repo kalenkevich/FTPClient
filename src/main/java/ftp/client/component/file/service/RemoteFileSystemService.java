@@ -7,6 +7,7 @@ import ftp.client.component.file.FileItem;
 import ftp.client.component.file.RemoteFileItem;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +25,19 @@ public class RemoteFileSystemService implements FileSystemService {
     @Override
     public List<FileItem> getFilesFromDirectory(String directoryName) {
         List<FTPFile> ftpFiles = ftpClient.getDirectoryFiles(directoryName);
+        List<FileItem> fileItems = new ArrayList<>();
+        for (FTPFile ftpFile: ftpFiles) {
+            fileItems.add(new RemoteFileItem(ftpFile));
+        }
 
-        return ftpFiles.stream().map(RemoteFileItem::new).collect(Collectors.toList());
+        FileItem rootFile = getRootFileItem(directoryName);
+        if (rootFile == null) {
+            FTPFile ftpFile = new FTPFile("/");
+            rootFile = new RemoteFileItem(ftpFile);
+        }
+        fileItems.add(0, rootFile);
+
+        return fileItems;
     }
 
     @Override
@@ -61,8 +73,11 @@ public class RemoteFileSystemService implements FileSystemService {
     @Override
     public FileItem getRootFileItem(String path) {
         FTPFile ftpFile = ftpClient.getRootDirectoryName(path);
+        if (ftpFile != null) {
+            new RemoteFileItem(ftpFile);
+        }
 
-        return new RemoteFileItem(ftpFile);
+        return null;
     }
 
     public FTPClient getFtpConnection() {

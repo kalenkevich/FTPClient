@@ -8,16 +8,14 @@ import javafx.scene.image.Image;
  */
 public class RemoteFileItem implements FileItem {
     private FTPFile ftpFile;
-    private Image image;
 
     public RemoteFileItem(FTPFile ftpFile) {
         this.ftpFile = ftpFile;
-        this.image = ftpFile.isDirectory() ? directoryIcon : fileIcon;
     }
 
     @Override
     public Image getImage() {
-        return null;
+        return (ftpFile != null && ftpFile.isDirectory()) ? directoryIcon : fileIcon;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ftp.client.FTPClient.connection;
 
 import ftp.client.FTPClient.file.FTPFile;
+import ftp.client.FTPClient.file.parser.engine.FTPFileParserEngine;
 import ftp.client.FTPClient.service.FTPReply;
 import org.apache.log4j.Logger;
 
@@ -206,17 +207,20 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("PASV");
         Socket dataSocket = getDataSocket();
 
-        sendCommand("LIST " + "/");
+        sendCommand("LIST " + pathname);
         String response = readLine();
 
         if (!response.startsWith ("150 ")) {
             throw new IOException("SimpleFTP was not allowed to send the file: "
                     + response);
         }
-        //todo use parser to read data
-        DataInputStream dataInputStream = new DataInputStream(dataSocket.getInputStream());
 
-        return null;
+        FTPFileParserEngine engine = new FTPFileParserEngine(dataSocket.getInputStream());
+        List<FTPFile> ftpFiles = engine.getFiles();
+
+        dataSocket.close();
+
+        return ftpFiles;
     }
 
     //TODO IMPLEMENT
@@ -365,7 +369,7 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     private Socket getDataSocket() throws IOException {
-        String response = readLine();
+        String response = skipWhileNotStartWith("227 ");
         String ip = null;
         int port = -1;
         int opening = response.indexOf('(');
@@ -411,7 +415,7 @@ public class SimpleFTPConnection implements FTPConnection {
         return response;
     }
 
-    public String readLine() throws IOException {
+    private String readLine() throws IOException {
         String line = reader.readLine();
         logger.info("< " + line);
 

@@ -1,6 +1,5 @@
 package ftp.client.FTPClient.connection;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import ftp.client.FTPClient.file.FTPFile;
 import org.apache.log4j.Logger;
 

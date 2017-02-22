@@ -67,7 +67,14 @@ public class SimpleFTPClient implements FTPClient {
 
     @Override
     public List<FTPFile> getDirectoryFiles(String path) {
-        return new ArrayList<>();
+        List<FTPFile> ftpFiles = new ArrayList<>();
+        try {
+            ftpFiles = ftpConnection.list(path);
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return ftpFiles;
     }
 
     @Override
