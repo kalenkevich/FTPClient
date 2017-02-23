@@ -2,3 +2,125 @@
 2017-02-23 20:53:07 INFO  SimpleFTPConnection:420 - < SSH-2.0-OpenSSH_5.3
 2017-02-23 20:53:19 INFO  SimpleFTPConnection:420 - < SSH-2.0-OpenSSH_5.3
 2017-02-23 20:54:04 INFO  SimpleFTPConnection:420 - < SSH-2.0-OpenSSH_5.3
+2017-02-23 20:57:13 INFO  SimpleFTPConnection:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 20:57:14 INFO  SimpleFTPConnection:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:379 - > USER user
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:420 - < 331 Password required for user
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:379 - > PASS user
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:420 - < 230 Logged on
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:379 - > NOOP
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:420 - < 200 OK
+2017-02-23 20:57:18 INFO  SimpleFTPConnection:379 - > QUIT
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:379 - > USER user
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 331 Password required for user
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:379 - > PASS user
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 230 Logged on
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:379 - > NOOP
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:420 - < 200 OK
+2017-02-23 20:57:20 INFO  SimpleFTPConnection:379 - > QUIT
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > USER user
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 331 Password required for user
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > PASS user
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 230 Logged on
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > PASV
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 227 Entering Passive Mode (127,0,0,1,228,63)
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > LIST /
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 150 Opening data channel for directory listing of "/"
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > CWD /
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 226 Successfully transferred "/"
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > CDUP
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 250 CWD successful. "/" is current directory.
+2017-02-23 20:57:20 INFO  SimpleFTPClient:379 - > PWD
+2017-02-23 20:57:20 INFO  SimpleFTPClient:420 - < 200 CDUP successful. "/" is current directory.
+2017-02-23 20:57:43 INFO  SimpleFTPConnection:420 - < SSH-2.0-OpenSSH_5.3
+2017-02-23 20:57:43 ERROR SimpleFTPConnection:439 - java.lang.NumberFormatException: For input string: "SSH"
+2017-02-23 20:59:01 INFO  SimpleFTPConnection:420 - < SSH-2.0-OpenSSH_5.3
+2017-02-23 20:59:01 ERROR SimpleFTPConnection:439 - java.lang.NumberFormatException: For input string: "SSH"
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:379 - > USER user
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 331 Password required for user
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:379 - > PASS user
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 230 Logged on
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:379 - > NOOP
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:420 - < 200 OK
+2017-02-23 21:03:41 INFO  SimpleFTPConnection:379 - > QUIT
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > USER user
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 331 Password required for user
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > PASS user
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 230 Logged on
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > PASV
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 227 Entering Passive Mode (127,0,0,1,233,182)
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > LIST /
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 150 Opening data channel for directory listing of "/"
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > CWD /
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 226 Successfully transferred "/"
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > CDUP
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 250 CWD successful. "/" is current directory.
+2017-02-23 21:03:41 INFO  SimpleFTPClient:379 - > PWD
+2017-02-23 21:03:41 INFO  SimpleFTPClient:420 - < 200 CDUP successful. "/" is current directory.
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:379 - > USER user
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 331 Password required for user
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:379 - > PASS user
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 230 Logged on
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:379 - > NOOP
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:420 - < 200 OK
+2017-02-23 21:03:50 INFO  SimpleFTPConnection:379 - > QUIT
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > USER user
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 331 Password required for user
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > PASS user
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 230 Logged on
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > PASV
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 227 Entering Passive Mode (127,0,0,1,198,141)
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > LIST /
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 150 Opening data channel for directory listing of "/"
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > CWD /
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 226 Successfully transferred "/"
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > CDUP
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 250 CWD successful. "/" is current directory.
+2017-02-23 21:03:50 INFO  SimpleFTPClient:379 - > PWD
+2017-02-23 21:03:50 INFO  SimpleFTPClient:420 - < 200 CDUP successful. "/" is current directory.
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:379 - > USER user
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 331 Password required for user
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:379 - > PASS user
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 230 Logged on
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:379 - > NOOP
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:420 - < 200 OK
+2017-02-23 21:16:13 INFO  SimpleFTPConnection:379 - > QUIT
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 220-FileZilla Server 0.9.59 beta
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 220 Please visit https://filezilla-project.org/
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > USER user
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 331 Password required for user
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > PASS user
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 230 Logged on
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > PASV
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 227 Entering Passive Mode (127,0,0,1,232,164)
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > LIST /
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 150 Opening data channel for directory listing of "/"
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > CWD /
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 226 Successfully transferred "/"
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > CDUP
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 250 CWD successful. "/" is current directory.
+2017-02-23 21:16:13 INFO  SimpleFTPClient:379 - > PWD
+2017-02-23 21:16:13 INFO  SimpleFTPClient:420 - < 200 CDUP successful. "/" is current directory.

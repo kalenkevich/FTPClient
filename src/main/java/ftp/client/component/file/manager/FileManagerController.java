@@ -6,6 +6,7 @@ import ftp.client.controller.Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -30,7 +31,15 @@ public class FileManagerController implements Controller {
     private List<TableEventListener> tableEventListeners;
     @FXML
     private TableView table;
-
+    @FXML
+    private Button copyButton;
+    @FXML
+    private Button pasteButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button refreshButton;
+    
     @Override
     public void init() {
         fileItems = new ArrayList<>();
@@ -186,5 +195,21 @@ public class FileManagerController implements Controller {
 
     public void addDragAndDropListener(TableEventListener tableEventListener) {
         this.tableEventListeners.add(tableEventListener);
+    }
+
+    public void copyAction(ActionEvent actionEvent) {
+
+    }
+
+    public void pasteAction(ActionEvent actionEvent) {
+
+    }
+
+    public void deleteAction(ActionEvent actionEvent) {
+
+    }
+
+    public void refreshAction(ActionEvent actionEvent) {
+
     }
 }

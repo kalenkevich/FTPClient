@@ -427,9 +427,18 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     private int getStatusCode(String response) {
-        int statusCode = parseInt(response.substring(0, 3));
-        boolean isStatusCode = response.charAt(3) == ' ';
+        int statusCode = -1;
 
-        return isStatusCode ? statusCode : -1;
+        try {
+            int parsedStatusCode = parseInt(response.substring(0, 3));
+            boolean isStatusCode = response.charAt(3) == ' ';
+            if (isStatusCode) {
+                statusCode = parsedStatusCode;
+            }
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        return statusCode;
     }
 }

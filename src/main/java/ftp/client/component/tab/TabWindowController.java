@@ -53,10 +53,10 @@ public class TabWindowController implements Controller, TableEventListener {
     }
 
     private void insertElements() {
-        TableView localGrid = (TableView) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
+        Pane localGrid = (Pane) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
         localFileManager = (FileManagerController) RouterService.getInstance().getController();
         localFileManager.init();
-        TableView remoteGrid = (TableView) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
+        Pane remoteGrid = (Pane) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
         remoteFileManager = (FileManagerController) RouterService.getInstance().getController();
         remoteFileManager.init();
         splitPane.getItems().add(new AnchorPane(localGrid));
