@@ -21,7 +21,8 @@ public abstract class AbstractFTPDataFileParser implements FTPDataFileParser {
         List<FTPFile> files = new ArrayList<>();
 
         for (String entry: entries) {
-            files.add(parseEntry(entry));
+            FTPFile ftpFile = parseEntry(entry);
+            files.add(ftpFile);
         }
 
         return files;

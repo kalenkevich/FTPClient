@@ -24,9 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Created by alex on 2/8/2017.
@@ -47,7 +45,7 @@ public class TabWindowController implements Controller, TableEventListener {
     private String name;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         ftpClient = new SimpleFTPClient();
         insertElements();
         setupNewFTPClient();
@@ -57,8 +55,10 @@ public class TabWindowController implements Controller, TableEventListener {
     private void insertElements() {
         TableView localGrid = (TableView) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
         localFileManager = (FileManagerController) RouterService.getInstance().getController();
+        localFileManager.init();
         TableView remoteGrid = (TableView) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
         remoteFileManager = (FileManagerController) RouterService.getInstance().getController();
+        remoteFileManager.init();
         splitPane.getItems().add(new AnchorPane(localGrid));
         splitPane.getItems().add(new AnchorPane(remoteGrid));
         Pane commandLinePane = (Pane) RouterService.getInstance().getView(Consts.COMMAND_LINE_VIEW);
@@ -88,6 +88,7 @@ public class TabWindowController implements Controller, TableEventListener {
         ftpClient.setPort(user.getPort());
 
         ftpClient.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
+        ftpClient.connect(user.getHostName(), user.getPort());
         ftpClient.login(user.getName(), user.getPassword());
     }
 

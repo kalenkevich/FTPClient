@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import ftp.client.controller.Controller;
+import javafx.util.Pair;
 
 import java.io.IOException;
 

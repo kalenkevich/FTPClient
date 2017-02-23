@@ -17,7 +17,7 @@ public class CommandLineController implements Controller {
     private FTPClient ftpClient;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
 
     }
 

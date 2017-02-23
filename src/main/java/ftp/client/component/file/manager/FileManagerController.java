@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Created by a.kalenkevich on 02.02.2017.
  */
-public class FileManagerController implements Initializable, Controller {
+public class FileManagerController implements Controller {
     private String currentDirectoryName = "/";
     private List<FileItem> fileItems;
     private FileSystemService fileSystemService;
@@ -32,7 +32,7 @@ public class FileManagerController implements Initializable, Controller {
     private TableView table;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
         fileItems = new ArrayList<>();
         tableEventListeners = new ArrayList<>();
         initTable();

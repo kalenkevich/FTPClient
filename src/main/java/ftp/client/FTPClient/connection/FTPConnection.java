@@ -12,12 +12,12 @@ import java.util.List;
  */
 //TODO add javaDoc
 public interface FTPConnection {
-    void connect(String host, int port, String user, String pass) throws IOException;
+    boolean connect(String host, int port) throws IOException;
     boolean user(String userName) throws IOException;
     boolean pass(String pass) throws IOException;
     boolean quit() throws IOException;
     boolean rein() throws  IOException;
-    void disconnect() throws IOException;
+    boolean disconnect() throws IOException;
     String pwd() throws IOException;
     boolean epsv() throws IOException;
     boolean pasv() throws IOException;
@@ -42,7 +42,7 @@ public interface FTPConnection {
     List<FTPFile> list(String pathname) throws IOException;
     List<FTPFile> nlst(String pathName) throws IOException;
     boolean site(String arguments) throws IOException;
-    void sendCommand(String command)throws IOException;
+    boolean sendCommand(String command)throws IOException;
     String readResponse() throws IOException;
     void setLogger(Logger logger);
 }

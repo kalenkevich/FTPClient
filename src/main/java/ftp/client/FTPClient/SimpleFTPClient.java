@@ -3,6 +3,7 @@ package ftp.client.FTPClient;
 import ftp.client.FTPClient.connection.FTPConnection;
 import ftp.client.FTPClient.connection.SimpleFTPConnection;
 import ftp.client.FTPClient.file.FTPFile;
+import ftp.client.FTPClient.report.FTPConnectionReport;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -35,34 +36,59 @@ public class SimpleFTPClient implements FTPClient {
         timeToLive = 250;
     }
 
-    public SimpleFTPClient(String host, int port) {
-        this();
+    @Override
+    public boolean connect(String host, int port) {
+        boolean successResult = false;
         this.host = host;
         this.port = port;
-    }
 
-    @Override
-    public void login(String userName, String password) {
-        this.userName = userName;
-        this.userPassword = password;
         try {
-            ftpConnection.connect(host, port, userName, password);
-            isConnected = true;
+            successResult = ftpConnection.connect(host, port);
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
-    public void logout() {
+    public boolean disconnect() {
+        return logout();
+    }
+
+    @Override
+    public boolean login(String userName, String password) {
+        this.userName = userName;
+        this.userPassword = password;
+        boolean successResult = false;
+
+        try {
+            successResult = ftpConnection.user(userName);
+            if (successResult) {
+                successResult = ftpConnection.pass(password);
+            }
+            isConnected = true;
+        } catch (IOException e) {
+            logger.error(e);
+            isConnected = false;
+        }
+
+        return successResult;
+    }
+
+    @Override
+    public boolean logout() {
+        boolean successResult = false;
         try {
             if (isConnected) {
-                ftpConnection.disconnect();
+                successResult = ftpConnection.disconnect();
                 isConnected = false;
             }
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
@@ -78,35 +104,47 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public void renameFile(FTPFile file, String newName) {
+    public boolean renameFile(FTPFile file, String newName) {
+        boolean successResult = false;
         String currentFileName = file.getPath();
+
         try {
-            boolean success = ftpConnection.rnfr(currentFileName);
-            if (success) {
+            successResult = ftpConnection.rnfr(currentFileName);
+            if (successResult) {
                 ftpConnection.rnto(newName);
             }
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
-    public void deleteFile(FTPFile file) {
+    public boolean deleteFile(FTPFile file) {
+        boolean successResult = false;
         String filePath = file.getPath();
+
         try {
-            ftpConnection.dele(filePath);
+            successResult = ftpConnection.dele(filePath);
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
-    public void createFile(File file) {
+    public boolean createFile(File file) {
+        boolean successResult = false;
+
         try {
-            ftpConnection.stor(file);
+            successResult = ftpConnection.stor(file);
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
@@ -122,21 +160,29 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public void changeDirectory(String path) {
+    public boolean changeDirectory(String path) {
+        boolean successResult = false;
+
         try {
-            ftpConnection.cwd(path);
+            successResult = ftpConnection.cwd(path);
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
-    public void abort() {
+    public boolean abort() {
+        boolean successResult = false;
+
         try {
-            ftpConnection.abor();
+            successResult = ftpConnection.abor();
         } catch (IOException e) {
             logger.error(e);
         }
+
+        return successResult;
     }
 
     @Override
@@ -159,19 +205,38 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public boolean testConnection(String host, int port, String userName, String userPassword) {
+    public FTPConnectionReport testConnection(String host, int port, String userName, String userPassword) {
         FTPConnection testFTPConnection = new SimpleFTPConnection();
-        boolean success = false;
+        FTPConnectionReport connectionReport = new FTPConnectionReport();
 
         try {
-            testFTPConnection.connect(host, port, userName, userPassword);
-            success = testFTPConnection.noop();
-            testFTPConnection.disconnect();
+            connectionReport.setSuccessConnection(testFTPConnection.connect(host, port));
+        } catch (IOException e) {
+            logger.error(e);
+
+            return connectionReport;
+        }
+
+        try {
+            testFTPConnection.user(userName);
+            connectionReport.setSuccessUserLogin(testFTPConnection.pass(userPassword));
         } catch (IOException e) {
             logger.error(e);
         }
 
-        return success;
+        try {
+            connectionReport.setSuccessCommand(testFTPConnection.noop());
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        try {
+            connectionReport.setSuccessDisconnect(testFTPConnection.disconnect());
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return connectionReport;
     }
 
     @Override
@@ -203,8 +268,9 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     private void reconnect() {
+        disconnect();
+        connect(host, port);
         login(userName, userPassword);
-        logout();
     }
 
     public FTPConnection getFtpConnection() {

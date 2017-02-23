@@ -25,7 +25,7 @@ public class UnixFTPDataFileParser extends AbstractFTPDataFileParser {
             String grp = this.group(17);
             String size = this.group(18);
             String datestr = this.group(19) + " " + this.group(20);
-            String path = "/" + this.group(21);
+            String path = this.group(21);
             String endtoken = this.group(22);
 
             ftpFile = new FTPFile(path);

@@ -1,6 +1,7 @@
 package ftp.client.FTPClient;
 
 import ftp.client.FTPClient.file.FTPFile;
+import ftp.client.FTPClient.report.FTPConnectionReport;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -11,18 +12,20 @@ import java.util.List;
  */
 //TODO javaDoc
 public interface FTPClient {
-    void login(String userName, String password);
-    void logout();
+    boolean connect(String host, int port);
+    boolean disconnect();
+    boolean login(String userName, String password);
+    boolean logout();
     List<FTPFile> getDirectoryFiles(String path);
-    void renameFile(FTPFile file, String newName);
-    void deleteFile(FTPFile file);
-    void createFile(File file);
+    boolean renameFile(FTPFile file, String newName);
+    boolean deleteFile(FTPFile file);
+    boolean createFile(File file);
     File getFile(FTPFile file);
-    void changeDirectory(String path);
-    void abort();
+    boolean changeDirectory(String path);
+    boolean abort();
     FTPFile getRootDirectoryName(String path);
 
-    boolean testConnection(String host, int port, String userName, String userPassword);
+    FTPConnectionReport testConnection(String host, int port, String userName, String userPassword);
     String sendCommand(String command);
     Logger getLogger();
 

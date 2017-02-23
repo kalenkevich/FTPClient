@@ -3,6 +3,7 @@ package ftp.client.controller;
 import ftp.client.component.tab.TabWindowController;
 import ftp.client.service.RouterService;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import java.net.URL;
@@ -10,7 +11,7 @@ import java.util.ResourceBundle;
 
 import static ftp.client.config.Consts.TAB_VIEW;
 
-public class MainController implements Controller {
+public class MainController implements Initializable {
 
     @FXML
     private TabPane tabPane;
@@ -26,9 +27,11 @@ public class MainController implements Controller {
 
     private void createNewTab() {
         Pane pane = (Pane) RouterService.getInstance().getView(TAB_VIEW);
-        //TabWindowController tabWindowController = (TabWindowController) RouterService.getInstance().getController();
+        TabWindowController tabWindowController = (TabWindowController) RouterService.getInstance().getController();
         Tab tab = new Tab();
-        //tab.setText(tabWindowController.getName());
+        tabWindowController.init();
+
+        tab.setId(tabWindowController.getName());
         tab.setContent(pane);
         tabPane.getTabs().add(tab);
     }

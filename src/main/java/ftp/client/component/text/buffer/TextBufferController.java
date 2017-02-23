@@ -15,7 +15,7 @@ public class TextBufferController implements Controller {
     private TextArea textArea;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init() {
 
     }
 

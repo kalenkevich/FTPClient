@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="213.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftp.client.component.popup.AuthorisationPopupController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftp.client.component.popup.AuthorisationPopupController">
    <children>
-      <Button defaultButton="true" layoutX="132.0" layoutY="174.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="25.0" prefWidth="71.0" text="Login" />
+      <Button fx:id="loginButton" defaultButton="true" layoutX="49.0" layoutY="199.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="25.0" prefWidth="71.0" text="Login" />
       <TextField fx:id="passField" layoutX="132.0" layoutY="118.0" text="user" />
       <TextField fx:id="loginField" layoutX="132.0" layoutY="84.0" prefHeight="25.0" prefWidth="149.0" text="user" />
       <Label layoutX="49.0" layoutY="88.0" text="Login" />
@@ -15,5 +17,12 @@
       <Label layoutX="49.0" layoutY="18.0" text="Host" />
       <TextField fx:id="hostField" layoutX="132.0" layoutY="14.0" prefHeight="25.0" prefWidth="149.0" text="localhost" />
       <TextField fx:id="portField" layoutX="132.0" layoutY="48.0" text="21" />
+      <Button layoutX="132.0" layoutY="199.0" mnemonicParsing="false" onAction="#testConnection" text="Test connection" />
+      <ImageView fx:id="connectionStatusImage" fitHeight="25.0" fitWidth="22.0" layoutX="259.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="messageLabel" layoutX="50.0" layoutY="166.0" prefHeight="17.0" prefWidth="231.0" />
    </children>
+
+   <stylesheets>
+      <URL value="@AuthorisationPopup.css" />
+   </stylesheets>
 </Pane>

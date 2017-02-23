@@ -9,7 +9,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import static java.lang.Integer.parseInt;
 
 /**
@@ -20,13 +19,14 @@ public class SimpleFTPConnection implements FTPConnection {
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
+    private static final int MAX_CONNECTION_ATTEMPTS = 5;
 
     public SimpleFTPConnection () {
         logger = Logger.getLogger(SimpleFTPConnection.class);
     }
 
     @Override
-    public synchronized void connect(String host, int port, String user, String pass) throws IOException {
+    public synchronized boolean connect(String host, int port) throws IOException {
         if (socket != null) {
             throw new IOException("SimpleFTP is already connected. Disconnect first.");
         }
@@ -34,32 +34,45 @@ public class SimpleFTPConnection implements FTPConnection {
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-        if (skipWhileNotStartWith("220 ") == null) {
-            throw new IOException("SimpleFTP received an unknown response when connecting to the FTP server: ");
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+        int connectionAttempt = 0;
+
+        while (statusCode != 220 && MAX_CONNECTION_ATTEMPTS >= connectionAttempt) {
+            response = readLine();
+            statusCode = getStatusCode(response);
+            connectionAttempt++;
         }
 
-        user(user);
-        pass(pass);
+        if (statusCode == 220) {
+            return true;
+        }
+
+        throw new IOException("SimpleFTP received an unknown response when connecting to the FTP server: ");
     }
 
     @Override
     public boolean user(String userName) throws IOException {
         sendCommand("USER " + userName);
-        if (skipWhileNotStartWith("331 ") == null) {
-            throw new IOException("SimpleFTP received an unknown response after sending the user: ");
-        }
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
 
-        return true;
+        return statusCode == 331;
     }
 
     @Override
     public boolean pass(String pass) throws IOException {
         sendCommand("PASS " + pass);
-        if (skipWhileNotStartWith("230 ") == null) {
-            throw new IOException("SimpleFTP was unable to log in with the supplied password");
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        if (statusCode == 530) {
+            return false;
+        } else if (statusCode == 230) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     @Override
@@ -74,6 +87,7 @@ public class SimpleFTPConnection implements FTPConnection {
         } finally {
             socket = null;
         }
+
         return true;
     }
 
@@ -84,8 +98,8 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public synchronized void disconnect() throws IOException {
-        quit();
+    public synchronized boolean disconnect() throws IOException {
+        return quit();
     }
 
     @Override
@@ -93,7 +107,9 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("PWD");
         String dir = null;
         String response = readLine();
-        if (response.startsWith("257 ")) {
+        int statusCode  = getStatusCode(response);
+
+        if (statusCode == 257) {
             int firstQuote = response.indexOf('\"');
             int secondQuote = response.indexOf('\"', firstQuote + 1);
             if (secondQuote > 0) {
@@ -281,14 +297,11 @@ public class SimpleFTPConnection implements FTPConnection {
         return 0;
     }
 
-    //TODO IMPLEMENT
     @Override
     public String syst() throws IOException {
         sendCommand("SYST");
 
-        String response = readLine();
-
-        return "";
+        return readLine();
     }
 
     @Override
@@ -345,7 +358,9 @@ public class SimpleFTPConnection implements FTPConnection {
     public String readResponse() throws IOException {
         StringBuilder response = new StringBuilder();
         String line = readLine();
-        while (!line.startsWith("214 ")) {
+        int statusCode  = getStatusCode(line);
+
+        while (statusCode != 214) {
             response.append(line).append('\n');
             line = readLine();
         }
@@ -354,7 +369,7 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public void sendCommand(String line) throws IOException {
+    public boolean sendCommand(String line) throws IOException {
         if (socket == null) {
             throw new IOException("SimpleFTP is not connected.");
         }
@@ -366,10 +381,19 @@ public class SimpleFTPConnection implements FTPConnection {
             socket = null;
             throw e;
         }
+
+        return true;
     }
 
     private Socket getDataSocket() throws IOException {
-        String response = skipWhileNotStartWith("227 ");
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        while (statusCode != 227) {
+            response = readLine();
+            statusCode  = getStatusCode(response);
+        }
+
         String ip = null;
         int port = -1;
         int opening = response.indexOf('(');
@@ -391,30 +415,6 @@ public class SimpleFTPConnection implements FTPConnection {
         return new Socket(ip, port);
     }
 
-    //todo refactoring
-    private String skipWhileNotStartWith(String prefix) {
-        String response;
-        try {
-            response = readLine();
-        } catch (IOException e) {
-            logger.error(e);
-
-            return null;
-        }
-
-        while (!response.startsWith(prefix) || response.equals("")) {
-            try {
-                response = readLine();
-            } catch (IOException e) {
-                logger.error(e);
-
-                return null;
-            }
-        }
-
-        return response;
-    }
-
     private String readLine() throws IOException {
         String line = reader.readLine();
         logger.info("< " + line);
@@ -427,6 +427,9 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     private int getStatusCode(String response) {
-        return parseInt(response.substring(0, 2));
+        int statusCode = parseInt(response.substring(0, 3));
+        boolean isStatusCode = response.charAt(3) == ' ';
+
+        return isStatusCode ? statusCode : -1;
     }
 }
