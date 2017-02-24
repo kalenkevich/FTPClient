@@ -111,7 +111,7 @@ public class SimpleFTPClient implements FTPClient {
         try {
             successResult = ftpConnection.rnfr(currentFileName);
             if (successResult) {
-                ftpConnection.rnto(newName);
+                successResult = ftpConnection.rnto(newName);
             }
         } catch (IOException e) {
             logger.error(e);

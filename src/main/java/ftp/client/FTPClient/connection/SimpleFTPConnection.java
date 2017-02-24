@@ -326,7 +326,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean rnfr(String fileName) throws IOException {
-        sendCommand("RNFR" + fileName);
+        sendCommand("RNFR " + fileName);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -336,7 +336,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean rnto(String fileName) throws IOException {
-        sendCommand("RNTO" + fileName);
+        sendCommand("RNTO " + fileName);
 
         String response = readLine();
         int statusCode  = getStatusCode(response);

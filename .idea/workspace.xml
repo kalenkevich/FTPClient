@@ -7,16 +7,8 @@
     <list default="true" id="15f2829f-d005-4fc9-9882-7f43140cc6f8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_file.log" afterPath="$PROJECT_DIR$/log_file.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/FTPClient.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/FTPClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/SimpleFTPConnection.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/SimpleFTPConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/AbstractFTPDataFileParser.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/AbstractFTPDataFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/UnixFTPDataFileParser.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/UnixFTPDataFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/WindowsFTPDataFileParser.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/WindowsFTPDataFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/engine/FTPFileParserEngine.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/engine/FTPFileParserEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java" afterPath="$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/view/Main.fxml" afterPath="$PROJECT_DIR$/target/classes/view/Main.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/workspace.xml" afterPath="$PROJECT_DIR$/target/classes/workspace.xml" />
     </list>
     <ignored path="FTPClient.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +61,8 @@
       <file leaf-file-name="SimpleFTPConnection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/SimpleFTPConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+            <state relative-caret-position="375">
+              <caret line="338" column="26" selection-start-line="338" selection-start-column="26" selection-end-line="338" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,21 +82,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleFTPClient.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SimpleFTPClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="195" column="52" selection-start-line="195" selection-start-column="52" selection-end-line="195" selection-end-column="52" />
+            <state relative-caret-position="158">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RemoteFileSystemService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RemoteFileSystemService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="77" column="8" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="8" />
+            <state relative-caret-position="256">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,8 +117,8 @@
       <file leaf-file-name="log_file.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_file.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4886">
-              <caret line="798" column="61" selection-start-line="798" selection-start-column="61" selection-end-line="798" selection-end-column="61" />
+            <state relative-caret-position="1054">
+              <caret line="1072" column="82" selection-start-line="1072" selection-start-column="82" selection-end-line="1072" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -221,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/controller/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/resources/view/Main.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/controller/MainController.java" />
-        <option value="$PROJECT_DIR$/log_file.log" />
         <option value="$PROJECT_DIR$/src/main/resources/view/component/file/FileManager.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/component/file/manager/FileManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/component/tab/TabWindowController.java" />
@@ -230,9 +221,10 @@
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/WindowsFTPDataFileParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/file/parser/UnixFTPDataFileParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/FTPClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/SimpleFTPConnection.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java" />
+        <option value="$PROJECT_DIR$/log_file.log" />
       </list>
     </option>
   </component>
@@ -1377,7 +1369,7 @@
       <workItem from="1487253302880" duration="19491000" />
       <workItem from="1487783607042" duration="2784000" />
       <workItem from="1487787680765" duration="23652000" />
-      <workItem from="1487957529434" duration="1905000" />
+      <workItem from="1487957529434" duration="2314000" />
     </task>
     <task id="LOCAL-00001" summary="Some refactoring">
       <created>1487234534609</created>
@@ -1428,11 +1420,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487872492980</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix bug: user can change the directory up and down">
+      <created>1487964438525</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1487964438525</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68007000" />
+    <option name="totallyTimeSpent" value="68416000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1460,13 +1459,13 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25514138" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2377892" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2705249" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39030954" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1526,14 +1525,15 @@
     <MESSAGE value="Add FTP commands to interface (implement some of them)." />
     <MESSAGE value="Implement ftpfile parser" />
     <MESSAGE value="Implement test connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement test connection" />
+    <MESSAGE value="Fix bug: user can change the directory up and down" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug: user can change the directory up and down" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="106" />
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1929,22 +1929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_file.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4886">
-          <caret line="798" column="61" selection-start-line="798" selection-start-column="61" selection-end-line="798" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="195" column="52" selection-start-line="195" selection-start-column="52" selection-end-line="195" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/FTPConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -1955,20 +1939,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/connection/SimpleFTPConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+        <state relative-caret-position="375">
+          <caret line="338" column="26" selection-start-line="338" selection-start-column="26" selection-end-line="338" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/component/file/service/RemoteFileSystemService.java">
+    <entry file="file://$PROJECT_DIR$/log_file.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="77" column="8" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="8" />
+        <state relative-caret-position="1054">
+          <caret line="1072" column="82" selection-start-line="1072" selection-start-column="82" selection-end-line="1072" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ftp/client/FTPClient/SimpleFTPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
         </state>
       </provider>
