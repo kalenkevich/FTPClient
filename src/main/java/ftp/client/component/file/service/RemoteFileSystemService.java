@@ -32,7 +32,8 @@ public class RemoteFileSystemService implements FileSystemService {
 
         FileItem rootFile = getRootFileItem(directoryName);
         if (rootFile == null) {
-            FTPFile ftpFile = new FTPFile("/");
+            String rootDirectoryName = ftpClient.getRootDirectoryName(directoryName);
+            FTPFile ftpFile = new FTPFile(rootDirectoryName);
             rootFile = new RemoteFileItem(ftpFile);
         }
         fileItems.add(0, rootFile);
@@ -72,12 +73,10 @@ public class RemoteFileSystemService implements FileSystemService {
 
     @Override
     public FileItem getRootFileItem(String path) {
-        FTPFile ftpFile = ftpClient.getRootDirectoryName(path);
-        if (ftpFile != null) {
-            new RemoteFileItem(ftpFile);
-        }
+        FTPFile ftpFile = new FTPFile(ftpClient.getRootDirectoryName(path));
+        ftpFile.setDirectory(true);
 
-        return null;
+        return new RemoteFileItem(ftpFile);
     }
 
     public FTPClient getFtpConnection() {

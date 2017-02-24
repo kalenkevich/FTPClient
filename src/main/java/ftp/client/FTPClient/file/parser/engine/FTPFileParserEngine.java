@@ -18,23 +18,23 @@ import static ftp.client.FTPClient.Config.DATA_TYPE_TEXT;
  */
 public class FTPFileParserEngine {
     private InputStream inputStream;
-    private String type;
     private FTPDataFileParser ftpDataFileParser;
+    private String currentPathName;
 
     public FTPFileParserEngine(InputStream inputStream) {
         this(inputStream, DATA_TYPE_TEXT);
     }
 
-    public FTPFileParserEngine(InputStream inputStream, String type) {
+    public FTPFileParserEngine(InputStream inputStream, String currentPathName) {
         this.inputStream = inputStream;
-        this.type = type;
+        this.currentPathName = currentPathName;
 
         initializeFTPFileDataParser();
     }
 
     //TODO IMPLEMENT FACTORY
     private void initializeFTPFileDataParser() {
-        ftpDataFileParser = new UnixFTPDataFileParser();
+        ftpDataFileParser = new UnixFTPDataFileParser(currentPathName);
     }
 
     public List<FTPFile> getFiles() throws IOException {

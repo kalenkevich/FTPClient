@@ -109,7 +109,7 @@ public class SimpleFTPConnection implements FTPConnection {
         String response = readLine();
         int statusCode  = getStatusCode(response);
 
-        if (statusCode == 257) {
+        if (statusCode == 200) {
             int firstQuote = response.indexOf('\"');
             int secondQuote = response.indexOf('\"', firstQuote + 1);
             if (secondQuote > 0) {
@@ -231,7 +231,7 @@ public class SimpleFTPConnection implements FTPConnection {
                     + response);
         }
 
-        FTPFileParserEngine engine = new FTPFileParserEngine(dataSocket.getInputStream());
+        FTPFileParserEngine engine = new FTPFileParserEngine(dataSocket.getInputStream(), pathname);
         List<FTPFile> ftpFiles = engine.getFiles();
 
         dataSocket.close();

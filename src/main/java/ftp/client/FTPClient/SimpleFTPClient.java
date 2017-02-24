@@ -186,22 +186,21 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public FTPFile getRootDirectoryName(String path) {
-        FTPFile file = null;
+    public String getRootDirectoryName(String path) {
+        String directoryName = null;
         try {
             boolean success = ftpConnection.cwd(path);
             if (success) {
                 success = ftpConnection.cdup();
                 if (success) {
-                    String directoryName = ftpConnection.pwd();
-                    file = new FTPFile(directoryName);
+                    directoryName = ftpConnection.pwd();
                 }
             }
         } catch (IOException e) {
             logger.error(e);
         }
 
-        return file;
+        return directoryName;
     }
 
     @Override

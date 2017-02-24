@@ -9,8 +9,8 @@ import static ftp.client.FTPClient.Config.UNIX_FILE_STRUCTURE_REGEX;
  */
 
 public class UnixFTPDataFileParser extends AbstractFTPDataFileParser {
-    public UnixFTPDataFileParser() {
-        super(UNIX_FILE_STRUCTURE_REGEX);
+    public UnixFTPDataFileParser(String currentPathName) {
+        super(UNIX_FILE_STRUCTURE_REGEX, currentPathName);
     }
 
     @Override
@@ -25,11 +25,12 @@ public class UnixFTPDataFileParser extends AbstractFTPDataFileParser {
             String grp = this.group(17);
             String size = this.group(18);
             String datestr = this.group(19) + " " + this.group(20);
-            String path = this.group(21);
+            String name = this.group(21);
             String endtoken = this.group(22);
+            String path = this.currentPathName + '/' + name;
 
             ftpFile = new FTPFile(path);
-            ftpFile.setName(path);
+            ftpFile.setName(name);
             ftpFile.setDirectory(isDirectory);
             ftpFile.setDescription(size);
         }

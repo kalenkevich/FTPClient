@@ -15,6 +15,7 @@ public abstract class AbstractFTPDataFileParser implements FTPDataFileParser {
     private Pattern pattern;
     private Matcher matcher;
     private MatchResult result;
+    protected String currentPathName;
 
     @Override
     public List<FTPFile> parse(List<String> entries) {
@@ -30,8 +31,9 @@ public abstract class AbstractFTPDataFileParser implements FTPDataFileParser {
 
     protected abstract FTPFile parseEntry(String entry);
 
-    public AbstractFTPDataFileParser(String regex) {
+    public AbstractFTPDataFileParser(String regex, String currentPathName) {
         pattern = Pattern.compile(regex);
+        this.currentPathName = currentPathName;
     }
 
     protected boolean isValidEntry(String entry) {

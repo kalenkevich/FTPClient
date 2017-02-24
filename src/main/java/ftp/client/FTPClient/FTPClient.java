@@ -23,7 +23,7 @@ public interface FTPClient {
     File getFile(FTPFile file);
     boolean changeDirectory(String path);
     boolean abort();
-    FTPFile getRootDirectoryName(String path);
+    String getRootDirectoryName(String path);
 
     FTPConnectionReport testConnection(String host, int port, String userName, String userPassword);
     String sendCommand(String command);
