@@ -1,4 +1,4 @@
-package ftp.client.FTPClient.file.parser;
+package ftp.client.FTPClient.file.parser.list;
 
 import ftp.client.FTPClient.file.FTPFile;
 
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by a.kalenkevich on 22.02.2017.
  */
-public abstract class AbstractFTPDataFileParser implements FTPDataFileParser {
+public abstract class AbstractFTPListFileParser implements FTPListFileParser {
     private Pattern pattern;
     private Matcher matcher;
     private MatchResult result;
@@ -31,7 +31,7 @@ public abstract class AbstractFTPDataFileParser implements FTPDataFileParser {
 
     protected abstract FTPFile parseEntry(String entry);
 
-    public AbstractFTPDataFileParser(String regex, String currentPathName) {
+    public AbstractFTPListFileParser(String regex, String currentPathName) {
         pattern = Pattern.compile(regex);
         this.currentPathName = currentPathName;
     }

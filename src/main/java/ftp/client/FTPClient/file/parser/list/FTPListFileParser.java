@@ -1,4 +1,4 @@
-package ftp.client.FTPClient.file.parser;
+package ftp.client.FTPClient.file.parser.list;
 
 import ftp.client.FTPClient.file.FTPFile;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 
 //TODO add javaDoc
-public interface FTPDataFileParser {
+public interface FTPListFileParser {
     List<FTPFile> parse(List<String> entries);
 }

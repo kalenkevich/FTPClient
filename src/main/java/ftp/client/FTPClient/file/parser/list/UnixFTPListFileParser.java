@@ -1,4 +1,4 @@
-package ftp.client.FTPClient.file.parser;
+package ftp.client.FTPClient.file.parser.list;
 
 import ftp.client.FTPClient.file.FTPFile;
 
@@ -8,8 +8,8 @@ import static ftp.client.FTPClient.Config.UNIX_FILE_STRUCTURE_REGEX;
  * Created by a.kalenkevich on 17.02.2017.
  */
 
-public class UnixFTPDataFileParser extends AbstractFTPDataFileParser {
-    public UnixFTPDataFileParser(String currentPathName) {
+public class UnixFTPListFileParser extends AbstractFTPListFileParser {
+    public UnixFTPListFileParser(String currentPathName) {
         super(UNIX_FILE_STRUCTURE_REGEX, currentPathName);
     }
 

@@ -1,7 +1,7 @@
 package ftp.client.FTPClient.connection;
 
 import ftp.client.FTPClient.file.FTPFile;
-import ftp.client.FTPClient.file.parser.engine.FTPFileParserEngine;
+import ftp.client.FTPClient.file.parser.list.engine.FTPListFileParserEngine;
 import ftp.client.FTPClient.service.FTPReply;
 import org.apache.log4j.Logger;
 
@@ -182,7 +182,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public File retr(String filePath) throws IOException {
-        sendCommand("PORT");
+        sendCommand("PASV");
         Socket dataSocket = getDataSocket();
 
         String response;
@@ -270,11 +270,11 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public synchronized List<FTPFile> list(String pathname) throws IOException {
+    public synchronized List<FTPFile> list(String pathName) throws IOException {
         sendCommand("PASV");
         Socket dataSocket = getDataSocket();
 
-        sendCommand("LIST " + pathname);
+        sendCommand("LIST " + pathName);
         String response = readLine();
 
         if (!response.startsWith ("150 ")) {
@@ -282,7 +282,7 @@ public class SimpleFTPConnection implements FTPConnection {
                     + response);
         }
 
-        FTPFileParserEngine engine = new FTPFileParserEngine(dataSocket.getInputStream(), pathname);
+        FTPListFileParserEngine engine = new FTPListFileParserEngine(dataSocket.getInputStream(), pathName);
         List<FTPFile> ftpFiles = engine.getFiles();
 
         dataSocket.close();
@@ -293,7 +293,23 @@ public class SimpleFTPConnection implements FTPConnection {
     //TODO IMPLEMENT
     @Override
     public List<FTPFile> nlst(String pathName) throws IOException {
-        return null;
+        sendCommand("PASV");
+        Socket dataSocket = getDataSocket();
+
+        sendCommand("NLST " + pathName);
+        String response = readLine();
+
+        if (!response.startsWith ("150 ")) {
+            throw new IOException("SimpleFTP was not allowed to send the file: "
+                    + response);
+        }
+
+        FTPListFileParserEngine engine = new FTPListFileParserEngine(dataSocket.getInputStream(), pathName);
+        List<FTPFile> ftpFiles = engine.getFiles();
+
+        dataSocket.close();
+
+        return ftpFiles;
     }
 
     @Override

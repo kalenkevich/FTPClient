@@ -1,8 +1,8 @@
-package ftp.client.FTPClient.file.parser.engine;
+package ftp.client.FTPClient.file.parser.list.engine;
 
 import ftp.client.FTPClient.file.FTPFile;
-import ftp.client.FTPClient.file.parser.FTPDataFileParser;
-import ftp.client.FTPClient.file.parser.UnixFTPDataFileParser;
+import ftp.client.FTPClient.file.parser.list.FTPListFileParser;
+import ftp.client.FTPClient.file.parser.list.UnixFTPListFileParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,16 +16,12 @@ import static ftp.client.FTPClient.Config.DATA_TYPE_TEXT;
 /**
  * Created by a.kalenkevich on 22.02.2017.
  */
-public class FTPFileParserEngine {
+public class FTPListFileParserEngine {
     private InputStream inputStream;
-    private FTPDataFileParser ftpDataFileParser;
+    private FTPListFileParser ftpListFileParser;
     private String currentPathName;
 
-    public FTPFileParserEngine(InputStream inputStream) {
-        this(inputStream, DATA_TYPE_TEXT);
-    }
-
-    public FTPFileParserEngine(InputStream inputStream, String currentPathName) {
+    public FTPListFileParserEngine(InputStream inputStream, String currentPathName) {
         this.inputStream = inputStream;
         this.currentPathName = currentPathName;
 
@@ -34,13 +30,13 @@ public class FTPFileParserEngine {
 
     //TODO IMPLEMENT FACTORY
     private void initializeFTPFileDataParser() {
-        ftpDataFileParser = new UnixFTPDataFileParser(currentPathName);
+        ftpListFileParser = new UnixFTPListFileParser(currentPathName);
     }
 
     public List<FTPFile> getFiles() throws IOException {
         List<String> entries = getEntries();
 
-        return ftpDataFileParser.parse(entries);
+        return ftpListFileParser.parse(entries);
     }
 
     private List<String> getEntries() throws IOException {
