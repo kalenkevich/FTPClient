@@ -135,11 +135,11 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public boolean createFile(File file) {
+    public boolean createFile(File file, String path) {
         boolean successResult = false;
 
         try {
-            successResult = ftpConnection.stor(file);
+            successResult = ftpConnection.stor(file, path);
         } catch (IOException e) {
             logger.error(e);
         }
@@ -148,10 +148,10 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public File getFile(FTPFile ftpFile) {
+    public File getFile(String fileName) {
         File file = null;
         try {
-            file = ftpConnection.retr(ftpFile.getPath());
+            file = ftpConnection.retr(fileName);
         } catch (IOException e) {
             logger.error(e);
         }

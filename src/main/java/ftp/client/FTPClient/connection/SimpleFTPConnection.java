@@ -149,14 +149,14 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public synchronized boolean stor(File file) throws IOException {
+    public synchronized boolean stor(File file, String path) throws IOException {
         if (file.isDirectory()) {
             throw new IOException("SimpleFTP cannot upload a directory.");
         }
 
-        String filename = file.getName();
+        String newFilePath = path + "/" + file.getName();
 
-        return stor(new FileInputStream(file), filename);
+        return stor(new FileInputStream(file), newFilePath);
     }
 
     @Override
@@ -183,6 +183,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
         while ((bytesRead = input.read(buffer)) != -1) {
             output.write(bytesRead);
+            output.flush();
         }
         input.close();
         output.close();
@@ -207,8 +208,8 @@ public class SimpleFTPConnection implements FTPConnection {
         int bytesRead = 0;
         while ((bytesRead = fileInput.read(buffer)) != -1) {
             output.write(buffer, 0, bytesRead);
+            output.flush();
         }
-        output.flush();
         output.close();
         fileInput.close();
 

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class RemoteFileSystemService implements FileSystemService {
     private FTPClient ftpClient;
     private Logger logger = Logger.getLogger(RemoteFileSystemService.class);
+    private String currentDirectory;
 
     public RemoteFileSystemService(FTPClient ftpClient) {
         this.ftpClient = ftpClient;
@@ -25,6 +26,7 @@ public class RemoteFileSystemService implements FileSystemService {
 
     @Override
     public List<FileItem> getFilesFromDirectory(String directoryName) {
+        currentDirectory = directoryName;
         List<FTPFile> ftpFiles = ftpClient.getDirectoryFiles(directoryName);
         List<FileItem> fileItems = new ArrayList<>();
         for (FTPFile ftpFile: ftpFiles) {
@@ -66,7 +68,7 @@ public class RemoteFileSystemService implements FileSystemService {
     public void addFile(FileItem fileItem) {
         try {
             File file = fileItem.getFile();
-            ftpClient.createFile(file);
+            ftpClient.createFile(file, currentDirectory);
         } catch (Exception e) {
             logger.error(e);
         }

@@ -19,8 +19,8 @@ public interface FTPClient {
     List<FTPFile> getDirectoryFiles(String path);
     boolean renameFile(FTPFile file, String newName);
     boolean deleteFile(FTPFile file);
-    boolean createFile(File file);
-    File getFile(FTPFile file);
+    boolean createFile(File file, String path);
+    File getFile(String fileName);
     boolean changeDirectory(String path);
     boolean abort();
     String getRootDirectoryName(String path);
