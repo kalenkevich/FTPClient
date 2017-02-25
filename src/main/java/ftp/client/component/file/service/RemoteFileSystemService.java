@@ -7,6 +7,7 @@ import ftp.client.component.file.FileItem;
 import ftp.client.component.file.RemoteFileItem;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,10 +63,10 @@ public class RemoteFileSystemService implements FileSystemService {
     }
 
     @Override
-    public void addFile(FileItem file) {
+    public void addFile(FileItem fileItem) {
         try {
-            FTPFile ftpFile = getFTPFile(file);
-            ftpClient.createFile(ftpFile.getFile());
+            File file = fileItem.getFile();
+            ftpClient.createFile(file);
         } catch (Exception e) {
             logger.error(e);
         }

@@ -141,7 +141,11 @@ public class SimpleFTPConnection implements FTPConnection {
     //TODO IMPLEMENT
     @Override
     public boolean port() throws IOException {
-        return false;
+        sendCommand("PORT");
+        String response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        return FTPReply.isPositiveCompletion(statusCode);
     }
 
     @Override
@@ -155,23 +159,48 @@ public class SimpleFTPConnection implements FTPConnection {
         return stor(new FileInputStream(file), filename);
     }
 
-    //TODO IMPLEMENT
     @Override
     public File retr(String fileName) throws IOException {
-        return null;
+        sendCommand("PORT");
+        Socket dataSocket = getDataSocket();
+
+        String fullPath = pwd() + "/" + fileName;
+        String response;
+        sendCommand("RETR " + fullPath);
+        response = readLine();
+        int statusCode  = getStatusCode(response);
+
+        if (statusCode != 150) {
+            throw new IOException("Unable to download file from the remote server");
+        }
+
+        File file = new File(fileName);
+        BufferedInputStream input = new BufferedInputStream(dataSocket.getInputStream());
+        BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file));
+
+        byte[] buffer = new byte[4096];
+        int bytesRead = 0;
+
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(bytesRead);
+        }
+        input.close();
+        output.close();
+
+        return file;
     }
 
-    public synchronized boolean stor(InputStream inputStream, String filename)
-            throws IOException {
-
+    public synchronized boolean stor(InputStream inputStream, String filename) throws IOException {
         BufferedInputStream fileInput = new BufferedInputStream(inputStream);
         sendCommand("PASV");
+
         Socket dataSocket = getDataSocket();
         sendCommand("STOR " + filename);
         String response = readLine();
-        if (!response.startsWith ("125 ")) {
-            throw new IOException("SimpleFTP was not allowed to send the file: "
-                    + response);
+        int statusCode  = getStatusCode(response);
+
+        if (statusCode != 150) {
+            throw new IOException("SimpleFTP was not allowed to send the file: " + response);
         }
         BufferedOutputStream output = new BufferedOutputStream(dataSocket.getOutputStream());
         byte[] buffer = new byte[4096];
@@ -184,7 +213,7 @@ public class SimpleFTPConnection implements FTPConnection {
         fileInput.close();
 
         response = readLine();
-        int statusCode  = getStatusCode(response);
+        statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
