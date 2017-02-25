@@ -7,9 +7,11 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseUnsignedInt;
 
 /**
  * Created by a.kalenkevich on 16.02.2017.
@@ -20,6 +22,8 @@ public class SimpleFTPConnection implements FTPConnection {
     private BufferedReader reader;
     private BufferedWriter writer;
     private static final int MAX_CONNECTION_ATTEMPTS = 5;
+    private String currentUserName;
+    private String currentUserPassword;
 
     public SimpleFTPConnection () {
         logger = Logger.getLogger(SimpleFTPConnection.class);
@@ -53,6 +57,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean user(String userName) throws IOException {
+        currentUserName = userName;
         sendCommand("USER " + userName);
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -62,6 +67,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean pass(String pass) throws IOException {
+        currentUserPassword = pass;
         sendCommand("PASS " + pass);
         String response = readLine();
         int statusCode  = getStatusCode(response);
@@ -91,10 +97,26 @@ public class SimpleFTPConnection implements FTPConnection {
         return true;
     }
 
-    //TODO IMPLEMENT
     @Override
     public boolean rein() throws IOException {
-        return false;
+        return rein(currentUserName, currentUserPassword);
+    }
+
+    @Override
+    public boolean rein(String userName, String userPassword) throws IOException {
+        sendCommand("REIN");
+        String response = readLine();
+
+        int statusCode = getStatusCode(response);
+        if (statusCode != 200) {
+            throw new IOException("Can't reconnect to server");
+        }
+        boolean success = user(userName);
+        if (success) {
+            success = pass(userPassword);
+        }
+
+        return success;
     }
 
     @Override
@@ -138,7 +160,6 @@ public class SimpleFTPConnection implements FTPConnection {
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    //TODO IMPLEMENT
     @Override
     public boolean port() throws IOException {
         sendCommand("PORT");
@@ -160,13 +181,13 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public File retr(String fileName) throws IOException {
+    public File retr(String filePath) throws IOException {
         sendCommand("PORT");
         Socket dataSocket = getDataSocket();
 
-        String fullPath = pwd() + "/" + fileName;
         String response;
-        sendCommand("RETR " + fullPath);
+        sendCommand("RETR " + filePath);
+
         response = readLine();
         int statusCode  = getStatusCode(response);
 
@@ -174,7 +195,7 @@ public class SimpleFTPConnection implements FTPConnection {
             throw new IOException("Unable to download file from the remote server");
         }
 
-        File file = new File(fileName);
+        File file = new File(filePath);
         BufferedInputStream input = new BufferedInputStream(dataSocket.getInputStream());
         BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file));
 
@@ -198,7 +219,7 @@ public class SimpleFTPConnection implements FTPConnection {
         Socket dataSocket = getDataSocket();
         sendCommand("STOR " + filename);
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         if (statusCode != 150) {
             throw new IOException("SimpleFTP was not allowed to send the file: " + response);
@@ -223,7 +244,7 @@ public class SimpleFTPConnection implements FTPConnection {
     public boolean cdup() throws IOException {
         sendCommand("CDUP");
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -243,7 +264,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("CWD " + dir);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -280,7 +301,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("MKD " + path);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -290,7 +311,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("RMD " + path);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -300,7 +321,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("ABOR");
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -310,28 +331,55 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("DELE " + filename);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
-    //TODO IMPLEMENT
     @Override
-    public String mdtm(String fileName) throws IOException {
-        return null;
+    public Date mdtm(String fileName) throws IOException {
+        sendCommand("MDTM " + fileName);
+        String response = readLine();
+        int statusCode = getStatusCode(response);
+        Date date;
+
+        if (statusCode == 213) {
+            int year = parseInt(response.substring(4, 8));
+            int month = parseInt(response.substring(8, 10));
+            int day = parseInt(response.substring(10, 12));
+            int hour = parseInt(response.substring(12, 14));
+            int minute = parseInt(response.substring(14, 16));
+            int second = parseInt(response.substring(16, 18));
+            date = new Date(year, month, day, hour, minute, second);
+        } else {
+            throw new IOException("");
+        }
+
+        return date;
     }
 
-    //TODO IMPLEMENT
     @Override
     public int size(String fileName) throws IOException {
-        return 0;
+        sendCommand("SIZE " + fileName);
+        String response = readLine();
+        int statusCode = getStatusCode(response);
+        int fileSize = -1;
+
+        if (statusCode == 213) {
+            fileSize = parseInt(response.substring(4, response.length()));
+        } else {
+            throw new IOException("");
+        }
+
+        return fileSize;
     }
 
     @Override
     public String syst() throws IOException {
         sendCommand("SYST");
+        String response = readLine();
 
-        return readLine();
+        return response;
     }
 
     @Override
@@ -339,17 +387,17 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("TYPE " + type);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
 
     @Override
     public synchronized boolean site(String arguments) throws IOException {
-        sendCommand("SITE" + arguments);
+        sendCommand("SITE " + arguments);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -359,7 +407,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("RNFR " + fileName);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -369,7 +417,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("RNTO " + fileName);
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -379,7 +427,7 @@ public class SimpleFTPConnection implements FTPConnection {
         sendCommand("NOOP");
 
         String response = readLine();
-        int statusCode  = getStatusCode(response);
+        int statusCode = getStatusCode(response);
 
         return FTPReply.isPositiveCompletion(statusCode);
     }
@@ -388,7 +436,7 @@ public class SimpleFTPConnection implements FTPConnection {
     public String readResponse() throws IOException {
         StringBuilder response = new StringBuilder();
         String line = readLine();
-        int statusCode  = getStatusCode(line);
+        int statusCode = getStatusCode(line);
 
         while (statusCode != 214) {
             response.append(line).append('\n');

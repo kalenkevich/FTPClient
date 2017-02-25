@@ -2312,3 +2312,271 @@
 2017-02-25 08:56:29 INFO  SimpleFTPClient:450 - < 250 CWD successful. "/education" is current directory.
 2017-02-25 08:56:29 INFO  SimpleFTPClient:409 - > PWD
 2017-02-25 08:56:29 INFO  SimpleFTPClient:450 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:00:15 INFO  SimpleFTPClient:409 - > DELE //education/05ca318f1c9e.png
+2017-02-25 09:00:15 INFO  SimpleFTPClient:450 - < 257 "/" is current directory.
+2017-02-25 09:00:15 ERROR SimpleFTPClient:100 - java.net.SocketException: Software caused connection abort: socket write error
+2017-02-25 09:00:15 ERROR SimpleFTPClient:200 - java.io.IOException: SimpleFTP is not connected.
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:435 - > USER user
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 331 Password required for user
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:435 - > PASS user
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 230 Logged on
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:435 - > NOOP
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:476 - < 200 OK
+2017-02-25 09:33:00 INFO  SimpleFTPConnection:435 - > QUIT
+2017-02-25 09:33:00 INFO  SimpleFTPClient:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:33:00 INFO  SimpleFTPClient:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:33:00 INFO  SimpleFTPClient:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:33:00 INFO  SimpleFTPClient:435 - > USER user
+2017-02-25 09:33:00 INFO  SimpleFTPClient:476 - < 331 Password required for user
+2017-02-25 09:33:00 INFO  SimpleFTPClient:435 - > PASS user
+2017-02-25 09:33:00 INFO  SimpleFTPClient:476 - < 230 Logged on
+2017-02-25 09:33:18 INFO  SimpleFTPClient:435 - > REIN
+2017-02-25 09:33:19 INFO  SimpleFTPClient:476 - < 500 Syntax error, command unrecognized.
+2017-02-25 09:33:27 ERROR SimpleFTPClient:302 - java.io.IOException: Can't reconnect to server
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:435 - > USER user
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 331 Password required for user
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:435 - > PASS user
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 230 Logged on
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:435 - > NOOP
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:476 - < 200 OK
+2017-02-25 09:41:55 INFO  SimpleFTPConnection:435 - > QUIT
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > USER user
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 331 Password required for user
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > PASS user
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 230 Logged on
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > REIN
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 500 Syntax error, command unrecognized.
+2017-02-25 09:41:55 ERROR SimpleFTPClient:305 - java.io.IOException: Can't reconnect to server
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,214,48)
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:41:55 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:41:55 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:00 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,243,186)
+2017-02-25 09:42:00 INFO  SimpleFTPClient:435 - > LIST //anjular2Example
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/anjular2Example"
+2017-02-25 09:42:00 INFO  SimpleFTPClient:435 - > CWD //anjular2Example
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/anjular2Example"
+2017-02-25 09:42:00 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/anjular2Example" is current directory.
+2017-02-25 09:42:00 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:00 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:01 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,201,134)
+2017-02-25 09:42:01 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:01 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:01 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:01 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:01 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:02 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,232,135)
+2017-02-25 09:42:02 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:02 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:02 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:02 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:02 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:10 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,237,185)
+2017-02-25 09:42:10 INFO  SimpleFTPClient:435 - > LIST //civ
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/civ"
+2017-02-25 09:42:10 INFO  SimpleFTPClient:435 - > CWD //civ
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/civ"
+2017-02-25 09:42:10 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/civ" is current directory.
+2017-02-25 09:42:10 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:10 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:13 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,193,253)
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > STOR //civ/582f5e280588.jpg
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 150 Opening data channel for file upload to server of "/civ/582f5e280588.jpg"
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/civ/582f5e280588.jpg"
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,212,59)
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > LIST //civ
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/civ"
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > CWD //civ
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/civ"
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/civ" is current directory.
+2017-02-25 09:42:14 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:14 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:16 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,197,121)
+2017-02-25 09:42:16 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:16 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:16 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:16 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:16 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:18 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,253,104)
+2017-02-25 09:42:18 INFO  SimpleFTPClient:435 - > LIST //drivers
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/drivers"
+2017-02-25 09:42:18 INFO  SimpleFTPClient:435 - > CWD //drivers
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/drivers"
+2017-02-25 09:42:18 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/drivers" is current directory.
+2017-02-25 09:42:18 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:18 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:19 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,200,231)
+2017-02-25 09:42:19 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:19 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:19 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:19 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:19 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:21 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,217,240)
+2017-02-25 09:42:21 INFO  SimpleFTPClient:435 - > LIST //education
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/education"
+2017-02-25 09:42:21 INFO  SimpleFTPClient:435 - > CWD //education
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/education"
+2017-02-25 09:42:21 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/education" is current directory.
+2017-02-25 09:42:21 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:21 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:22 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,208,136)
+2017-02-25 09:42:22 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:22 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:22 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:22 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:22 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:24 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,253,183)
+2017-02-25 09:42:24 INFO  SimpleFTPClient:435 - > LIST //civ
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/civ"
+2017-02-25 09:42:24 INFO  SimpleFTPClient:435 - > CWD //civ
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/civ"
+2017-02-25 09:42:24 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/civ" is current directory.
+2017-02-25 09:42:24 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:24 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:42:26 INFO  SimpleFTPClient:435 - > PASV
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 257 "/" is current directory.
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 227 Entering Passive Mode (127,0,0,1,209,60)
+2017-02-25 09:42:26 INFO  SimpleFTPClient:435 - > LIST /
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:42:26 INFO  SimpleFTPClient:435 - > CWD /
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 226 Successfully transferred "/"
+2017-02-25 09:42:26 INFO  SimpleFTPClient:435 - > CDUP
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:42:26 INFO  SimpleFTPClient:435 - > PWD
+2017-02-25 09:42:26 INFO  SimpleFTPClient:476 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:435 - > USER user
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 331 Password required for user
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:435 - > PASS user
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 230 Logged on
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:435 - > NOOP
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:476 - < 200 OK
+2017-02-25 09:44:56 INFO  SimpleFTPConnection:435 - > QUIT
+2017-02-25 09:44:56 INFO  SimpleFTPClient:476 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:44:56 INFO  SimpleFTPClient:476 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:44:56 INFO  SimpleFTPClient:476 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:44:56 INFO  SimpleFTPClient:435 - > USER user
+2017-02-25 09:44:56 INFO  SimpleFTPClient:476 - < 331 Password required for user
+2017-02-25 09:44:56 INFO  SimpleFTPClient:435 - > PASS user
+2017-02-25 09:44:56 INFO  SimpleFTPClient:476 - < 230 Logged on
+2017-02-25 09:45:17 INFO  SimpleFTPClient:435 - > MDTM NFc1CXK.jpg
+2017-02-25 09:45:29 INFO  SimpleFTPClient:476 - < 213 20150807094330
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:448 - > USER user
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 331 Password required for user
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:448 - > PASS user
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 230 Logged on
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:448 - > NOOP
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:489 - < 200 OK
+2017-02-25 09:56:24 INFO  SimpleFTPConnection:448 - > QUIT
+2017-02-25 09:56:24 INFO  SimpleFTPClient:489 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 09:56:24 INFO  SimpleFTPClient:489 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 09:56:24 INFO  SimpleFTPClient:489 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 09:56:25 INFO  SimpleFTPClient:448 - > USER user
+2017-02-25 09:56:25 INFO  SimpleFTPClient:489 - < 331 Password required for user
+2017-02-25 09:56:25 INFO  SimpleFTPClient:448 - > PASS user
+2017-02-25 09:56:25 INFO  SimpleFTPClient:489 - < 230 Logged on
+2017-02-25 09:56:25 INFO  SimpleFTPClient:448 - > MDTM NFc1CXK.jpg
+2017-02-25 09:56:25 INFO  SimpleFTPClient:489 - < 213 20150807094330
+2017-02-25 09:56:42 INFO  SimpleFTPClient:448 - > PASV
+2017-02-25 09:56:42 INFO  SimpleFTPClient:489 - < 227 Entering Passive Mode (127,0,0,1,193,132)
+2017-02-25 09:56:42 INFO  SimpleFTPClient:448 - > LIST /
+2017-02-25 09:56:42 INFO  SimpleFTPClient:489 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 09:56:42 INFO  SimpleFTPClient:448 - > CWD /
+2017-02-25 09:56:42 INFO  SimpleFTPClient:489 - < 226 Successfully transferred "/"
+2017-02-25 09:56:42 INFO  SimpleFTPClient:448 - > CDUP
+2017-02-25 09:56:42 INFO  SimpleFTPClient:489 - < 250 CWD successful. "/" is current directory.
+2017-02-25 09:56:42 INFO  SimpleFTPClient:448 - > PWD
+2017-02-25 09:56:42 INFO  SimpleFTPClient:489 - < 200 CDUP successful. "/" is current directory.
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:457 - > USER user
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 331 Password required for user
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:457 - > PASS user
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 230 Logged on
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:457 - > NOOP
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:498 - < 200 OK
+2017-02-25 10:00:52 INFO  SimpleFTPConnection:457 - > QUIT
+2017-02-25 10:00:52 INFO  SimpleFTPClient:498 - < 220-FileZilla Server 0.9.59 beta
+2017-02-25 10:00:52 INFO  SimpleFTPClient:498 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-02-25 10:00:52 INFO  SimpleFTPClient:498 - < 220 Please visit https://filezilla-project.org/
+2017-02-25 10:00:52 INFO  SimpleFTPClient:457 - > USER user
+2017-02-25 10:00:52 INFO  SimpleFTPClient:498 - < 331 Password required for user
+2017-02-25 10:00:52 INFO  SimpleFTPClient:457 - > PASS user
+2017-02-25 10:00:52 INFO  SimpleFTPClient:498 - < 230 Logged on
+2017-02-25 10:00:55 INFO  SimpleFTPClient:457 - > SIZE Olifer_V_G__Olifer_N_A_-_Kompyuternye_seti_P.pdf
+2017-02-25 10:00:55 INFO  SimpleFTPClient:498 - < 213 95636443
+2017-02-25 10:01:03 INFO  SimpleFTPClient:457 - > PASV
+2017-02-25 10:01:03 INFO  SimpleFTPClient:498 - < 227 Entering Passive Mode (127,0,0,1,193,119)
+2017-02-25 10:01:03 INFO  SimpleFTPClient:457 - > LIST /
+2017-02-25 10:01:03 INFO  SimpleFTPClient:498 - < 150 Opening data channel for directory listing of "/"
+2017-02-25 10:01:03 INFO  SimpleFTPClient:457 - > CWD /
+2017-02-25 10:01:03 INFO  SimpleFTPClient:498 - < 226 Successfully transferred "/"
+2017-02-25 10:01:03 INFO  SimpleFTPClient:457 - > CDUP
+2017-02-25 10:01:03 INFO  SimpleFTPClient:498 - < 250 CWD successful. "/" is current directory.
+2017-02-25 10:01:03 INFO  SimpleFTPClient:457 - > PWD
+2017-02-25 10:01:03 INFO  SimpleFTPClient:498 - < 200 CDUP successful. "/" is current directory.

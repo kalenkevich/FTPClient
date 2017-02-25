@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -148,8 +149,36 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public File getFile(String fileName) {
+    public Date getFileModificationTime(FTPFile ftpFile) {
+        Date modificationTime = null;
+
+        try {
+            modificationTime = ftpConnection.mdtm(ftpFile.getPath());
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return modificationTime;
+    }
+
+    @Override
+    public int getFileSize(FTPFile ftpFile) {
+        int fileSize = -1;
+
+        try {
+            fileSize = ftpConnection.size(ftpFile.getPath());
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return fileSize;
+    }
+
+    @Override
+    public File getFile(FTPFile ftpFile) {
+        String fileName = ftpFile.getPath();
         File file = null;
+
         try {
             file = ftpConnection.retr(fileName);
         } catch (IOException e) {
@@ -160,11 +189,12 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public boolean changeDirectory(String path) {
+    public boolean changeDirectory(FTPFile ftpFile) {
+        String fileName = ftpFile.getPath();
         boolean successResult = false;
 
         try {
-            successResult = ftpConnection.cwd(path);
+            successResult = ftpConnection.cwd(fileName);
         } catch (IOException e) {
             logger.error(e);
         }
@@ -266,10 +296,17 @@ public class SimpleFTPClient implements FTPClient {
         return logger;
     }
 
-    private void reconnect() {
-        disconnect();
-        connect(host, port);
-        login(userName, userPassword);
+    @Override
+    public boolean reconnect() {
+        boolean success = false;
+
+        try {
+            success = ftpConnection.rein();
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return success;
     }
 
     public FTPConnection getFtpConnection() {

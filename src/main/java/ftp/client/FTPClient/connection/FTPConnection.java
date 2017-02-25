@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public interface FTPConnection {
     boolean pass(String pass) throws IOException;
     boolean quit() throws IOException;
     boolean rein() throws  IOException;
+    boolean rein(String userName, String userPassword) throws  IOException;
     boolean disconnect() throws IOException;
     String pwd() throws IOException;
     boolean epsv() throws IOException;
@@ -35,7 +37,7 @@ public interface FTPConnection {
     boolean rnfr(String fileName) throws IOException;
     boolean rnto(String fileName) throws IOException;
     boolean dele(String filename) throws IOException;
-    String mdtm(String fileName) throws IOException;
+    Date mdtm(String fileName) throws IOException;
     int size(String fileName) throws IOException;
     String syst() throws IOException;
     boolean type(char type) throws IOException;
