@@ -2,6 +2,8 @@ package ftp.client.component.file;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 /**
  * Created by a.kalenkevich on 16.02.2017.
  */
@@ -41,5 +43,15 @@ public class SpecialFileItem implements FileItem {
     @Override
     public String getDescription() {
         return "";
+    }
+
+    @Override
+    public File getFile() {
+        return null;
+    }
+
+    @Override
+    public void setFile(File file) {
+
     }
 }

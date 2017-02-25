@@ -76,14 +76,14 @@ public class LocalFileSystemService implements FileSystemService {
     public void addFile(FileItem fileItem) {
         File file = null;
         try {
-            file = getFile(fileItem);
+            file = fileItem.getFile();
         } catch (Exception e) {
             logger.error(e);
         }
         try {
             file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

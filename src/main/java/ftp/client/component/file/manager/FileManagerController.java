@@ -29,8 +29,12 @@ public class FileManagerController implements Controller {
     private List<FileItem> fileItems;
     private FileSystemService fileSystemService;
     private List<TableEventListener> tableEventListeners;
+    private List<Object> selectedItems;
+
     @FXML
     private TableView table;
+    @FXML
+    private Button cutButton;
     @FXML
     private Button copyButton;
     @FXML
@@ -44,9 +48,11 @@ public class FileManagerController implements Controller {
     public void init() {
         fileItems = new ArrayList<>();
         tableEventListeners = new ArrayList<>();
+        selectedItems = new ArrayList();
         initTable();
         initColumns();
         initEvents();
+        updateButtonsDisabledState();
     }
 
     private void initTable() {
@@ -150,7 +156,31 @@ public class FileManagerController implements Controller {
         update();
     }
 
+    private void addFile(Object selectedItem) {
+        FileItem fileItem = (FileItem) selectedItem;
+        fileSystemService.addFile(fileItem);
+        update();
+    }
+
+    private void updateButtonsDisabledState() {
+        boolean disabledState = true;
+        if (selectedItems.size() != 0) {
+            disabledState = false;
+        }
+        cutButton.setDisable(disabledState);
+        copyButton.setDisable(disabledState);
+        deleteButton.setDisable(disabledState);
+        updatePasteButtonDisabledState(true);
+    }
+
+    public void updatePasteButtonDisabledState(boolean state) {
+        pasteButton.setDisable(state);
+    }
+
     private void notifyAboutSelectAction(List<Object> selectedItems) {
+        this.selectedItems = selectedItems;
+        updateButtonsDisabledState();
+
         for (TableEventListener tableEventListener : tableEventListeners) {
             tableEventListener.onSelect(selectedItems, this);
         }
@@ -159,6 +189,18 @@ public class FileManagerController implements Controller {
     private void notifyAboutDragAction(Object selectedItem) {
         for (TableEventListener tableEventListener : tableEventListeners) {
             tableEventListener.onDrag(selectedItem, this);
+        }
+    }
+
+    private void notifyAboutCopyAction(List<Object> selectedItems) {
+        for (TableEventListener tableEventListener : tableEventListeners) {
+            tableEventListener.onCopy(selectedItems, this);
+        }
+    }
+
+    private void notifyAboutCutAction(List<Object> selectedItems) {
+        for (TableEventListener tableEventListener : tableEventListeners) {
+            tableEventListener.onCut(selectedItems, this);
         }
     }
 
@@ -197,19 +239,35 @@ public class FileManagerController implements Controller {
         this.tableEventListeners.add(tableEventListener);
     }
 
-    public void copyAction(ActionEvent actionEvent) {
+    public void cutAction(ActionEvent actionEvent) {
+        notifyAboutCutAction(selectedItems);
+    }
 
+    public void copyAction(ActionEvent actionEvent) {
+        notifyAboutCopyAction(selectedItems);
     }
 
     public void pasteAction(ActionEvent actionEvent) {
+        List<Object> objectsToPaste = new ArrayList<>();
+        for (TableEventListener tableEventListener: tableEventListeners) {
+            List<Object> objects = tableEventListener.getItemsToCopy();
+            for (Object object: objects) {
+                objectsToPaste.add(object);
+            }
+        }
 
+        for (Object object: objectsToPaste) {
+            addFile(object);
+        }
     }
 
     public void deleteAction(ActionEvent actionEvent) {
-
+        for (Object selectedItem: selectedItems) {
+            deleteFile(selectedItem);
+        }
     }
 
     public void refreshAction(ActionEvent actionEvent) {
-
+        update();
     }
 }

@@ -22,8 +22,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,10 +45,12 @@ public class TabWindowController implements Controller, TableEventListener {
     private FTPClient ftpClient;
     private static Logger logger = Logger.getLogger(TabWindowController.class);
     private String name;
+    private List<Object> items;
 
     @Override
     public void init() {
         ftpClient = new SimpleFTPClient();
+        items = new ArrayList<>();
         insertElements();
         setupNewFTPClient();
         setDefaults();
@@ -140,23 +144,49 @@ public class TabWindowController implements Controller, TableEventListener {
         this.name = name;
     }
 
+    private void notifyOtherFileManagersAboutCopyAction(List<Object> copiedItems, FileManagerController fileManagerController) {
+        items = copiedItems;
+        FileManagerController managerToNotify = fileManagerController == localFileManager ? remoteFileManager : localFileManager;
+        managerToNotify.updatePasteButtonDisabledState(false);
+    }
+
     @Override
     public void onDrag(Object draggedItem, FileManagerController fileManagerController) {
-        System.out.println("dragged " + draggedItem + " from " + fileManagerController);
+
     }
 
     @Override
     public void onDragExited(Object droppedItem, FileManagerController fileManagerController) {
-        System.out.println("DragExited " + droppedItem + " from " + fileManagerController);
+
     }
 
     @Override
     public void onDragEntered(Object droppedItem, FileManagerController fileManagerController) {
-        System.out.println("DragEntered " + droppedItem + " from " + fileManagerController);
+
     }
 
     @Override
-    public void onSelect(List<Object> droppedItem, FileManagerController fileManagerController) {
+    public void onSelect(List<Object> droppedItems, FileManagerController fileManagerController) {
 
+    }
+
+    @Override
+    public void onCut(List<Object> cutOutItems, FileManagerController fileManagerController) {
+
+    }
+
+    @Override
+    public void onPaste(List<Object> pastedItems, FileManagerController fileManagerController) {
+
+    }
+
+    @Override
+    public void onCopy(List<Object> copiedItems, FileManagerController fileManagerController) {
+        notifyOtherFileManagersAboutCopyAction(copiedItems, fileManagerController);
+    }
+
+    @Override
+    public List<Object> getItemsToCopy() {
+        return items;
     }
 }

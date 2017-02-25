@@ -2,6 +2,8 @@ package ftp.client.component.file;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 /**
  * Created by a.kalenkevich on 08.02.2017.
  */
@@ -15,4 +17,6 @@ public interface FileItem {
     void rename(String name);
     boolean isDirectory();
     String getDescription();
+    File getFile();
+    void setFile(File file);
 }
