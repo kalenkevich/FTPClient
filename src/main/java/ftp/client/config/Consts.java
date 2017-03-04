@@ -7,7 +7,7 @@ public interface Consts {
     String MAIN_VIEW = "view/Main.fxml";
     String POPUP_VIEW = "view/component/popup/AuthorisationPopup.fxml";
     String FILE_MANAGER_VIEW = "view/component/file/FileManager.fxml";
-    String TAB_VIEW = "view/component/tab/Tab.fxml";
+    String TAB_VIEW = "view/component/tab/tab.fxml";
     String COMMAND_LINE_VIEW = "view/component/commandline/CommandLine.fxml";
     String TEXT_BUFFER_VIEW = "view/component/text/buffer/TextBuffer.fxml";
 
