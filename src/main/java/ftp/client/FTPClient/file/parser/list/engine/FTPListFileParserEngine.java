@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ftp.client.FTPClient.Config.DATA_TYPE_TEXT;
-
 /**
  * Created by a.kalenkevich on 22.02.2017.
  */

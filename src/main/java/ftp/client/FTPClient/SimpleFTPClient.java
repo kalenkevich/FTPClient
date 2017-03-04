@@ -271,12 +271,12 @@ public class SimpleFTPClient implements FTPClient {
     @Override
     public String sendCommand(String line) {
         String response = null;
-        try {
-            ftpConnection.sendCommand(line);
-            response = ftpConnection.readResponse();
-        } catch (IOException e) {
-            logger.error(e);
-        }
+//        try {
+//            //ftpConnection.get(line);
+//            //response = ftpConnection.readResponse();
+//        } catch (IOException e) {
+//            logger.error(e);
+//        }
 
         return response;
     }

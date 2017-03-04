@@ -44,7 +44,5 @@ public interface FTPConnection {
     List<FTPFile> list(String pathname) throws IOException;
     List<FTPFile> nlst(String pathName) throws IOException;
     boolean site(String arguments) throws IOException;
-    boolean sendCommand(String command)throws IOException;
-    String readResponse() throws IOException;
     void setLogger(Logger logger);
 }
