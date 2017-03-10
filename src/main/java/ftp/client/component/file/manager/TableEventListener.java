@@ -1,5 +1,6 @@
 package ftp.client.component.file.manager;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -14,4 +15,5 @@ public interface TableEventListener {
     void onPaste(List<Object> droppedItems, FileManagerController fileManagerController);
     void onCopy(List<Object> droppedItems, FileManagerController fileManagerController);
     List<Object> getItemsToCopy();
+    FileManagerController getCopyFileManagerController();
 }

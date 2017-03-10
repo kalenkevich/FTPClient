@@ -27,7 +27,10 @@ public class UnixFTPListFileParser extends AbstractFTPListFileParser {
             String datestr = this.group(19) + " " + this.group(20);
             String name = this.group(21);
             String endtoken = this.group(22);
-            String path = this.currentPathName + '/' + name;
+            String path = name;
+            if (!name.startsWith("/")) {
+                path = this.currentPathName + '/' + name;
+            }
 
             ftpFile = new FTPFile(path);
             ftpFile.setName(name);

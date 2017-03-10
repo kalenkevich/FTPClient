@@ -66,9 +66,10 @@ public class RemoteFileSystemService implements FileSystemService {
     }
 
     @Override
-    public void addFile(FileItem fileItem) {
+    public void addFile(File file) {
+        FTPFile ftpFile = new FTPFile(file.getPath());
+        ftpFile.setFile(file);
         try {
-            File file = fileItem.getFile();
             ftpClient.createFile(file, currentDirectory);
         } catch (Exception e) {
             logger.error(e);
@@ -97,5 +98,19 @@ public class RemoteFileSystemService implements FileSystemService {
         }
 
         throw new Exception("Not Remote file instance of file");
+    }
+
+    public File getFile(FileItem fileItem) {
+        FTPFile ftpFile = null;
+        File file = null;
+        try {
+            ftpFile = getFTPFile(fileItem);
+            file = ftpClient.getFile(ftpFile);
+            ftpFile.setFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return file;
     }
 }

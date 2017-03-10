@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -156,9 +157,10 @@ public class FileManagerController implements Controller {
         update();
     }
 
-    private void addFile(Object selectedItem) {
+    private void addFile(Object selectedItem, FileSystemService fileSystemService) {
         FileItem fileItem = (FileItem) selectedItem;
-        fileSystemService.addFile(fileItem);
+        File file = fileSystemService.getFile(fileItem);
+        fileSystemService.addFile(file);
         update();
     }
 
@@ -247,7 +249,7 @@ public class FileManagerController implements Controller {
         notifyAboutCopyAction(selectedItems);
     }
 
-    public void pasteAction(ActionEvent actionEvent) {
+    public void pasteAction() {
         List<Object> objectsToPaste = new ArrayList<>();
         for (TableEventListener tableEventListener: tableEventListeners) {
             List<Object> objects = tableEventListener.getItemsToCopy();
@@ -256,8 +258,10 @@ public class FileManagerController implements Controller {
             }
         }
 
+        FileSystemService fileSystemService = tableEventListeners.get(0).getCopyFileManagerController().getFileSystemService();
+
         for (Object object: objectsToPaste) {
-            addFile(object);
+            addFile(object, fileSystemService);
         }
     }
 

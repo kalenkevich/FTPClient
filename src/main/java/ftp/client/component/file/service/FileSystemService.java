@@ -1,6 +1,8 @@
 package ftp.client.component.file.service;
 
 import ftp.client.component.file.FileItem;
+
+import java.io.File;
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ public interface FileSystemService {
     List<FileItem> getFilesFromDirectory(String directoryName);
     void renameFile(FileItem file, String name);
     void deleteFile(FileItem file);
-    void addFile(FileItem file);
+    void addFile(File file);
     FileItem getRootFileItem(String path);
+    File getFile(FileItem fileItem);
 }

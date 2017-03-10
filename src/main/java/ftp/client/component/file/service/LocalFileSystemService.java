@@ -73,8 +73,8 @@ public class LocalFileSystemService implements FileSystemService {
     }
 
     @Override
-    public void addFile(FileItem fileItem) {
-        File file = null;
+    public void addFile(File file) {
+        FileItem fileItem = new LocalFileItem(file.getAbsoluteFile());
         try {
             file = fileItem.getFile();
         } catch (Exception e) {
@@ -98,11 +98,12 @@ public class LocalFileSystemService implements FileSystemService {
         return new LocalFileItem(file);
     }
 
-    private File getFile(FileItem fileItem) throws Exception {
+    @Override
+    public File getFile(FileItem fileItem) {
         if (fileItem instanceof LocalFileItem) {
             return ((LocalFileItem)fileItem).getFile();
         }
 
-        throw new Exception("Not Local file instance of file");
+        return null;
     }
 }

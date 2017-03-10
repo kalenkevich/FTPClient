@@ -46,6 +46,7 @@ public class TabWindowController implements Controller, TableEventListener {
     private static Logger logger = Logger.getLogger(TabWindowController.class);
     private String name;
     private List<Object> items;
+    private FileManagerController pastedController;
 
     @Override
     public void init() {
@@ -147,6 +148,7 @@ public class TabWindowController implements Controller, TableEventListener {
     private void notifyOtherFileManagersAboutCopyAction(List<Object> copiedItems, FileManagerController fileManagerController) {
         items = copiedItems;
         FileManagerController managerToNotify = fileManagerController == localFileManager ? remoteFileManager : localFileManager;
+        pastedController = fileManagerController == localFileManager ? localFileManager : remoteFileManager;
         managerToNotify.updatePasteButtonDisabledState(false);
     }
 
@@ -188,5 +190,10 @@ public class TabWindowController implements Controller, TableEventListener {
     @Override
     public List<Object> getItemsToCopy() {
         return items;
+    }
+
+    @Override
+    public FileManagerController getCopyFileManagerController() {
+        return pastedController;
     }
 }
