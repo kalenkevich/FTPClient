@@ -1,4 +1,4 @@
-package ftp.client.component.popup;
+package ftp.client.component.popup.authorisation;
 
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.SimpleFTPClient;
@@ -14,9 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ftp.client.user.User;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by alex on 1/29/2017.

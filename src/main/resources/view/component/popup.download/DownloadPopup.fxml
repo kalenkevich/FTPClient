@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:controller="ftp.client.component.popup.download.DownloadPopupController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ProgressBar fx:id="progressBar" layoutX="26.0" layoutY="77.0" prefHeight="18.0" prefWidth="311.0" progress="0.0" />
+      <Button layoutX="26.0" layoutY="118.0" mnemonicParsing="false" onAction="#onCancelAction" text="Cancel" />
+      <Label fx:id="fileNameLabel" layoutX="26.0" layoutY="45.0" text="Label" />
+      <Label fx:id="fileSizeLabel" layoutX="309.0" layoutY="45.0" text="Label" />
+   </children>
+</Pane>

@@ -9,7 +9,7 @@ import ftp.client.component.file.manager.TableEventListener;
 import ftp.client.component.file.manager.FileManagerController;
 import ftp.client.component.file.service.LocalFileSystemService;
 import ftp.client.component.file.service.RemoteFileSystemService;
-import ftp.client.component.popup.AuthorisationPopupController;
+import ftp.client.component.popup.authorisation.AuthorisationPopupController;
 import ftp.client.component.text.buffer.TextBufferController;
 import ftp.client.config.Consts;
 import ftp.client.controller.Controller;
@@ -22,7 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -98,7 +97,7 @@ public class TabWindowController implements Controller, TableEventListener {
     }
 
     private User showAuthorisationPopup() {
-        Pane view  = (Pane) RouterService.getInstance().getView(Consts.POPUP_VIEW);
+        Pane view  = (Pane) RouterService.getInstance().getView(Consts.AUTHORISATION_POPUP_VIEW);
         AuthorisationPopupController authorisationPopupController = (AuthorisationPopupController) RouterService.getInstance().getController();
         Stage stage = RouterService.getInstance().getPrimaryStage();
         Stage dialogStage = new Stage();

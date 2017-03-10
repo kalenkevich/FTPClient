@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftp.client.component.popup.AuthorisationPopupController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="353.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftp.client.component.popup.authorisation.AuthorisationPopupController">
    <children>
       <Button fx:id="loginButton" defaultButton="true" layoutX="49.0" layoutY="199.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="25.0" prefWidth="71.0" text="Login" />
       <TextField fx:id="passField" layoutX="132.0" layoutY="118.0" text="user" />

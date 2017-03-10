@@ -5,7 +5,8 @@ package ftp.client.config;
  */
 public interface Consts {
     String MAIN_VIEW = "view/Main.fxml";
-    String POPUP_VIEW = "view/component/popup/AuthorisationPopup.fxml";
+    String AUTHORISATION_POPUP_VIEW = "view/component/popup/authorisation/AuthorisationPopup.fxml";
+    String DOWNLOAD_POPUP_VIEW = "view/component/popup/download/DownloadPopup.fxml";
     String FILE_MANAGER_VIEW = "view/component/file/FileManager.fxml";
     String TAB_VIEW = "view/component/tab/tab.fxml";
     String COMMAND_LINE_VIEW = "view/component/commandline/CommandLine.fxml";
