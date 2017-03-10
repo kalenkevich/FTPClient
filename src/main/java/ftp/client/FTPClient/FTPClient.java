@@ -24,7 +24,7 @@ public interface FTPClient {
     boolean createFile(File file, String path);
     Date getFileModificationTime(FTPFile ftpFile);
     int getFileSize(FTPFile ftpFile);
-    File getFile(FTPFile fileName);
+    File getFile(FTPFile ftpFile, String localFilePath);
     boolean changeDirectory(FTPFile path);
     boolean abort();
     String getRootDirectoryName(String path);

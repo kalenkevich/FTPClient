@@ -27,7 +27,7 @@ public interface FTPConnection {
     boolean abor() throws IOException;
     boolean noop() throws IOException;
     boolean stor(File file, String path) throws IOException;
-    File retr(String fileName) throws IOException;
+    File retr(String remoteFilePath, String localFilePath) throws IOException;
     boolean bin() throws IOException;
     boolean ascii() throws IOException;
     boolean cwd(String dir) throws IOException;

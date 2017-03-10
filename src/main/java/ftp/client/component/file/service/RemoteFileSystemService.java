@@ -100,12 +100,12 @@ public class RemoteFileSystemService implements FileSystemService {
         throw new Exception("Not Remote file instance of file");
     }
 
-    public File getFile(FileItem fileItem) {
+    public File getFile(FileItem fileItem, String localFilePath) {
         FTPFile ftpFile = null;
         File file = null;
         try {
             ftpFile = getFTPFile(fileItem);
-            file = ftpClient.getFile(ftpFile);
+            file = ftpClient.getFile(ftpFile, localFilePath);
             ftpFile.setFile(file);
         } catch (Exception e) {
             e.printStackTrace();

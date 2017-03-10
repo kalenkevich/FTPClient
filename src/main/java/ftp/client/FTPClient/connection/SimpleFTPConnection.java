@@ -166,15 +166,15 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public File retr(String filePath) throws IOException {
+    public File retr(String remoteFilePath, String localFilePath) throws IOException {
         Socket dataSocket = getDataSocket();
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.RETR, filePath));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.RETR, remoteFilePath));
 
         if (response.getStatusCode() != 150) {
             throw new IOException("Unable to download file from the remote server");
         }
 
-        File file = new File(filePath);
+        File file = new File(localFilePath);
         BufferedInputStream input = new BufferedInputStream(dataSocket.getInputStream());
         BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file));
 

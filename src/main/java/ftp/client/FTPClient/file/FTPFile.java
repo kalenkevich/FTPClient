@@ -14,7 +14,6 @@ public class FTPFile {
 
     public FTPFile(String path) {
         this.path = path;
-        this.name = path;
     }
 
     public String getName() {

@@ -45,7 +45,7 @@ public class LocalFileSystemService implements FileSystemService {
     public void renameFile(FileItem fileItem, String newName) {
         File file = null;
         try {
-            file = getFile(fileItem);
+            file = getFile(fileItem, null);
         } catch (Exception e) {
             logger.error(e);
         }
@@ -63,7 +63,7 @@ public class LocalFileSystemService implements FileSystemService {
     public void deleteFile(FileItem fileItem) {
         File file = null;
         try {
-            file = getFile(fileItem);
+            file = getFile(fileItem, null);
         } catch (Exception e) {
             logger.error(e);
         }
@@ -99,7 +99,7 @@ public class LocalFileSystemService implements FileSystemService {
     }
 
     @Override
-    public File getFile(FileItem fileItem) {
+    public File getFile(FileItem fileItem, String localFilePath) {
         if (fileItem instanceof LocalFileItem) {
             return ((LocalFileItem)fileItem).getFile();
         }

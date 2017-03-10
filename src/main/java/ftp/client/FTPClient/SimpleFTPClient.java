@@ -175,12 +175,12 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
-    public File getFile(FTPFile ftpFile) {
+    public File getFile(FTPFile ftpFile, String localFilePath) {
         String fileName = ftpFile.getPath();
         File file = null;
 
         try {
-            file = ftpConnection.retr(fileName);
+            file = ftpConnection.retr(fileName, localFilePath);
         } catch (IOException e) {
             logger.error(e);
         }

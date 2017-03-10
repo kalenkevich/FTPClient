@@ -14,5 +14,5 @@ public interface FileSystemService {
     void deleteFile(FileItem file);
     void addFile(File file);
     FileItem getRootFileItem(String path);
-    File getFile(FileItem fileItem);
+    File getFile(FileItem fileItem, String localFilePath);
 }

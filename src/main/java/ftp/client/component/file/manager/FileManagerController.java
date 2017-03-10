@@ -147,7 +147,7 @@ public class FileManagerController implements Controller {
 
     private void changeName(Object selectedItem, String newFileName) {
         FileItem fileItem = (FileItem) selectedItem;
-        fileSystemService.renameFile(fileItem, newFileName);
+        fileSystemService.renameFile(fileItem, currentDirectoryName + "/" + newFileName);
         update();
     }
 
@@ -157,9 +157,9 @@ public class FileManagerController implements Controller {
         update();
     }
 
-    private void addFile(Object selectedItem, FileSystemService fileSystemService) {
+    private void addFile(Object selectedItem, FileSystemService remoteFileSystemService) {
         FileItem fileItem = (FileItem) selectedItem;
-        File file = fileSystemService.getFile(fileItem);
+        File file = remoteFileSystemService.getFile(fileItem, currentDirectoryName + "/" +  fileItem.getName());
         fileSystemService.addFile(file);
         update();
     }
