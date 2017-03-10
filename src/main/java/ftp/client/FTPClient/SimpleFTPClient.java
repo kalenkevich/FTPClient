@@ -32,7 +32,7 @@ public class SimpleFTPClient implements FTPClient {
     private void initDefaultValues() {
         logger = Logger.getLogger(SimpleFTPClient.class);
         ftpConnection = new SimpleFTPConnection();
-        ftpConnection.setLogger(logger);
+        //ftpConnection.setLogger(logger);
         isConnected = false;
         timeToLive = 250;
     }
@@ -294,6 +294,12 @@ public class SimpleFTPClient implements FTPClient {
     @Override
     public Logger getLogger() {
         return logger;
+    }
+
+    @Override
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+        ftpConnection.setLogger(logger);
     }
 
     @Override

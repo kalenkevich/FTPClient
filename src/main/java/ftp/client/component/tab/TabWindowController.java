@@ -90,8 +90,9 @@ public class TabWindowController implements Controller, TableEventListener {
 
         ftpClient.setHost(user.getHostName());
         ftpClient.setPort(user.getPort());
-
-        ftpClient.getLogger().addAppender(new TextFieldLoggerAppender(loggerTextArea));
+        Logger logger = Logger.getLogger(FTPClient.class);
+        logger.addAppender(new TextFieldLoggerAppender(loggerTextArea));
+        ftpClient.setLogger(logger);
         ftpClient.connect(user.getHostName(), user.getPort());
         ftpClient.login(user.getName(), user.getPassword());
     }

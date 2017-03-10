@@ -1,6 +1,7 @@
 package ftp.client.component.file.manager;
 
 import ftp.client.component.file.FileItem;
+import ftp.client.component.file.SpecialFileItem;
 import ftp.client.component.file.service.FileSystemService;
 import ftp.client.controller.Controller;
 
@@ -54,6 +55,7 @@ public class FileManagerController implements Controller {
         initColumns();
         initEvents();
         updateButtonsDisabledState();
+        updatePasteButtonDisabledState(true);
     }
 
     private void initTable() {
@@ -119,6 +121,7 @@ public class FileManagerController implements Controller {
         table.setOnMousePressed(event -> {
             int clickCount = event.getClickCount();
             Object selectedObject = table.getSelectionModel().getSelectedItem();
+            boolean isDirectoryUp = selectedObject.equals(fileItems.get(0));
             if (event.isPrimaryButtonDown()) {
                 if (clickCount == 1) {
                     notifyAboutSelectAction(new ArrayList<>(table.getSelectionModel().getSelectedItems()));
@@ -131,6 +134,12 @@ public class FileManagerController implements Controller {
             Object selectedObject = table.getSelectionModel().getSelectedItem();
             if (event.getCode() == KeyCode.DELETE) {
                 deleteFile(selectedObject);
+            } else if (event.isControlDown() && event.getCode() == KeyCode.C) {
+                notifyAboutCopyAction(table.getSelectionModel().getSelectedItems());
+            } else if (event.isControlDown() && event.getCode() == KeyCode.V) {
+                pasteAction();
+            } else if (event.isControlDown() && event.getCode() == KeyCode.X) {
+                notifyAboutCutAction(table.getSelectionModel().getSelectedItems());
             }
         });
         table.setOnDragDetected(event -> {
@@ -159,9 +168,18 @@ public class FileManagerController implements Controller {
 
     private void addFile(Object selectedItem, FileSystemService remoteFileSystemService) {
         FileItem fileItem = (FileItem) selectedItem;
-        File file = remoteFileSystemService.getFile(fileItem, currentDirectoryName + "/" +  fileItem.getName());
+        String localFilePath = getFilePath(fileItem.getName());
+        File file = remoteFileSystemService.getFile(fileItem, localFilePath);
         fileSystemService.addFile(file);
         update();
+    }
+
+    private String getFilePath(String name) {
+        if (!currentDirectoryName.equals("/")) {
+            return currentDirectoryName + "/" + name;
+        }
+
+        return currentDirectoryName + name;
     }
 
     private void updateButtonsDisabledState() {
@@ -172,7 +190,6 @@ public class FileManagerController implements Controller {
         cutButton.setDisable(disabledState);
         copyButton.setDisable(disabledState);
         deleteButton.setDisable(disabledState);
-        updatePasteButtonDisabledState(true);
     }
 
     public void updatePasteButtonDisabledState(boolean state) {
@@ -217,6 +234,7 @@ public class FileManagerController implements Controller {
     }
     private void updateFileItems() {
         fileItems = fileSystemService.getFilesFromDirectory(currentDirectoryName);
+        //fileItems.add(0);
     }
 
     private void updateTableView() {

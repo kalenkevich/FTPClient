@@ -9,7 +9,7 @@ import org.apache.log4j.spi.LoggingEvent;
  * Created by a.kalenkevich on 08.02.2017.
  */
 public class TextFieldLoggerAppender extends AppenderSkeleton {
-    private javafx.scene.control.TextArea textField;
+    private TextArea textField;
 
     public TextFieldLoggerAppender(TextArea textField) {
         this.textField = textField;
