@@ -25,7 +25,7 @@ public class CommandLineController implements Controller {
     public void sendAction() {
         String command = commandFiled.getText().toUpperCase();
         if (!command.isEmpty()) {
-            ftpClient.sendCommand(command);
+            //ftpClient.sendCommand(command);
             commandFiled.setText("");
         }
     }

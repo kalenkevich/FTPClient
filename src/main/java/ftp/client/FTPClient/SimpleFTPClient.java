@@ -20,8 +20,6 @@ public class SimpleFTPClient implements FTPClient {
     private Logger logger;
     private String host;
     private int port;
-    private String userName;
-    private String userPassword;
     private boolean isConnected;
     private int timeToLive;
 
@@ -32,7 +30,6 @@ public class SimpleFTPClient implements FTPClient {
     private void initDefaultValues() {
         logger = Logger.getLogger(SimpleFTPClient.class);
         ftpConnection = new SimpleFTPConnection();
-        //ftpConnection.setLogger(logger);
         isConnected = false;
         timeToLive = 250;
     }
@@ -59,8 +56,6 @@ public class SimpleFTPClient implements FTPClient {
 
     @Override
     public boolean login(String userName, String password) {
-        this.userName = userName;
-        this.userPassword = password;
         boolean successResult = false;
 
         try {
@@ -266,19 +261,6 @@ public class SimpleFTPClient implements FTPClient {
         }
 
         return connectionReport;
-    }
-
-    @Override
-    public String sendCommand(String line) {
-        String response = null;
-//        try {
-//            //ftpConnection.get(line);
-//            //response = ftpConnection.readResponse();
-//        } catch (IOException e) {
-//            logger.error(e);
-//        }
-
-        return response;
     }
 
     @Override

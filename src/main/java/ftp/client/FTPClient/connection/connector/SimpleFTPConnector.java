@@ -16,7 +16,7 @@ public class SimpleFTPConnector implements FTPConnector {
     private BufferedReader reader;
     private BufferedWriter writer;
     private Socket socket;
-    private Logger logger = Logger.getLogger(SimpleFTPConnector.class);
+    private Logger logger;
 
     public SimpleFTPConnector() {
 

@@ -16,7 +16,9 @@ public class TextBufferController implements Controller {
 
     @Override
     public void init() {
-
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            textArea.setScrollTop(Double.MAX_VALUE);
+        });
     }
 
     public void clearAction() {

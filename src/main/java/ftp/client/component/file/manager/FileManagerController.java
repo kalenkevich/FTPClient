@@ -234,7 +234,6 @@ public class FileManagerController implements Controller {
     }
     private void updateFileItems() {
         fileItems = fileSystemService.getFilesFromDirectory(currentDirectoryName);
-        //fileItems.add(0);
     }
 
     private void updateTableView() {

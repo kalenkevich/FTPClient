@@ -41,6 +41,7 @@ public class SimpleFTPConnection implements FTPConnection {
         }
         socket = new Socket(host, port);
         ftpConnector = new SimpleFTPConnector(socket);
+        ftpConnector.setLogger(logger);
 
         int statusCode = ftpConnector.getResponse().getStatusCode();
         int connectionAttempt = 0;
@@ -50,7 +51,7 @@ public class SimpleFTPConnection implements FTPConnection {
             connectionAttempt++;
         }
 
-        if (statusCode == 220) {
+        if (FTPReply.isPositiveCompletion(statusCode)) {
             return true;
         }
 
@@ -70,7 +71,7 @@ public class SimpleFTPConnection implements FTPConnection {
         currentUserPassword = pass;
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PASS, pass));
 
-        return response.getStatusCode() == 230;
+        return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
 
     @Override
@@ -99,7 +100,7 @@ public class SimpleFTPConnection implements FTPConnection {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.REIN, ""));
 
         int statusCode = response.getStatusCode();
-        if (statusCode != 200) {
+        if (!FTPReply.isPositiveCompletion(statusCode)) {
             throw new IOException("Can't reconnect to server");
         }
         boolean success = user(userName);
@@ -122,7 +123,7 @@ public class SimpleFTPConnection implements FTPConnection {
         int statusCode = response.getStatusCode();
         String data = response.getData();
 
-        if (statusCode == 200) {
+        if (FTPReply.isPositiveCompletion(statusCode)) {
             int firstQuote = data.indexOf('\"');
             int secondQuote = data.indexOf('\"', firstQuote + 1);
             if (secondQuote > 0) {
@@ -170,7 +171,7 @@ public class SimpleFTPConnection implements FTPConnection {
         Socket dataSocket = getDataSocket();
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.RETR, remoteFilePath));
 
-        if (response.getStatusCode() != 150) {
+        if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
             throw new IOException("Unable to download file from the remote server");
         }
 
@@ -196,7 +197,7 @@ public class SimpleFTPConnection implements FTPConnection {
         Socket dataSocket = getDataSocket();
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.STOR, filename));
 
-        if (response.getStatusCode() != 150) {
+        if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
             throw new IOException("SimpleFTP was not allowed to send the file: " + response);
         }
         BufferedOutputStream output = new BufferedOutputStream(dataSocket.getOutputStream());
@@ -241,10 +242,9 @@ public class SimpleFTPConnection implements FTPConnection {
         Socket dataSocket = getDataSocket();
 
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.LIST, pathName));
-        int statusCode = response.getStatusCode();
-        if (statusCode != 150) {
-            throw new IOException("SimpleFTP was not allowed to send the file: "
-                    + response);
+
+        if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
+            throw new IOException("SimpleFTP was not allowed to send the file: " + response);
         }
 
         FTPListFileParserEngine engine = new FTPListFileParserEngine(dataSocket.getInputStream(), pathName);
@@ -261,13 +261,9 @@ public class SimpleFTPConnection implements FTPConnection {
         Socket dataSocket = getDataSocket();
 
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.NLST, pathName));
-        int statusCode = response.getStatusCode();
 
-        if (statusCode != 150) {
-            {
-                throw new IOException("SimpleFTP was not allowed to send the file: "
-                        + response);
-            }
+        if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
+            throw new IOException("SimpleFTP was not allowed to send the file: " + response);
         }
 
         FTPListFileParserEngine engine = new FTPListFileParserEngine(dataSocket.getInputStream(), pathName);
@@ -309,11 +305,10 @@ public class SimpleFTPConnection implements FTPConnection {
     @Override
     public Date mdtm(String fileName) throws IOException {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.CWD, fileName));
-        int statusCode = response.getStatusCode();
         String data = response.getData();
         Date date;
 
-        if (statusCode == 213) {
+        if (FTPReply.isPositiveCompletion(response.getStatusCode())) {
             int year = parseInt(data.substring(4, 8));
             int month = parseInt(data.substring(8, 10));
             int day = parseInt(data.substring(10, 12));
@@ -331,11 +326,10 @@ public class SimpleFTPConnection implements FTPConnection {
     @Override
     public int size(String fileName) throws IOException {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.SIZE, fileName));
-        int statusCode = response.getStatusCode();
         String data = response.getData();
         int fileSize = -1;
 
-        if (statusCode == 213) {
+        if (FTPReply.isPositiveCompletion(response.getStatusCode())) {
             fileSize = parseInt(data.substring(4, data.length()));
         } else {
             throw new IOException("");
@@ -410,8 +404,7 @@ public class SimpleFTPConnection implements FTPConnection {
                 port = parseInt(tokenizer.nextToken()) * 256
                         + parseInt(tokenizer.nextToken());
             } catch (Exception e) {
-                throw new IOException("SimpleFTP received bad data link information: "
-                        + response);
+                throw new IOException("SimpleFTP received bad data link information: " + response);
             }
         }
 

@@ -65,14 +65,15 @@ public class TabWindowController implements Controller, TableEventListener {
         remoteFileManager.init();
         splitPane.getItems().add(new AnchorPane(localGrid));
         splitPane.getItems().add(new AnchorPane(remoteGrid));
-        Pane commandLinePane = (Pane) RouterService.getInstance().getView(Consts.COMMAND_LINE_VIEW);
-        CommandLineController commandLineController = (CommandLineController) RouterService.getInstance().getController();
-        commandLineController.setFtpClient(ftpClient);
         Pane textBufferPane = (Pane) RouterService.getInstance().getView(Consts.TEXT_BUFFER_VIEW);
         TextBufferController textBufferController = (TextBufferController) RouterService.getInstance().getController();
+        textBufferController.init();
         loggerTextArea = textBufferController.getTextArea();
-        ((VBox) rootPane.getChildren().get(0)).getChildren().add(commandLinePane);
         ((VBox) rootPane.getChildren().get(0)).getChildren().add(textBufferPane);
+
+        Logger logger = Logger.getLogger(FTPClient.class);
+        logger.addAppender(new TextFieldLoggerAppender(loggerTextArea));
+        ftpClient.setLogger(logger);
     }
 
     private void setDefaults() {
@@ -90,9 +91,6 @@ public class TabWindowController implements Controller, TableEventListener {
 
         ftpClient.setHost(user.getHostName());
         ftpClient.setPort(user.getPort());
-        Logger logger = Logger.getLogger(FTPClient.class);
-        logger.addAppender(new TextFieldLoggerAppender(loggerTextArea));
-        ftpClient.setLogger(logger);
         ftpClient.connect(user.getHostName(), user.getPort());
         ftpClient.login(user.getName(), user.getPassword());
     }

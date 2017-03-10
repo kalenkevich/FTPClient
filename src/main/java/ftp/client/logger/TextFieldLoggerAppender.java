@@ -32,7 +32,7 @@ public class TextFieldLoggerAppender extends AppenderSkeleton {
     }
 
     private void appendText(String text) {
-        textField.setText(textField.getText() + '\n' + text);
+        textField.appendText('\n' + text);
     }
 
     @Override

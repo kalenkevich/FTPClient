@@ -30,7 +30,6 @@ public interface FTPClient {
     String getRootDirectoryName(String path);
 
     FTPConnectionReport testConnection(String host, int port, String userName, String userPassword);
-    String sendCommand(String command);
     Logger getLogger();
     void setLogger(Logger logger);
     void setHost(String host);
