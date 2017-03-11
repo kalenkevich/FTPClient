@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by a.kalenkevich on 08.02.2017.
@@ -39,6 +40,11 @@ public class LocalFileSystemService implements FileSystemService {
         }
 
         return files;
+    }
+
+    @Override
+    public CompletableFuture<List<FileItem>> getFilesFromDirectoryAsync(String directoryName) {
+        return CompletableFuture.completedFuture(getFilesFromDirectory(directoryName));
     }
 
     @Override
@@ -88,6 +94,12 @@ public class LocalFileSystemService implements FileSystemService {
     }
 
     @Override
+    public CompletableFuture<Boolean> addFileAsync(File file) {
+        addFile(file);
+        return CompletableFuture.completedFuture(true);
+    }
+
+    @Override
     public FileItem getRootFileItem(String path) {
         File file = new File(path);
         File parentFile = file.getParentFile();
@@ -105,5 +117,12 @@ public class LocalFileSystemService implements FileSystemService {
         }
 
         return null;
+    }
+
+    @Override
+    public CompletableFuture<File> getFileAsync(FileItem fileItem, String localFilePath) {
+        File file = getFile(fileItem, localFilePath);
+
+        return CompletableFuture.completedFuture(file);
     }
 }

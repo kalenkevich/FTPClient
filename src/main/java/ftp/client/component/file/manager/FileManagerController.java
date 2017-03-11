@@ -1,7 +1,6 @@
 package ftp.client.component.file.manager;
 
 import ftp.client.component.file.FileItem;
-import ftp.client.component.file.SpecialFileItem;
 import ftp.client.component.file.service.FileSystemService;
 import ftp.client.controller.Controller;
 
@@ -9,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -17,18 +15,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by a.kalenkevich on 02.02.2017.
  */
 public class FileManagerController implements Controller {
     private String currentDirectoryName = "/";
-    private List<FileItem> fileItems;
     private FileSystemService fileSystemService;
     private List<TableEventListener> tableEventListeners;
     private List<Object> selectedItems;
@@ -48,9 +44,8 @@ public class FileManagerController implements Controller {
     
     @Override
     public void init() {
-        fileItems = new ArrayList<>();
         tableEventListeners = new ArrayList<>();
-        selectedItems = new ArrayList();
+        selectedItems = new ArrayList<Object>();
         initTable();
         initColumns();
         initEvents();
@@ -121,7 +116,6 @@ public class FileManagerController implements Controller {
         table.setOnMousePressed(event -> {
             int clickCount = event.getClickCount();
             Object selectedObject = table.getSelectionModel().getSelectedItem();
-            boolean isDirectoryUp = selectedObject.equals(fileItems.get(0));
             if (event.isPrimaryButtonDown()) {
                 if (clickCount == 1) {
                     notifyAboutSelectAction(new ArrayList<>(table.getSelectionModel().getSelectedItems()));
@@ -140,6 +134,10 @@ public class FileManagerController implements Controller {
                 pasteAction();
             } else if (event.isControlDown() && event.getCode() == KeyCode.X) {
                 notifyAboutCutAction(table.getSelectionModel().getSelectedItems());
+            } else if (event.getCode() == KeyCode.ENTER) {
+                changeDirectory(selectedObject);
+            } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                changeDirectory(table.getItems().get(0));
             }
         });
         table.setOnDragDetected(event -> {
@@ -169,9 +167,10 @@ public class FileManagerController implements Controller {
     private void addFile(Object selectedItem, FileSystemService remoteFileSystemService) {
         FileItem fileItem = (FileItem) selectedItem;
         String localFilePath = getFilePath(fileItem.getName());
-        File file = remoteFileSystemService.getFile(fileItem, localFilePath);
-        fileSystemService.addFile(file);
-        update();
+
+        remoteFileSystemService.getFileAsync(fileItem, localFilePath).thenAccept(
+                file -> fileSystemService.addFileAsync(file).thenRun(this::update)
+        );
     }
 
     private String getFilePath(String name) {
@@ -230,20 +229,26 @@ public class FileManagerController implements Controller {
 
     public void update() {
         updateFileItems();
-        updateTableView();
-    }
-    private void updateFileItems() {
-        fileItems = fileSystemService.getFilesFromDirectory(currentDirectoryName);
     }
 
-    private void updateTableView() {
-        ObservableList<FileItem> observableList = FXCollections.observableList(fileItems);
-        changeGridData(observableList);
+    //todo please find better solution (use async and don't use timerTask)
+    private synchronized void updateFileItems() {
+       /*fileSystemService.getFilesFromDirectoryAsync(currentDirectoryName)
+        .thenAccept(fileItems ->
+            changeGridData(FXCollections.observableList(fileItems))
+        );*/
+        changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryName)));
     }
 
     private void changeGridData(ObservableList<FileItem> data) {
-        table.setItems(data);
-        table.refresh();
+        Timer timer = new Timer(true);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                table.itemsProperty().setValue(data);
+                table.refresh();
+            }
+        }, 250);
     }
 
     public FileSystemService getFileSystemService() {
