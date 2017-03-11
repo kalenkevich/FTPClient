@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by alex on 2/8/2017.
@@ -100,6 +101,11 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
+    public CompletableFuture<List<FTPFile>> getDirectoryFilesAsync(String pathName) {
+        return ftpConnection.listAsync(pathName);
+    }
+
+    @Override
     public boolean renameFile(FTPFile file, String newName) {
         boolean successResult = false;
         String currentFileName = file.getPath();
@@ -144,6 +150,11 @@ public class SimpleFTPClient implements FTPClient {
     }
 
     @Override
+    public CompletableFuture<Boolean> createFileAsync(File file, String path) {
+        return ftpConnection.storAsync(file, path);
+    }
+
+    @Override
     public Date getFileModificationTime(FTPFile ftpFile) {
         Date modificationTime = null;
 
@@ -181,6 +192,11 @@ public class SimpleFTPClient implements FTPClient {
         }
 
         return file;
+    }
+
+    @Override
+    public CompletableFuture<File> getFileAsync(FTPFile ftpFile, String localFilePath) {
+        return ftpConnection.retrAsync(ftpFile.getPath(), localFilePath);
     }
 
     @Override

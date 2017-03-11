@@ -15,6 +15,8 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.CompletableFuture;
+
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseUnsignedInt;
 
@@ -167,6 +169,19 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
+    public CompletableFuture<Boolean> storAsync(File file, String path) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return stor(file, path);
+            } catch (IOException e) {
+                logger.error(e);
+            }
+
+            return false;
+        });
+    }
+
+    @Override
     public File retr(String remoteFilePath, String localFilePath) throws IOException {
         Socket dataSocket = getDataSocket();
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.RETR, remoteFilePath));
@@ -182,14 +197,29 @@ public class SimpleFTPConnection implements FTPConnection {
         byte[] buffer = new byte[4096];
         int bytesRead = 0;
 
+        logger.info("Downloading file ...");
         while ((bytesRead = input.read(buffer)) != -1) {
             output.write(bytesRead);
             output.flush();
         }
+        logger.info("File was downloaded");
         input.close();
         output.close();
 
         return file;
+    }
+
+    @Override
+    public CompletableFuture<File> retrAsync(String remoteFilePath, String localFilepath) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return retr(remoteFilePath, localFilepath);
+            } catch (IOException e) {
+                logger.error(e);
+            }
+
+            return null;
+        });
     }
 
     public synchronized boolean stor(InputStream inputStream, String filename) throws IOException {
@@ -203,10 +233,12 @@ public class SimpleFTPConnection implements FTPConnection {
         BufferedOutputStream output = new BufferedOutputStream(dataSocket.getOutputStream());
         byte[] buffer = new byte[4096];
         int bytesRead = 0;
+        logger.info("Uploading file ...");
         while ((bytesRead = fileInput.read(buffer)) != -1) {
             output.write(buffer, 0, bytesRead);
             output.flush();
         }
+        logger.info("File was uploaded");
         output.close();
         fileInput.close();
 
@@ -246,13 +278,26 @@ public class SimpleFTPConnection implements FTPConnection {
         if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
             throw new IOException("SimpleFTP was not allowed to send the file: " + response);
         }
-
+        logger.info("Downloading list of files");
         FTPListFileParserEngine engine = new FTPListFileParserEngine(dataSocket.getInputStream(), pathName);
         List<FTPFile> ftpFiles = engine.getFiles();
-
+        logger.info("List of files was downloaded");
         dataSocket.close();
 
         return ftpFiles;
+    }
+
+    @Override
+    public CompletableFuture<List<FTPFile>> listAsync(String pathName) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return list(pathName);
+            } catch (IOException e) {
+                logger.error(e);
+            }
+
+            return null;
+        });
     }
 
     //TODO IMPLEMENT

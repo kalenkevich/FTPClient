@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +30,18 @@ public class RemoteFileSystemService implements FileSystemService {
     public List<FileItem> getFilesFromDirectory(String directoryName) {
         currentDirectory = directoryName;
         List<FTPFile> ftpFiles = ftpClient.getDirectoryFiles(directoryName);
+
+        return getFileItems(ftpFiles, directoryName);
+    }
+
+    @Override
+    public CompletableFuture<List<FileItem>> getFilesFromDirectoryAsync(String directoryName) {
+        return ftpClient.getDirectoryFilesAsync(directoryName).thenApply((
+                ftpFiles -> getFileItems(ftpFiles, directoryName)
+        ));
+    }
+
+    private List<FileItem> getFileItems(List<FTPFile> ftpFiles, String directoryName) {
         List<FileItem> fileItems = new ArrayList<>();
         for (FTPFile ftpFile: ftpFiles) {
             fileItems.add(new RemoteFileItem(ftpFile));
@@ -67,13 +80,16 @@ public class RemoteFileSystemService implements FileSystemService {
 
     @Override
     public void addFile(File file) {
-        FTPFile ftpFile = new FTPFile(file.getPath());
-        ftpFile.setFile(file);
         try {
             ftpClient.createFile(file, currentDirectory);
         } catch (Exception e) {
             logger.error(e);
         }
+    }
+
+    @Override
+    public CompletableFuture<Boolean> addFileAsync(File file) {
+        return ftpClient.createFileAsync(file, currentDirectory);
     }
 
     @Override
@@ -112,5 +128,16 @@ public class RemoteFileSystemService implements FileSystemService {
         }
 
         return file;
+    }
+
+    @Override
+    public CompletableFuture<File> getFileAsync(FileItem fileItem, String localFilePath) {
+        FTPFile ftpFile = null;
+        try {
+            ftpFile = getFTPFile(fileItem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ftpClient.getFileAsync(ftpFile, localFilePath);
     }
 }

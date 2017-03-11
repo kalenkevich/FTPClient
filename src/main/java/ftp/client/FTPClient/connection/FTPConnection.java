@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by a.kalenkevich on 16.02.2017.
@@ -27,7 +28,11 @@ public interface FTPConnection {
     boolean abor() throws IOException;
     boolean noop() throws IOException;
     boolean stor(File file, String path) throws IOException;
+    CompletableFuture<Boolean> storAsync(File file, String path);
     File retr(String remoteFilePath, String localFilePath) throws IOException;
+    CompletableFuture<File> retrAsync(String remoteFilePath, String localFilepath);
+    List<FTPFile> list(String pathname) throws IOException;
+    CompletableFuture<List<FTPFile>> listAsync(String pathName);
     boolean bin() throws IOException;
     boolean ascii() throws IOException;
     boolean cwd(String dir) throws IOException;
@@ -41,7 +46,6 @@ public interface FTPConnection {
     int size(String fileName) throws IOException;
     String syst() throws IOException;
     boolean type(char type) throws IOException;
-    List<FTPFile> list(String pathname) throws IOException;
     List<FTPFile> nlst(String pathName) throws IOException;
     boolean site(String arguments) throws IOException;
     void setLogger(Logger logger);
