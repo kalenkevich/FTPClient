@@ -38,7 +38,7 @@ public class FTPListFileParserEngine {
     }
 
     private List<String> getEntries() throws IOException {
-        BufferedReader stringReader =  new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader stringReader =  new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         List<String> entries = new ArrayList<>();
 
         for (String line = stringReader.readLine(); line != null; line = stringReader.readLine()) {
