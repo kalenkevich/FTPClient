@@ -210,10 +210,10 @@ public class SimpleFTPConnection implements FTPConnection {
     }
 
     @Override
-    public CompletableFuture<File> retrAsync(String remoteFilePath, String localFilepath) {
+    public CompletableFuture<File> retrAsync(String remoteFilePath, String localFilePath) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return retr(remoteFilePath, localFilepath);
+                return retr(remoteFilePath, localFilePath);
             } catch (IOException e) {
                 logger.error(e);
             }
