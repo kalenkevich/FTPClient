@@ -10,13 +10,13 @@ import java.util.concurrent.CompletableFuture;
  * Created by a.kalenkevich on 08.02.2017.
  */
 public interface FileSystemService {
-    List<FileItem> getFilesFromDirectory(String directoryName);
-    CompletableFuture<List<FileItem>> getFilesFromDirectoryAsync(String directoryName);
-    void addFile(File file);
-    CompletableFuture<Boolean> addFileAsync(File file);
-    File getFile(FileItem fileItem, String localFilePath);
-    CompletableFuture<File> getFileAsync(FileItem fileItem, String localFilePath);
-    void renameFile(FileItem file, String name);
-    void deleteFile(FileItem file);
-    FileItem getRootFileItem(String path);
+    List<FileItem> getFilesFromDirectory(String directoryName) throws FileException;
+    CompletableFuture<List<FileItem>> getFilesFromDirectoryAsync(String directoryName) throws FileException;
+    void addFile(File file) throws FileException;
+    CompletableFuture addFileAsync(File file) throws FileException;
+    File getFile(FileItem fileItem, String localFilePath) throws FileException;
+    CompletableFuture<File> getFileAsync(FileItem fileItem, String localFilePath) throws FileException;
+    void renameFile(FileItem file, String name) throws FileException;
+    void deleteFile(FileItem file) throws FileException;
+    FileItem getRootFileItem(String path) throws FileException;
 }

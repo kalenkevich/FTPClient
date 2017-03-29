@@ -2,6 +2,7 @@ package ftp.client.component.popup.authorisation;
 
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.SimpleFTPClient;
+import ftp.client.FTPClient.connection.connector.FTPConnectionException;
 import ftp.client.FTPClient.report.FTPConnectionReport;
 import ftp.client.controller.Controller;
 import javafx.fxml.FXML;
@@ -115,7 +116,12 @@ public class AuthorisationPopupController implements Controller {
     public boolean testConnection() {
         User user = getUser();
         FTPClient ftpClient = new SimpleFTPClient();
-        FTPConnectionReport connectionReport = ftpClient.testConnection(user.getHostName(), user.getPort(), user.getName(), user.getPassword());
+        FTPConnectionReport connectionReport = null;
+        try {
+            connectionReport = ftpClient.testConnection(user.getHostName(), user.getPort(), user.getName(), user.getPassword());
+        } catch (FTPConnectionException e) {
+            showErrorMessage(e.getMessage());
+        }
         boolean fullySuccess = connectionReport.isFullySuccess();
 
         showErrorMessage("");

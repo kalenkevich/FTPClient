@@ -1,6 +1,7 @@
 package ftp.client.component.file.manager;
 
 import ftp.client.component.file.FileItem;
+import ftp.client.component.file.service.FileException;
 import ftp.client.component.file.service.FileSystemService;
 import ftp.client.controller.Controller;
 
@@ -153,24 +154,43 @@ public class FileManagerController implements Controller {
     }
 
     private void changeName(Object selectedItem, String newFileName) {
-        FileItem fileItem = (FileItem) selectedItem;
-        fileSystemService.renameFile(fileItem, currentDirectoryName + "/" + newFileName);
-        update();
+        try {
+            FileItem fileItem = (FileItem) selectedItem;
+            fileSystemService.renameFile(fileItem, currentDirectoryName + "/" + newFileName);
+            update();
+        } catch (FileException e) {
+            showErrorMessage(e.getMessage());
+        }
     }
 
     private void deleteFile(Object selectedItem) {
-        FileItem fileItem = (FileItem) selectedItem;
-        fileSystemService.deleteFile(fileItem);
-        update();
+        try {
+            FileItem fileItem = (FileItem) selectedItem;
+            fileSystemService.deleteFile(fileItem);
+            update();
+        } catch (FileException e) {
+            showErrorMessage(e.getMessage());
+        }
+
     }
 
     private void addFile(Object selectedItem, FileSystemService remoteFileSystemService) {
-        FileItem fileItem = (FileItem) selectedItem;
-        String localFilePath = getFilePath(fileItem.getName());
+        try {
+            FileItem fileItem = (FileItem) selectedItem;
+            String localFilePath = getFilePath(fileItem.getName());
 
-        remoteFileSystemService.getFileAsync(fileItem, localFilePath).thenAccept(
-                file -> fileSystemService.addFileAsync(file).thenRun(this::update)
-        );
+            remoteFileSystemService.getFileAsync(fileItem, localFilePath).thenAccept(
+                    file -> {
+                        try {
+                            fileSystemService.addFileAsync(file).thenRun(this::update);
+                        } catch (FileException e) {
+                            showErrorMessage(e.getMessage());
+                        }
+                    }
+            );
+        } catch (FileException e) {
+            showErrorMessage(e.getMessage());
+        }
     }
 
     private String getFilePath(String name) {
@@ -227,17 +247,16 @@ public class FileManagerController implements Controller {
         update();
     }
 
-    public void update() {
+    private void update() {
         updateFileItems();
     }
 
-    //todo please find better solution (use async and don't use timerTask)
     private synchronized void updateFileItems() {
-       /*fileSystemService.getFilesFromDirectoryAsync(currentDirectoryName)
-        .thenAccept(fileItems ->
-            changeGridData(FXCollections.observableList(fileItems))
-        );*/
-        changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryName)));
+        try {
+            changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryName)));
+        } catch (FileException e) {
+            showErrorMessage(e.getMessage());
+        }
     }
 
     private void changeGridData(ObservableList<FileItem> data) {
@@ -251,7 +270,17 @@ public class FileManagerController implements Controller {
         }, 250);
     }
 
-    public FileSystemService getFileSystemService() {
+    private void showErrorMessage(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setTitle("Error");
+        alert.setHeaderText("Error was occurred ");
+        alert.setContentText(errorMessage);
+
+        alert.showAndWait();
+    }
+
+    private FileSystemService getFileSystemService() {
         return fileSystemService;
     }
 
