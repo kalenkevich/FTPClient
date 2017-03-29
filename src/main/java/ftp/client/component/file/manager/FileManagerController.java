@@ -24,7 +24,8 @@ import java.util.TimerTask;
  * Created by a.kalenkevich on 02.02.2017.
  */
 public class FileManagerController implements Controller {
-    private String currentDirectoryName = "/";
+    public TextField navigationInput;
+    private String currentDirectoryPath = "/";
     private FileSystemService fileSystemService;
     private List<TableEventListener> tableEventListeners;
     private List<Object> selectedItems;
@@ -148,13 +149,13 @@ public class FileManagerController implements Controller {
     private void changeDirectory(Object selectedItem) {
         FileItem fileItem = (FileItem) selectedItem;
         if (fileItem.isDirectory()) {
-            setDirectory(fileItem.getPath());
+            setDirectoryPath(fileItem.getPath());
         }
     }
 
     private void changeName(Object selectedItem, String newFileName) {
         FileItem fileItem = (FileItem) selectedItem;
-        fileSystemService.renameFile(fileItem, currentDirectoryName + "/" + newFileName);
+        fileSystemService.renameFile(fileItem, currentDirectoryPath + "/" + newFileName);
         update();
     }
 
@@ -174,11 +175,11 @@ public class FileManagerController implements Controller {
     }
 
     private String getFilePath(String name) {
-        if (!currentDirectoryName.equals("/")) {
-            return currentDirectoryName + "/" + name;
+        if (!currentDirectoryPath.equals("/")) {
+            return currentDirectoryPath + "/" + name;
         }
 
-        return currentDirectoryName + name;
+        return currentDirectoryPath + name;
     }
 
     private void updateButtonsDisabledState() {
@@ -222,22 +223,24 @@ public class FileManagerController implements Controller {
         }
     }
 
-    public void setDirectory(String directoryName) {
-        currentDirectoryName = directoryName;
+    public void setDirectoryPath(String directoryName) {
+        currentDirectoryPath = directoryName;
+        navigationInput.setText(currentDirectoryPath);
         update();
+    }
+
+    @FXML
+    public void goAction() {
+        String directoryPath = navigationInput.getText();
+        setDirectoryPath(directoryPath);
     }
 
     public void update() {
         updateFileItems();
     }
 
-    //todo please find better solution (use async and don't use timerTask)
     private synchronized void updateFileItems() {
-       /*fileSystemService.getFilesFromDirectoryAsync(currentDirectoryName)
-        .thenAccept(fileItems ->
-            changeGridData(FXCollections.observableList(fileItems))
-        );*/
-        changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryName)));
+        changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryPath)));
     }
 
     private void changeGridData(ObservableList<FileItem> data) {

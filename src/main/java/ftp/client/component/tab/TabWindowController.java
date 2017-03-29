@@ -15,7 +15,6 @@ import ftp.client.config.Consts;
 import ftp.client.controller.Controller;
 import ftp.client.service.RouterService;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -86,8 +85,8 @@ public class TabWindowController implements Controller, TableEventListener {
         remoteFileManager.setFileSystemService(new RemoteFileSystemService(ftpClient));
         localFileManager.addDragAndDropListener(this);
         remoteFileManager.addDragAndDropListener(this);
-        localFileManager.setDirectory("/");
-        remoteFileManager.setDirectory("/");
+        localFileManager.setDirectoryPath("/");
+        remoteFileManager.setDirectoryPath("/");
     }
 
     private void setupNewFTPClient() {
