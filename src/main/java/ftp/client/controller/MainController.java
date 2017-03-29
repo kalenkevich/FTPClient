@@ -1,6 +1,7 @@
 package ftp.client.controller;
 
 import ftp.client.component.tab.TabWindowController;
+import ftp.client.service.AnchorService;
 import ftp.client.service.RouterService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +31,7 @@ public class MainController implements Initializable {
         TabWindowController tabWindowController = (TabWindowController) RouterService.getInstance().getController();
         Tab tab = new Tab();
         tabWindowController.init();
+        AnchorService.getInstance().anchorNode(pane);
 
         tab.setId(tabWindowController.getName());
         tab.setContent(pane);

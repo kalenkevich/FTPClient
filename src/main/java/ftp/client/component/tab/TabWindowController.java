@@ -3,8 +3,8 @@ package ftp.client.component.tab;
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.SimpleFTPClient;
 import ftp.client.logger.TextFieldLoggerAppender;
+import ftp.client.service.AnchorService;
 import ftp.client.user.User;
-import ftp.client.component.command.line.CommandLineController;
 import ftp.client.component.file.manager.TableEventListener;
 import ftp.client.component.file.manager.FileManagerController;
 import ftp.client.component.file.service.LocalFileSystemService;
@@ -15,6 +15,7 @@ import ftp.client.config.Consts;
 import ftp.client.controller.Controller;
 import ftp.client.service.RouterService;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -63,12 +64,16 @@ public class TabWindowController implements Controller, TableEventListener {
         Pane remoteGrid = (Pane) RouterService.getInstance().getView(Consts.FILE_MANAGER_VIEW);
         remoteFileManager = (FileManagerController) RouterService.getInstance().getController();
         remoteFileManager.init();
+        AnchorService.getInstance().anchorNode(localGrid);
+        AnchorService.getInstance().anchorNode(remoteGrid);
         splitPane.getItems().add(new AnchorPane(localGrid));
         splitPane.getItems().add(new AnchorPane(remoteGrid));
+
         Pane textBufferPane = (Pane) RouterService.getInstance().getView(Consts.TEXT_BUFFER_VIEW);
         TextBufferController textBufferController = (TextBufferController) RouterService.getInstance().getController();
         textBufferController.init();
         loggerTextArea = textBufferController.getTextArea();
+        AnchorService.getInstance().anchorNode(textBufferPane);
         ((VBox) rootPane.getChildren().get(0)).getChildren().add(textBufferPane);
 
         Logger logger = Logger.getLogger(FTPClient.class);
