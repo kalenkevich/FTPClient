@@ -9,29 +9,43 @@
    <children>
       <VBox prefHeight="500.0" prefWidth="558.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="30.0" prefWidth="558.0">
+            <HBox>
                <children>
-                  <Button fx:id="cutButton" mnemonicParsing="false" onAction="#cutAction" text="Cut">
+                  <HBox prefHeight="35.0" prefWidth="287.0">
+                     <children>
+                        <Button fx:id="cutButton" mnemonicParsing="false" onAction="#cutAction" text="Cut">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyAction" text="Copy">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="pasteButton" mnemonicParsing="false" onAction="#pasteAction" text="Paste">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAction" text="Delete">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshAction" text="Refresh">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="navigationInput">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
-                  </Button>
-                  <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyAction" text="Copy">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="pasteButton" mnemonicParsing="false" onAction="#pasteAction" text="Paste">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAction" text="Delete">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshAction" text="Refresh">
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#goAction" text="Go">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
