@@ -15,12 +15,12 @@ public interface FTPConnector {
      * @param ftpRequest the request which should  be send.
      * @return response from the FTPServer.
      */
-    FTPResponse sendRequest(FTPRequest ftpRequest) throws IOException;
+    FTPResponse sendRequest(FTPRequest ftpRequest) throws FTPConnectionException;
 
     /**
      * Send FTPRequest to the FTPServer.
      * @return last response from the FTPServer.
      */
-    FTPResponse getResponse() throws IOException;
+    FTPResponse getResponse() throws FTPConnectionException;
     void setLogger(Logger logger);
 }

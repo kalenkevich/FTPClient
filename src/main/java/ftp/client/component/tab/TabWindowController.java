@@ -2,6 +2,7 @@ package ftp.client.component.tab;
 
 import ftp.client.FTPClient.FTPClient;
 import ftp.client.FTPClient.SimpleFTPClient;
+import ftp.client.FTPClient.connection.connector.FTPConnectionException;
 import ftp.client.logger.TextFieldLoggerAppender;
 import ftp.client.service.AnchorService;
 import ftp.client.user.User;
@@ -95,8 +96,22 @@ public class TabWindowController implements Controller, TableEventListener {
 
         ftpClient.setHost(user.getHostName());
         ftpClient.setPort(user.getPort());
-        ftpClient.connect(user.getHostName(), user.getPort());
-        ftpClient.login(user.getName(), user.getPassword());
+        try {
+            ftpClient.connect(user.getHostName(), user.getPort());
+            ftpClient.login(user.getName(), user.getPassword());
+        } catch (FTPConnectionException e) {
+            showErrorMessage(e.getMessage());
+        }
+    }
+
+    private void showErrorMessage(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setTitle("Error");
+        alert.setHeaderText("Error was occurred");
+        alert.setContentText(errorMessage);
+
+        alert.showAndWait();
     }
 
     private User showAuthorisationPopup() {

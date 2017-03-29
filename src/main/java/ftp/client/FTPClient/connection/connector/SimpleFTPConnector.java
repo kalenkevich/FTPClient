@@ -22,14 +22,22 @@ public class SimpleFTPConnector implements FTPConnector {
 
     }
 
-    public SimpleFTPConnector(Socket socket) throws IOException {
+    public SimpleFTPConnector(Socket socket) throws FTPConnectionException {
         this.socket = socket;
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        try {
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            throw new FTPConnectionException("Error was occurred, while reading connecting to remote server");
+        }
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        } catch (IOException e) {
+            throw new FTPConnectionException("Error was occurred, while reading connecting to remote server");
+        }
     }
 
     @Override
-    public FTPResponse sendRequest(FTPRequest ftpRequest) throws IOException {
+    public FTPResponse sendRequest(FTPRequest ftpRequest) throws FTPConnectionException {
         boolean success = sendRequest(ftpRequest.toString());
         FTPResponse response = null;
         if (success) {
@@ -39,9 +47,9 @@ public class SimpleFTPConnector implements FTPConnector {
         return response;
     }
 
-    public boolean sendRequest(String request) throws IOException {
+    public boolean sendRequest(String request) throws FTPConnectionException {
         if (socket == null) {
-            throw new IOException("FTP is not connected.");
+            throw new FTPConnectionException("FTP is not connected.");
         }
         try {
             writer.write(request + "\r\n");
@@ -49,15 +57,20 @@ public class SimpleFTPConnector implements FTPConnector {
             logger.info("> " + request);
         } catch (IOException e) {
             socket = null;
-            throw e;
+            throw new FTPConnectionException("Error was occurred, while sending request" + request);
         }
 
         return true;
     }
 
     @Override
-    public FTPResponse getResponse() throws IOException {
-        String response = reader.readLine();
+    public FTPResponse getResponse() throws FTPConnectionException {
+        String response = null;
+        try {
+            response = reader.readLine();
+        } catch (IOException e) {
+            throw new FTPConnectionException("Error was occurred, while reading response");
+        }
         logger.info("< " + response);
 
         int statusCode = getResponseStatusCode(response);
@@ -75,6 +88,11 @@ public class SimpleFTPConnector implements FTPConnector {
         }
 
         return ftpResponse;
+    }
+
+    //todo implement
+    private boolean isErrorCode(int statusCode) {
+        return false;
     }
 
     private int getResponseStatusCode(String response) {
@@ -95,10 +113,6 @@ public class SimpleFTPConnector implements FTPConnector {
 
     private String getResponseData(String response) {
         return response.substring(4, response.length());
-    }
-
-    private boolean isErrorCode(int code) {
-        return false;
     }
 
     public BufferedReader getReader() {

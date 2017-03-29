@@ -1,10 +1,13 @@
 package ftp.client.FTPClient;
 
+import ftp.client.FTPClient.connection.connector.FTPConnectionException;
 import ftp.client.FTPClient.file.FTPFile;
 import ftp.client.FTPClient.report.FTPConnectionReport;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -19,71 +22,63 @@ public interface FTPClient {
      * Connects to ftp server
      * @param host a server domain name
      * @param port an open server port
-     * @return     a result of connection (success/fail)
      */
-    boolean connect(String host, int port);
+    void connect(String host, int port) throws FTPConnectionException;
 
     /**
      * Disconnects from ftp server
-     * @return     void
      */
-    boolean disconnect();
+    void disconnect() throws FTPConnectionException;
 
     /**
      * Sends an user info to the server
      * @param userName a user name
      * @param password a user password
-     * @return         a result of connection (success/fail)
      */
-    boolean login(String userName, String password);
+    void login(String userName, String password) throws FTPConnectionException;
 
     /**
      * Logs out an user from the server session
-     * @return         a result of operation (success/fail)
      */
-    boolean logout();
+    void logout() throws FTPConnectionException;
 
     /**
      * Recconects to the server
-     * @return    a result of an operation (success/fail)
      */
-    boolean reconnect();
+    void reconnect() throws FTPConnectionException;
     /**
      * Returns a list of ftp files
      * @param path a path ot a directory
      * @return     a list of ftp files
      */
-    List<FTPFile> getDirectoryFiles(String path);
+    List<FTPFile> getDirectoryFiles(String path) throws FTPConnectionException;
 
     /**
      * Returns a list of ftp files asynchronous
      * @param pathName a path ot a directory
      * @return         a list of ftp files
      */
-    CompletableFuture<List<FTPFile>> getDirectoryFilesAsync(String pathName);
+    CompletableFuture<List<FTPFile>> getDirectoryFilesAsync(String pathName) throws FTPConnectionException;
 
     /**
      * Renames a file
      * @param file    a ftp (remote) file
      * @param newName a next name
-     * @return        a result of operation (success/fail)
      */
-    boolean renameFile(FTPFile file, String newName);
+    void renameFile(FTPFile file, String newName) throws FTPConnectionException;
 
     /**
      * Removes a file
      * @param file    a ftp (remote) file
-     * @return        a result of operation (success/fail)
      */
-    boolean deleteFile(FTPFile file);
+    void deleteFile(FTPFile file) throws FTPConnectionException;
 
     /**
      * Creates a file
      * @param file    a ftp (remote) file
      * @param path    a path of directory
-     * @return        a result of operation (success/fail)
      */
-    boolean createFile(File file, String path);
+    void createFile(File file, String path) throws FTPConnectionException, FileNotFoundException;
 
     /**
      * Creates a file asynchronous
@@ -91,21 +86,21 @@ public interface FTPClient {
      * @param path    a path of directory
      * @return        a result of operation (success/fail) in the futures
      */
-    CompletableFuture<Boolean> createFileAsync(File file, String path);
+    CompletableFuture createFileAsync(File file, String path) throws FTPConnectionException;
 
     /**
      * Returns a file's modification time
      * @param ftpFile a ftp (remote) file
      * @return        a date
      */
-    Date getFileModificationTime(FTPFile ftpFile);
+    Date getFileModificationTime(FTPFile ftpFile) throws FTPConnectionException;
 
     /**
      * Returns a file's size
      * @param ftpFile a ftp (remote) file
      * @return        a size of a file
      */
-    int getFileSize(FTPFile ftpFile);
+    int getFileSize(FTPFile ftpFile) throws FTPConnectionException;
 
     /**
      * Returns a file
@@ -113,7 +108,7 @@ public interface FTPClient {
      * @param localFilePath a path to save a file (remote) file
      * @return              a file
      */
-    File getFile(FTPFile ftpFile, String localFilePath);
+    File getFile(FTPFile ftpFile, String localFilePath) throws IOException;
 
     /**
      * Returns a file asynchronous
@@ -121,27 +116,25 @@ public interface FTPClient {
      * @param localFilePath a path to save a file (remote) file
      * @return              a file in the future
      */
-    CompletableFuture<File> getFileAsync(FTPFile ftpFile, String localFilePath);
+    CompletableFuture<File> getFileAsync(FTPFile ftpFile, String localFilePath) throws FTPConnectionException;
 
     /**
      * Changes a file directory
      * @param ftpFile a ftp (remote) file
-     * @return        a result of operation (success/fail)
      */
-    boolean changeDirectory(FTPFile ftpFile);
+    void changeDirectory(FTPFile ftpFile) throws FTPConnectionException;
 
     /**
      * Aborts any operation
-     * @return  a result of abortion (success/fail)
      */
-    boolean abort();
+    void abort() throws FTPConnectionException;
 
     /**
      * Returns a root directory's path
      * @param path a pathname of a current directory
      * @return     a root directory name
      */
-    String getRootDirectoryName(String path);
+    String getRootDirectoryName(String path) throws FTPConnectionException;
 
     /**
      * Tests the connection between a host and a ftp-server
@@ -151,7 +144,7 @@ public interface FTPClient {
      * @param userPassword a user's password
      * @return             a connection report object
      */
-    FTPConnectionReport testConnection(String host, int port, String userName, String userPassword);
+    FTPConnectionReport testConnection(String host, int port, String userName, String userPassword) throws FTPConnectionException;
 
     /**
      * Returns a logger

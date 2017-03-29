@@ -94,7 +94,7 @@ public class LocalFileSystemService implements FileSystemService {
     }
 
     @Override
-    public CompletableFuture<Boolean> addFileAsync(File file) {
+    public CompletableFuture addFileAsync(File file) {
         addFile(file);
         return CompletableFuture.completedFuture(true);
     }
