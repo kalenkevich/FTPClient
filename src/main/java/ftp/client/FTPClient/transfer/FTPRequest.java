@@ -4,6 +4,7 @@ package ftp.client.FTPClient.transfer;
  * Created by alex on 2/25/2017.
  */
 public class FTPRequest {
+
     private String command;
     private String arguments;
 

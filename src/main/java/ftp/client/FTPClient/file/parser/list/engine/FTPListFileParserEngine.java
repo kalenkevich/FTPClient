@@ -15,8 +15,20 @@ import java.util.List;
  * Created by a.kalenkevich on 22.02.2017.
  */
 public class FTPListFileParserEngine {
+
+    /**
+     * InputStream from will be data reads.
+     */
     private InputStream inputStream;
+
+    /**
+     * One of the implementations of the FTPListFileParser.
+     */
     private FTPListFileParser ftpListFileParser;
+
+    /**
+     * Full path of the directory from which will be parsed FTPFiles.
+     */
     private String currentPathName;
 
     public FTPListFileParserEngine(InputStream inputStream, String currentPathName) {
@@ -26,7 +38,9 @@ public class FTPListFileParserEngine {
         initializeFTPFileDataParser();
     }
 
-    //TODO IMPLEMENT FACTORY
+    /**
+     * Initialize all needed object.
+     */
     private void initializeFTPFileDataParser() {
         ftpListFileParser = new UnixFTPListFileParser(currentPathName);
     }
@@ -37,6 +51,11 @@ public class FTPListFileParserEngine {
         return ftpListFileParser.parse(entries);
     }
 
+    /**
+     * API function. Can be invoked after creating of the new instance of FTPListFileParserEngine.
+     * Parse data from stream and then return list of parsed FTPFiles.
+     * @return list of FTPFiles.
+     */
     private List<String> getEntries() throws IOException {
         BufferedReader stringReader =  new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         List<String> entries = new ArrayList<>();

@@ -13,9 +13,8 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractFTPListFileParser implements FTPListFileParser {
     private Pattern pattern;
-    private Matcher matcher;
     private MatchResult result;
-    protected String currentPathName;
+    String currentPathName;
 
     @Override
     public List<FTPFile> parse(List<String> entries) {
@@ -31,14 +30,14 @@ public abstract class AbstractFTPListFileParser implements FTPListFileParser {
 
     protected abstract FTPFile parseEntry(String entry);
 
-    public AbstractFTPListFileParser(String regex, String currentPathName) {
+    AbstractFTPListFileParser(String regex, String currentPathName) {
         pattern = Pattern.compile(regex);
         this.currentPathName = currentPathName;
     }
 
-    protected boolean isValidEntry(String entry) {
+    boolean isValidEntry(String entry) {
         result = null;
-        matcher = pattern.matcher(entry);
+        Matcher matcher = pattern.matcher(entry);
         boolean isMatches = matcher.matches();
 
         if (isMatches) {
@@ -48,7 +47,7 @@ public abstract class AbstractFTPListFileParser implements FTPListFileParser {
         return result != null;
     }
 
-    protected String group(int matchnum) {
+    String group(int matchnum) {
         return result == null ? null : result.group(matchnum);
     }
 }

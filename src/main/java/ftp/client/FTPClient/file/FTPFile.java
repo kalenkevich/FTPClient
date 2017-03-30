@@ -6,10 +6,30 @@ import java.io.File;
  * Created by a.kalenkevich on 16.02.2017.
  */
 public class FTPFile {
+
+    /**
+     * Describes file's name.
+     */
     private String name;
+
+    /**
+     * File's description.
+     */
     private String description;
+
+    /**
+     * FTPFile Class describes directories also. So it this flag needed to distinguish them.
+     */
     private boolean isDirectory;
+
+    /**
+     * Describes file's full path.
+     */
     private String path;
+
+    /**
+     * Real file implementation.
+     */
     private File file;
 
     public FTPFile(String path) {
