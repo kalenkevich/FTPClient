@@ -8,6 +8,11 @@ public class FTPRequest {
     private String command;
     private String arguments;
 
+    public FTPRequest(String command) {
+        this.command = command;
+        this.arguments = "";
+    }
+
     public FTPRequest(String command, String arguments) {
         this.command = command;
         this.arguments = arguments;

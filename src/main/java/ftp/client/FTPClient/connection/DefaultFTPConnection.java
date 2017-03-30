@@ -1,8 +1,8 @@
 package ftp.client.FTPClient.connection;
 
+import ftp.client.FTPClient.connection.connector.DefaultFTPConnector;
 import ftp.client.FTPClient.connection.connector.FTPConnectionException;
 import ftp.client.FTPClient.connection.connector.FTPConnector;
-import ftp.client.FTPClient.connection.connector.SimpleFTPConnector;
 import ftp.client.FTPClient.file.FTPFile;
 import ftp.client.FTPClient.file.parser.list.engine.FTPListFileParserEngine;
 import ftp.client.FTPClient.service.FTPReply;
@@ -24,7 +24,7 @@ import static java.lang.Integer.parseUnsignedInt;
 /**
  * Created by a.kalenkevich on 16.02.2017.
  */
-public class SimpleFTPConnection implements FTPConnection {
+public class DefaultFTPConnection implements FTPConnection {
     private Logger logger;
     private Socket socket;
     private static final int MAX_CONNECTION_ATTEMPTS = 5;
@@ -32,23 +32,19 @@ public class SimpleFTPConnection implements FTPConnection {
     private String currentUserPassword;
     private FTPConnector ftpConnector;
 
-    public SimpleFTPConnection () {
-        ftpConnector = new SimpleFTPConnector();
-        logger = Logger.getLogger(SimpleFTPConnection.class);
+    public DefaultFTPConnection() {
+        logger = Logger.getLogger(DefaultFTPConnection.class);
+    }
+
+    public DefaultFTPConnection(FTPConnector ftpConnector) {
+        this.ftpConnector = ftpConnector;
+        logger = Logger.getLogger(DefaultFTPConnection.class);
     }
 
     @Override
     public synchronized boolean connect(String host, int port) throws FTPConnectionException {
-        if (socket != null) {
-            throw new FTPConnectionException("SimpleFTP is already connected. Disconnect first.");
-        }
-        try {
-            socket = new Socket(host, port);
-        } catch (IOException e) {
-            throw new FTPConnectionException("Can't connect to remote server:" + host + ':' + port);
-        }
-        ftpConnector = new SimpleFTPConnector(socket);
-        ftpConnector.setLogger(logger);
+        setUpSocket(host, port);
+        setUpFTPConnector();
 
         int statusCode = ftpConnector.getResponse().getStatusCode();
         int connectionAttempt = 0;
@@ -62,7 +58,28 @@ public class SimpleFTPConnection implements FTPConnection {
             return true;
         }
 
-        throw new FTPConnectionException("SimpleFTP received an unknown response when connecting to the FTP server: ");
+        throw new FTPConnectionException("SimpleFTP received an unknown response when connecting to the FTP server:");
+    }
+
+    private void setUpSocket(String host, int port) throws FTPConnectionException {
+        if (socket != null) {
+            throw new FTPConnectionException("SimpleFTP is already connected. Disconnect first.");
+        }
+        try {
+            socket = new Socket(host, port);
+        } catch (IOException e) {
+            throw new FTPConnectionException("Can't connect to remote server:" + host + ':' + port);
+        }
+    }
+
+    private void setUpFTPConnector() throws FTPConnectionException {
+        if (ftpConnector != null) {
+            ftpConnector.setSocket(socket);
+        } else {
+            ftpConnector = new DefaultFTPConnector(socket);
+        }
+
+        ftpConnector.setLogger(logger);
     }
 
     @Override
@@ -84,7 +101,7 @@ public class SimpleFTPConnection implements FTPConnection {
     @Override
     public boolean quit() throws FTPConnectionException {
         try {
-            ftpConnector.sendRequest(new FTPRequest(Command.QUIT, ""));
+            ftpConnector.sendRequest(new FTPRequest(Command.QUIT));
             socket.close();
         } catch (IOException e) {
             logger.error(e);
@@ -104,7 +121,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean rein(String userName, String userPassword) throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.REIN, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.REIN));
 
         int statusCode = response.getStatusCode();
         if (!FTPReply.isPositiveCompletion(statusCode)) {
@@ -125,7 +142,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public synchronized String pwd() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PWD, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PWD));
         String dir = null;
         int statusCode = response.getStatusCode();
         String data = response.getData();
@@ -143,21 +160,21 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean epsv() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.EPSV, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.EPSV));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
 
     @Override
     public boolean pasv() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PASV, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PASV));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
 
     @Override
     public boolean port() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PORT, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PORT));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
@@ -235,7 +252,7 @@ public class SimpleFTPConnection implements FTPConnection {
         });
     }
 
-    public synchronized boolean stor(InputStream inputStream, String filename) throws FTPConnectionException {
+    private synchronized boolean stor(InputStream inputStream, String filename) throws FTPConnectionException {
         BufferedInputStream fileInput = new BufferedInputStream(inputStream);
         Socket dataSocket = getDataSocket();
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.STOR, filename));
@@ -267,7 +284,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean cdup() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.CDUP, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.CDUP));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
@@ -365,7 +382,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public synchronized boolean abor() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.ABORT, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.ABORT));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
@@ -402,7 +419,7 @@ public class SimpleFTPConnection implements FTPConnection {
     public int size(String fileName) throws FTPConnectionException {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.SIZE, fileName));
         String data = response.getData();
-        int fileSize = -1;
+        int fileSize;
 
         if (FTPReply.isPositiveCompletion(response.getStatusCode())) {
             fileSize = parseInt(data.substring(4, data.length()));
@@ -415,7 +432,7 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public String syst() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.SYST, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.SYST));
 
         return response.getData();
     }
@@ -450,13 +467,13 @@ public class SimpleFTPConnection implements FTPConnection {
 
     @Override
     public boolean noop() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.NOOP, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.NOOP));
 
         return FTPReply.isPositiveCompletion(response.getStatusCode());
     }
 
     private Socket getDataSocket() throws FTPConnectionException {
-        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PASV, ""));
+        FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.PASV));
         int statusCode = response.getStatusCode();
 
         while (statusCode != 227) {
