@@ -1,5 +1,6 @@
 package ftp.client.FTPClient.connection.connector;
 
+import ftp.client.FTPClient.service.FTPReply;
 import ftp.client.FTPClient.transfer.FTPRequest;
 import ftp.client.FTPClient.transfer.FTPResponse;
 import org.apache.log4j.Logger;
@@ -47,7 +48,7 @@ public class SimpleFTPConnector implements FTPConnector {
         return response;
     }
 
-    public boolean sendRequest(String request) throws FTPConnectionException {
+    private boolean sendRequest(String request) throws FTPConnectionException {
         if (socket == null) {
             throw new FTPConnectionException("FTP is not connected.");
         }
@@ -65,7 +66,7 @@ public class SimpleFTPConnector implements FTPConnector {
 
     @Override
     public FTPResponse getResponse() throws FTPConnectionException {
-        String response = null;
+        String response;
         try {
             response = reader.readLine();
         } catch (IOException e) {
@@ -76,7 +77,7 @@ public class SimpleFTPConnector implements FTPConnector {
         int statusCode = getResponseStatusCode(response);
         String data = getResponseData(response);
 
-        FTPResponse ftpResponse = null;
+        FTPResponse ftpResponse;
         boolean isErrorCode = isErrorCode(statusCode);
 
         if (isErrorCode) {
@@ -90,9 +91,9 @@ public class SimpleFTPConnector implements FTPConnector {
         return ftpResponse;
     }
 
-    //todo implement
+
     private boolean isErrorCode(int statusCode) {
-        return false;
+        return FTPReply.isNegativePermanent(statusCode);
     }
 
     private int getResponseStatusCode(String response) {
@@ -113,34 +114,6 @@ public class SimpleFTPConnector implements FTPConnector {
 
     private String getResponseData(String response) {
         return response.substring(4, response.length());
-    }
-
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
-
-    public BufferedWriter getWriter() {
-        return writer;
-    }
-
-    public void setWriter(BufferedWriter writer) {
-        this.writer = writer;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 
     public void setLogger(Logger logger) {

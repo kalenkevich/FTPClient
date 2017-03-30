@@ -296,7 +296,7 @@ public class SimpleFTPConnection implements FTPConnection {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.LIST, pathName));
 
         if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
-            throw new FTPConnectionException("SimpleFTP was not allowed to send the file: " + response);
+            throw new FTPConnectionException(response.getErrorMessage());
         }
 
         List<FTPFile> ftpFiles;
@@ -334,7 +334,7 @@ public class SimpleFTPConnection implements FTPConnection {
         FTPResponse response = ftpConnector.sendRequest(new FTPRequest(Command.NLST, pathName));
 
         if (!FTPReply.isPositivePreliminary(response.getStatusCode())) {
-            throw new FTPConnectionException("SimpleFTP was not allowed to send the file: " + response);
+            throw new FTPConnectionException(response.getErrorMessage());
         }
 
         List<FTPFile> ftpFiles;
