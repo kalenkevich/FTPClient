@@ -313,7 +313,7 @@ public class DefaultFTPConnectionTest {
         try {
             StubFTPConnector ftpConnector = spy(new StubFTPConnector(new StubSocket("test-host", 200000)));
             FTPConnection ftpConnection = new DefaultFTPConnection(ftpConnector);
-            when(ftpConnector.sendRequest(new FTPRequest("RNFR", "file-from-rename"))).thenReturn(new FTPResponse(200, "OK"));
+            when(ftpConnector.sendRequest(new FTPRequest("RNTO", "file-from-rename"))).thenReturn(new FTPResponse(200, "OK"));
 
             boolean successes = ftpConnection.rnto("file-to-rename");
             assertTrue(successes);
