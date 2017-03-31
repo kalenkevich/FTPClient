@@ -138,7 +138,11 @@ public class DefaultFTPConnector implements FTPConnector {
     }
 
     private String getResponseData(String response) throws FTPConnectionException {
-        if (response != null && response.length() >= 4) {
+        if (response == null) {
+            return null;
+        }
+
+        if (response.length() >= 4) {
             return response.substring(4, response.length());
         }
 

@@ -14,6 +14,13 @@ public class FTPResponse {
         this.data = data;
     }
 
+    public FTPResponse(int statusCode, String data, String errorMessage) {
+        this.statusCode = statusCode;
+        this.data = data;
+        this.isError = true;
+        this.errorMessage = errorMessage;
+    }
+
     public int getStatusCode() {
         return statusCode;
     }
