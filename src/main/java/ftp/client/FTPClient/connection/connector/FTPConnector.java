@@ -29,17 +29,5 @@ public interface FTPConnector {
      */
     void setSocket(Socket socket) throws FTPConnectionException;
 
-    /**
-     * Read data from socket stream.
-     * @return data from socket.
-     */
-    String read() throws IOException;
-
-    /**
-     * Write data to the socket stream.
-     * @param request data which should be to socket stream.
-     */
-    void write(String request) throws IOException;
-
     void setLogger(Logger logger);
 }

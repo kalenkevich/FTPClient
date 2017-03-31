@@ -36,16 +36,6 @@ public class DefaultFTPClientTest {
         }
 
         @Override
-        public String read() throws IOException {
-            return null;
-        }
-
-        @Override
-        public void write(String request) throws IOException {
-
-        }
-
-        @Override
         public void setLogger(Logger logger) {
 
         }

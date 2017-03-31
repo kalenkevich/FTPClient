@@ -93,7 +93,7 @@ public class DefaultFTPConnector implements FTPConnector {
         return ftpResponse;
     }
 
-    public void write(String request) throws IOException {
+    private void write(String request) throws IOException {
         if (writer != null) {
             writer.write(request + "\r\n");
             writer.flush();
@@ -101,7 +101,7 @@ public class DefaultFTPConnector implements FTPConnector {
         }
     }
 
-    public String read() throws IOException {
+    private String read() throws IOException {
         String response;
 
         if (reader != null) {
