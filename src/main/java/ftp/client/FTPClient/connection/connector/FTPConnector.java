@@ -25,21 +25,16 @@ public interface FTPConnector {
     FTPResponse getResponse() throws FTPConnectionException;
 
     /**
-     * Set socket for this connector.
+     * Connect to socket be the current address
+     * @param host name of the remove machine to connect
+     * @param port port number of the remote machine to connect
      */
-    void setSocket(Socket socket) throws FTPConnectionException;
+    void connect(String host, int port) throws IOException;
 
     /**
-     * Read data from socket stream.
-     * @return data from socket.
+     * Close active connection
      */
-    String read() throws IOException;
-
-    /**
-     * Write data to the socket stream.
-     * @param request data which should be to socket stream.
-     */
-    void write(String request) throws IOException;
+    void disconnect() throws IOException;
 
     void setLogger(Logger logger);
 }

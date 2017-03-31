@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  */
 public class DefaultFTPConnectorTest {
 
-    class StubOutputStream extends OutputStream {
+    private class StubOutputStream extends OutputStream {
         @Override
         public void write(int b) throws IOException {
 
@@ -39,15 +39,15 @@ public class DefaultFTPConnectorTest {
         }
 
         try {
-            FTPConnector spyFTPConnector = spy(new DefaultFTPConnector());
-            FTPResponse successFTPResponse = new FTPResponse(200, "test response data");
             Socket spySocket = Mockito.mock(Socket.class);
-            FTPResponse ftpResponseResult;
-
             when(spySocket.getInputStream()).thenReturn(new StubInputStream());
             when(spySocket.getOutputStream()).thenReturn(new StubOutputStream());
+
+            FTPConnector spyFTPConnector = spy(new DefaultFTPConnector(spySocket));
+            FTPResponse successFTPResponse = new FTPResponse(200, "test response data");
+            FTPResponse ftpResponseResult;
+
             spyFTPConnector.setLogger(Logger.getLogger(DefaultFTPConnector.class));
-            spyFTPConnector.setSocket(spySocket);
 
             when(spyFTPConnector.getResponse()).thenReturn(successFTPResponse);
             ftpResponseResult = spyFTPConnector.sendRequest(new FTPRequest("test command"));
@@ -79,25 +79,25 @@ public class DefaultFTPConnectorTest {
         }
 
         try {
-            FTPConnector spyFTPConnector = spy(new DefaultFTPConnector());
             Socket spySocket = Mockito.mock(Socket.class);
+            when(spySocket.getInputStream()).thenReturn(new StubInputStream("200 test-data"));
+            when(spySocket.getOutputStream()).thenReturn(new StubOutputStream());
+
+            FTPConnector defaultFTPConnector = new DefaultFTPConnector(spySocket);
             FTPResponse ftpResponseResult;
             FTPResponse ftpResponseExpectedResult = new FTPResponse(200, "test-data");
 
-            when(spySocket.getInputStream()).thenReturn(new StubInputStream("200 test-data"));
-            when(spySocket.getOutputStream()).thenReturn(new StubOutputStream());
-            spyFTPConnector.setLogger(Logger.getLogger(DefaultFTPConnector.class));
-            spyFTPConnector.setSocket(spySocket);
+            defaultFTPConnector.setLogger(Logger.getLogger(DefaultFTPConnector.class));
 
-            ftpResponseResult = spyFTPConnector.getResponse();
+            ftpResponseResult = defaultFTPConnector.getResponse();
             assertEquals(ftpResponseResult.getData(), ftpResponseExpectedResult.getData());
             assertEquals(ftpResponseResult.getStatusCode(), ftpResponseExpectedResult.getStatusCode());
 
             ftpResponseExpectedResult = new FTPResponse(500, null, "test-error-message");
             when(spySocket.getInputStream()).thenReturn(new StubInputStream("500 test-error-message"));
-            spyFTPConnector.setSocket(spySocket);
+            defaultFTPConnector = new DefaultFTPConnector(spySocket);
 
-            ftpResponseResult = spyFTPConnector.getResponse();
+            ftpResponseResult = defaultFTPConnector.getResponse();
             assertEquals(ftpResponseResult.getData(), null);
             assertEquals(ftpResponseResult.getStatusCode(), ftpResponseExpectedResult.getStatusCode());
             assertEquals(ftpResponseResult.getErrorMessage(), ftpResponseExpectedResult.getErrorMessage());

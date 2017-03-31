@@ -23,6 +23,12 @@ public class DefaultFTPConnector implements FTPConnector {
         logger = Logger.getLogger(DefaultFTPConnector.class);
     }
 
+    public DefaultFTPConnector(String host, int port) throws IOException {
+        this();
+        this.socket = new Socket(host, port);
+        initReaders();
+    }
+
     public DefaultFTPConnector(Socket socket) throws FTPConnectionException {
         this();
         this.socket = socket;
@@ -75,6 +81,19 @@ public class DefaultFTPConnector implements FTPConnector {
         }
     }
 
+    @Override
+    public void connect(String host, int port) throws IOException {
+        this.socket = new Socket(host, port);
+        initReaders();
+    }
+
+    @Override
+    public void disconnect() throws IOException {
+        if (this.socket != null) {
+            this.socket.close();
+        }
+    }
+
     private FTPResponse parseResponse(String responseData) throws FTPConnectionException {
         int statusCode = getResponseStatusCode(responseData);
         String data = getResponseData(responseData);
@@ -93,7 +112,7 @@ public class DefaultFTPConnector implements FTPConnector {
         return ftpResponse;
     }
 
-    public void write(String request) throws IOException {
+    private void write(String request) throws IOException {
         if (writer != null) {
             writer.write(request + "\r\n");
             writer.flush();
@@ -101,7 +120,7 @@ public class DefaultFTPConnector implements FTPConnector {
         }
     }
 
-    public String read() throws IOException {
+    private String read() throws IOException {
         String response;
 
         if (reader != null) {
@@ -151,21 +170,5 @@ public class DefaultFTPConnector implements FTPConnector {
 
     public void setLogger(Logger logger) {
         this.logger = logger;
-    }
-
-    @Override
-    public void setSocket(Socket socket) throws FTPConnectionException {
-        if (this.socket != null) {
-            try {
-                this.socket.close();
-            } catch (IOException e) {
-                logger.error(e);
-            }
-        }
-
-        this.socket = socket;
-
-
-        initReaders();
     }
 }

@@ -31,17 +31,12 @@ public class DefaultFTPClientTest {
         }
 
         @Override
-        public void setSocket(Socket socket) throws FTPConnectionException {
+        public void connect(String host, int port) throws IOException {
 
         }
 
         @Override
-        public String read() throws IOException {
-            return null;
-        }
-
-        @Override
-        public void write(String request) throws IOException {
+        public void disconnect() throws IOException {
 
         }
 
