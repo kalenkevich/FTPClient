@@ -15417,3 +15417,259 @@
 2017-03-29 22:19:31 INFO  FTPClient:74 - < 250 CWD successful. "/" is current directory.
 2017-03-29 22:19:31 INFO  FTPClient:57 - > PWD 
 2017-03-29 22:19:31 INFO  FTPClient:74 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:100 - > USER user
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 331 Password required for user
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:100 - > PASS user
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 230 Logged on
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:100 - > NOOP 
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 200 OK
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:100 - > QUIT 
+2017-03-31 21:33:12 INFO  DefaultFTPConnection:111 - < 221 Goodbye
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:100 - > USER user
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 331 Password required for user
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:100 - > PASS user
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 230 Logged on
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:100 - > NOOP 
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 200 OK
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:100 - > QUIT 
+2017-03-31 21:33:13 INFO  DefaultFTPConnection:111 - < 221 Goodbye
+2017-03-31 21:33:13 INFO  FTPClient:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:33:13 INFO  FTPClient:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:33:13 INFO  FTPClient:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:33:13 INFO  FTPClient:100 - > USER user
+2017-03-31 21:33:13 INFO  FTPClient:111 - < 331 Password required for user
+2017-03-31 21:33:13 INFO  FTPClient:100 - > PASS user
+2017-03-31 21:33:13 INFO  FTPClient:111 - < 230 Logged on
+2017-03-31 21:33:13 INFO  FTPClient:100 - > PASV 
+2017-03-31 21:33:14 INFO  FTPClient:111 - < 227 Entering Passive Mode (127,0,0,1,251,76)
+2017-03-31 21:33:14 INFO  FTPClient:100 - > LIST /
+2017-03-31 21:33:14 INFO  FTPClient:111 - < 150 Opening data channel for directory listing of "/"
+2017-03-31 21:33:14 INFO  FTPClient:322 - Downloading list of files
+2017-03-31 21:33:14 INFO  FTPClient:325 - List of files was downloaded
+2017-03-31 21:33:14 INFO  FTPClient:100 - > CWD /
+2017-03-31 21:33:14 INFO  FTPClient:111 - < 226 Successfully transferred "/"
+2017-03-31 21:33:14 INFO  FTPClient:100 - > CDUP 
+2017-03-31 21:33:14 INFO  FTPClient:111 - < 250 CWD successful. "/" is current directory.
+2017-03-31 21:33:14 INFO  FTPClient:100 - > PWD 
+2017-03-31 21:33:14 INFO  FTPClient:111 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:100 - > USER user
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 331 Password required for user
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:100 - > PASS user
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 230 Logged on
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:100 - > NOOP 
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 200 OK
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:100 - > QUIT 
+2017-03-31 21:35:28 INFO  DefaultFTPConnection:111 - < 221 Goodbye
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:100 - > USER user
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 331 Password required for user
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:100 - > PASS user2
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 530 Login or password incorrect!
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:100 - > NOOP 
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 530 Please log in with USER and PASS first.
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:100 - > QUIT 
+2017-03-31 21:35:40 INFO  DefaultFTPConnection:111 - < 221 Goodbye
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:100 - > USER user2
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 331 Password required for user2
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:100 - > PASS user2
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 530 Login or password incorrect!
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:100 - > NOOP 
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 530 Please log in with USER and PASS first.
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:100 - > QUIT 
+2017-03-31 21:37:39 INFO  DefaultFTPConnection:111 - < 221 Goodbye
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 21:38:54 INFO  FTPClient:100 - > USER user2
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 331 Password required for user2
+2017-03-31 21:38:54 INFO  FTPClient:100 - > PASS user2
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 530 Login or password incorrect!
+2017-03-31 21:38:54 INFO  FTPClient:100 - > PASV 
+2017-03-31 21:38:54 INFO  FTPClient:111 - < 530 Please log in with USER and PASS first.
+2017-03-31 22:04:21 ERROR DefaultFTPConnector:153 - java.lang.NullPointerException
+2017-03-31 22:04:21 INFO  DefaultFTPConnector:119 - > test command 
+2017-03-31 22:04:21 INFO  DefaultFTPConnector:130 - < 200 test-data
+2017-03-31 22:04:21 ERROR DefaultFTPConnector:153 - java.lang.NullPointerException
+2017-03-31 22:07:12 INFO  DefaultFTPConnector:130 - < 200 test-data
+2017-03-31 22:07:12 ERROR DefaultFTPConnector:153 - java.lang.NullPointerException
+2017-03-31 22:08:12 INFO  DefaultFTPConnector:130 - < 200 test-data
+2017-03-31 22:08:12 INFO  DefaultFTPConnector:130 - < 500 test-error-message
+2017-03-31 22:08:21 INFO  DefaultFTPConnector:130 - < 200 test-data
+2017-03-31 22:08:21 INFO  DefaultFTPConnector:130 - < 500 test-error-message
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:08:49 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:08:50 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:08:50 INFO  FTPClient:119 - > USER user
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 331 Password required for user
+2017-03-31 22:08:50 INFO  FTPClient:119 - > PASS user
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 230 Logged on
+2017-03-31 22:08:50 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,249,95)
+2017-03-31 22:08:50 INFO  FTPClient:119 - > LIST /
+2017-03-31 22:08:50 INFO  FTPClient:130 - < 150 Opening data channel for directory listing of "/"
+2017-03-31 22:08:50 INFO  FTPClient:311 - Downloading list of files
+2017-03-31 22:08:51 INFO  FTPClient:314 - List of files was downloaded
+2017-03-31 22:08:51 INFO  FTPClient:119 - > CWD /
+2017-03-31 22:08:51 INFO  FTPClient:130 - < 226 Successfully transferred "/"
+2017-03-31 22:08:51 INFO  FTPClient:119 - > CDUP 
+2017-03-31 22:08:51 INFO  FTPClient:130 - < 250 CWD successful. "/" is current directory.
+2017-03-31 22:08:51 INFO  FTPClient:119 - > PWD 
+2017-03-31 22:08:51 INFO  FTPClient:130 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:21:56 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:21:56 INFO  FTPClient:119 - > USER user
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 331 Password required for user
+2017-03-31 22:21:56 INFO  FTPClient:119 - > PASS user
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 230 Logged on
+2017-03-31 22:21:56 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,225,216)
+2017-03-31 22:21:56 INFO  FTPClient:119 - > LIST /
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 150 Opening data channel for directory listing of "/"
+2017-03-31 22:21:56 INFO  FTPClient:311 - Downloading list of files
+2017-03-31 22:21:56 INFO  FTPClient:314 - List of files was downloaded
+2017-03-31 22:21:56 INFO  FTPClient:119 - > CWD /
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 226 Successfully transferred "/"
+2017-03-31 22:21:56 INFO  FTPClient:119 - > CDUP 
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 250 CWD successful. "/" is current directory.
+2017-03-31 22:21:56 INFO  FTPClient:119 - > PWD 
+2017-03-31 22:21:56 INFO  FTPClient:130 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 22:22:09 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:22:09 INFO  FTPClient:130 - < 257 "/" is current directory.
+2017-03-31 22:22:09 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,247,87)
+2017-03-31 22:22:09 INFO  FTPClient:119 - > RETR //Ассемблер — это просто (О.Калашников).pdf
+2017-03-31 22:22:09 INFO  FTPClient:130 - < 150 Opening data channel for file download from server of "/Ассемблер — это просто (О.Калашников).pdf"
+2017-03-31 22:22:09 INFO  FTPClient:214 - Downloading file ...
+2017-03-31 22:22:11 INFO  FTPClient:221 - File was downloaded
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > USER user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 331 Password required for user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > PASS user
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 230 Logged on
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > NOOP 
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 200 OK
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:119 - > QUIT 
+2017-03-31 22:22:31 INFO  DefaultFTPConnection:130 - < 221 Goodbye
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 220-FileZilla Server 0.9.59 beta
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 220-written by Tim Kosse (tim.kosse@filezilla-project.org)
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 220 Please visit https://filezilla-project.org/
+2017-03-31 22:22:31 INFO  FTPClient:119 - > USER user
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 331 Password required for user
+2017-03-31 22:22:31 INFO  FTPClient:119 - > PASS user
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 230 Logged on
+2017-03-31 22:22:31 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,235,224)
+2017-03-31 22:22:31 INFO  FTPClient:119 - > LIST /
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 150 Opening data channel for directory listing of "/"
+2017-03-31 22:22:31 INFO  FTPClient:311 - Downloading list of files
+2017-03-31 22:22:31 INFO  FTPClient:314 - List of files was downloaded
+2017-03-31 22:22:31 INFO  FTPClient:119 - > CWD /
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 226 Successfully transferred "/"
+2017-03-31 22:22:31 INFO  FTPClient:119 - > CDUP 
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 250 CWD successful. "/" is current directory.
+2017-03-31 22:22:31 INFO  FTPClient:119 - > PWD 
+2017-03-31 22:22:31 INFO  FTPClient:130 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 22:22:44 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 257 "/" is current directory.
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,213,185)
+2017-03-31 22:22:44 INFO  FTPClient:119 - > LIST //непонятно что
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 150 Opening data channel for directory listing of "/непонятно что"
+2017-03-31 22:22:44 INFO  FTPClient:311 - Downloading list of files
+2017-03-31 22:22:44 INFO  FTPClient:314 - List of files was downloaded
+2017-03-31 22:22:44 INFO  FTPClient:119 - > CWD //непонятно что
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 226 Successfully transferred "/непонятно что"
+2017-03-31 22:22:44 INFO  FTPClient:119 - > CDUP 
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 250 CWD successful. "/непонятно что" is current directory.
+2017-03-31 22:22:44 INFO  FTPClient:119 - > PWD 
+2017-03-31 22:22:44 INFO  FTPClient:130 - < 200 CDUP successful. "/" is current directory.
+2017-03-31 22:22:53 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:22:53 INFO  FTPClient:130 - < 257 "/" is current directory.
+2017-03-31 22:22:53 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,208,221)
+2017-03-31 22:22:53 INFO  FTPClient:119 - > STOR //непонятно что/Ассемблер — это просто (О.Калашников).pdf
+2017-03-31 22:22:53 INFO  FTPClient:130 - < 150 Opening data channel for file upload to server of "/непонятно что/Ассемблер — это просто (О.Калашников).pdf"
+2017-03-31 22:22:53 INFO  FTPClient:259 - Uploading file ...
+2017-03-31 22:22:53 INFO  FTPClient:264 - File was uploaded
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 226 Successfully transferred "/непонятно что/Ассемблер — это просто (О.Калашников).pdf"
+2017-03-31 22:22:54 INFO  FTPClient:119 - > PASV 
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 227 Entering Passive Mode (127,0,0,1,224,177)
+2017-03-31 22:22:54 INFO  FTPClient:119 - > LIST //непонятно что
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 150 Opening data channel for directory listing of "/непонятно что"
+2017-03-31 22:22:54 INFO  FTPClient:311 - Downloading list of files
+2017-03-31 22:22:54 INFO  FTPClient:314 - List of files was downloaded
+2017-03-31 22:22:54 INFO  FTPClient:119 - > CWD //непонятно что
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 226 Successfully transferred "/непонятно что"
+2017-03-31 22:22:54 INFO  FTPClient:119 - > CDUP 
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 250 CWD successful. "/непонятно что" is current directory.
+2017-03-31 22:22:54 INFO  FTPClient:119 - > PWD 
+2017-03-31 22:22:54 INFO  FTPClient:130 - < 200 CDUP successful. "/" is current directory.
