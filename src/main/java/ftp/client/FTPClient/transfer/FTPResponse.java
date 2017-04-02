@@ -14,6 +14,13 @@ public class FTPResponse {
         this.data = data;
     }
 
+    public FTPResponse(int statusCode, String data, String errorMessage) {
+        this.statusCode = statusCode;
+        this.data = data;
+        this.isError = true;
+        this.errorMessage = errorMessage;
+    }
+
     public int getStatusCode() {
         return statusCode;
     }
@@ -46,4 +53,27 @@ public class FTPResponse {
         isError = error;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FTPResponse response = (FTPResponse) o;
+
+        return statusCode == response.statusCode
+                && isError == response.isError
+                && (data != null ? data.equals(response.data) :
+                response.data == null
+                        && (errorMessage != null ? errorMessage.equals(response.errorMessage) : response.errorMessage == null));
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = statusCode;
+        result = 31 * result + (data != null ? data.hashCode() : 0);
+        result = 31 * result + (errorMessage != null ? errorMessage.hashCode() : 0);
+        result = 31 * result + (isError ? 1 : 0);
+        return result;
+    }
 }

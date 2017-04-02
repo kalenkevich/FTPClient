@@ -1,8 +1,10 @@
 package ftp.client.component.tab;
 
 import ftp.client.FTPClient.FTPClient;
-import ftp.client.FTPClient.SimpleFTPClient;
+import ftp.client.FTPClient.DefaultFTPClient;
+import ftp.client.FTPClient.connection.DefaultFTPConnection;
 import ftp.client.FTPClient.connection.connector.FTPConnectionException;
+import ftp.client.FTPClient.connection.connector.DefaultFTPConnector;
 import ftp.client.logger.TextFieldLoggerAppender;
 import ftp.client.service.AnchorService;
 import ftp.client.user.User;
@@ -50,7 +52,7 @@ public class TabWindowController implements Controller, TableEventListener {
 
     @Override
     public void init() {
-        ftpClient = new SimpleFTPClient();
+        ftpClient = new DefaultFTPClient(new DefaultFTPConnection(new DefaultFTPConnector()));
         items = new ArrayList<>();
         insertElements();
         setupNewFTPClient();

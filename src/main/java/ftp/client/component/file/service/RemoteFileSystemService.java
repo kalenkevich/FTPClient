@@ -1,7 +1,7 @@
 package ftp.client.component.file.service;
 
+import ftp.client.FTPClient.DefaultFTPClient;
 import ftp.client.FTPClient.FTPClient;
-import ftp.client.FTPClient.SimpleFTPClient;
 import ftp.client.FTPClient.connection.connector.FTPConnectionException;
 import ftp.client.FTPClient.file.FTPFile;
 import ftp.client.component.file.FileItem;
@@ -139,7 +139,7 @@ public class RemoteFileSystemService implements FileSystemService {
         return ftpClient;
     }
 
-    public void setFtpConnection(SimpleFTPClient ftpClient) {
+    public void setFtpConnection(DefaultFTPClient ftpClient) {
         this.ftpClient = ftpClient;
     }
 

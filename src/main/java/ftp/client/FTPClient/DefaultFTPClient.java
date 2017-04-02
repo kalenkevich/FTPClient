@@ -1,8 +1,9 @@
 package ftp.client.FTPClient;
 
 import ftp.client.FTPClient.connection.FTPConnection;
-import ftp.client.FTPClient.connection.SimpleFTPConnection;
+import ftp.client.FTPClient.connection.DefaultFTPConnection;
 import ftp.client.FTPClient.connection.connector.FTPConnectionException;
+import ftp.client.FTPClient.connection.connector.DefaultFTPConnector;
 import ftp.client.FTPClient.file.FTPFile;
 import ftp.client.FTPClient.report.FTPConnectionReport;
 import org.apache.log4j.Logger;
@@ -10,7 +11,6 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -18,20 +18,20 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Created by alex on 2/8/2017.
  */
-public class SimpleFTPClient implements FTPClient {
+public class DefaultFTPClient implements FTPClient {
     private FTPConnection ftpConnection;
     private Logger logger;
     private String host;
     private int port;
     private boolean isConnected;
 
-    public SimpleFTPClient() {
+    public DefaultFTPClient(FTPConnection ftpConnection) {
         initDefaultValues();
+        this.ftpConnection = ftpConnection;
     }
 
     private void initDefaultValues() {
-        logger = Logger.getLogger(SimpleFTPClient.class);
-        ftpConnection = new SimpleFTPConnection();
+        logger = Logger.getLogger(DefaultFTPClient.class);
         isConnected = false;
     }
 
@@ -148,7 +148,7 @@ public class SimpleFTPClient implements FTPClient {
 
     @Override
     public FTPConnectionReport testConnection(String host, int port, String userName, String userPassword) throws FTPConnectionException {
-        FTPConnection testFTPConnection = new SimpleFTPConnection();
+        FTPConnection testFTPConnection = new DefaultFTPConnection(new DefaultFTPConnector());
         FTPConnectionReport connectionReport = new FTPConnectionReport();
 
         connectionReport.setSuccessConnection(testFTPConnection.connect(host, port));
