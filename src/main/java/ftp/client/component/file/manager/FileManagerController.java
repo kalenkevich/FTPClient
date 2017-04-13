@@ -5,6 +5,7 @@ import ftp.client.component.file.service.FileException;
 import ftp.client.component.file.service.FileSystemService;
 import ftp.client.controller.Controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -176,22 +178,20 @@ public class FileManagerController implements Controller {
     }
 
     private void addFile(Object selectedItem, FileSystemService remoteFileSystemService) {
-        try {
-            FileItem fileItem = (FileItem) selectedItem;
-            String localFilePath = getFilePath(fileItem.getName());
-
-            remoteFileSystemService.getFileAsync(fileItem, localFilePath).thenAccept(
-                    file -> {
-                        try {
-                            fileSystemService.addFileAsync(file).thenRun(this::update);
-                        } catch (FileException e) {
-                            showErrorMessage(e.getMessage());
-                        }
-                    }
-            );
-        } catch (FileException e) {
-            showErrorMessage(e.getMessage());
-        }
+        Platform.runLater(() -> {
+            try {
+                FileItem fileItem = (FileItem) selectedItem;
+                String localFilePath = getFilePath(fileItem.getName());
+                File file;
+                file = remoteFileSystemService.getFile(fileItem, localFilePath);
+                if (file != null) {
+                    fileSystemService.addFile(file);
+                    update();
+                }
+            } catch (FileException e) {
+                showErrorMessage(e.getMessage());
+            }
+        });
     }
 
     private String getFilePath(String name) {
@@ -260,22 +260,25 @@ public class FileManagerController implements Controller {
     }
 
     private synchronized void updateFileItems() {
-        try {
-            changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryPath)));
-        } catch (FileException e) {
-            showErrorMessage(e.getMessage());
-        }
+        Platform.runLater(() -> {
+            try {
+                changeGridData(FXCollections.observableArrayList(fileSystemService.getFilesFromDirectory(currentDirectoryPath)));
+            } catch (FileException e) {
+                showErrorMessage(e.getMessage());
+            }
+        });
     }
 
     private void changeGridData(ObservableList<FileItem> data) {
-        Timer timer = new Timer(true);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                table.itemsProperty().setValue(data);
-                table.refresh();
-            }
-        }, 250);
+//        Timer timer = new Timer(true);
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 250);
+        table.itemsProperty().setValue(data);
+        table.refresh();
     }
 
     private void showErrorMessage(String errorMessage) {

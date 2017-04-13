@@ -28,7 +28,11 @@ public class UnixFTPListFileParser extends AbstractFTPListFileParser {
             String name = this.group(21) + this.group(22);
             String path = name;
             if (!name.startsWith("/")) {
-                path = this.currentPathName + '/' + name;
+                if (!this.currentPathName.equals("/")) {
+                    path = this.currentPathName + '/' + name;
+                } else {
+                    path = this.currentPathName + name;
+                }
             }
 
             ftpFile = new FTPFile(path);
